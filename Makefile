@@ -23,8 +23,14 @@ htmldocs: staticmin
 
 webdocs: htmldocs
 
+zhtw_webdocs: webdocs
+	mkdir htmlout-zhtw
+	cp -r htmlout/_sources htmlout/_static htmlout-zhtw/
+	./s2twp.sh
+
 clean:
 	-rm -rf htmlout
+	-rm -rf htmlout-zhtw
 	-rm -f .buildinfo
 	-rm -f *.inv
 	-rm -rf *.doctrees
