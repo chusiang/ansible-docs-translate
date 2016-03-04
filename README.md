@@ -1,18 +1,19 @@
-# Ansible官方文档中文本地化小组
+# Ansible 官方文档中文本地化小组
 
-##官方原文档:
+## 官方原文档:
 
 [https://docs.ansible.com/ansible/index.html](https://docs.ansible.com/ansible/index.html)
 
-##翻译后的文档地址:
+## 翻译后的文档地址:
 
 [http://www.178linux.com/doc/ansible/](http://www.178linux.com/doc/ansible/)
 
-##翻译进度:
+## 翻译进度:
 
 请参见  http://www.178linux.com/doc/ansible/
 
-##目前贡献者列表(qq群无序排名):
+## 目前贡献者列表(qq群无序排名):
+
  >主要贡献者:  薛定谔的章鱼 & guli & 以马内利 & 黄博文 & stanley
  >所有贡献者: 薛定谔的章鱼 & guli & 以马内利 & 黄博文 & evanescunt & stanley & Daniel & gateray & MR❤Lan   & - 透彻🐬  & Linux 学习 & 啪嗒碰 
 
@@ -34,7 +35,6 @@
 
 ## 空格
 
-
 ### 中英文之间需要增加空格
 
 正确：
@@ -54,6 +54,7 @@
 :exclamation: 例外：「豆瓣FM」等產品名词，按照官方所定義的格式書寫。
 
 <a name="spacing-c2"></a>
+
 ### 中文各数字之间需要增加空格
 
 正确：
@@ -67,6 +68,7 @@
 > 今天出去买菜花了5000元。
 
 <a name="spacing-c3"></a>
+
 ### 数字各单位之间需要增加空格
 
 正确：
@@ -92,6 +94,7 @@
 > 新 MacBook Pro 有 15 % 的 CPU 性能提升。
 
 <a name="spacing-c4"></a>
+
 ### 全形标点各其他字符之间不加空格
 
 正确：
@@ -103,12 +106,41 @@
 > 剛剛买了一部 iPhone ，好開心！
 
 <a name="spacing-c5"></a>
+
 ### `-ms-text-autospace` to the rescue?
 
 Microsoft 有个 [`-ms-text-autospace`](http://msdn.microsoft.com/en-us/library/ie/ms531164(v=vs.85).aspx) 的 CSS 属性可以实现自动为中英文之间增加空白。不过目前並未普及，另外在其他应用场景，例如 OS X、iOS 的用户见面目前并不存在这个特性，所以请继续保持随手加空格的习惯。
 
 <a name="punctuation-marks"></a>
+
 ## 标点符号
 
 <a name="punctuation-marks-c1"></a>
+
 ### 不重复使用标点符号
+
+# Build webdoc
+
+## zh-cn
+
+1. Build.
+
+        $ make webdocs
+    
+2. Open the `htmlout/index.html`.
+
+## zh-tw
+    
+1. Inatall the [OpenCC](https://github.com/BYVoid/OpenCC).    
+        
+        # Debian, Ubuntu
+        $ sudo apt-get install opencc
+        
+        # Mac OS X
+        $ brew install opencc
+
+2. Build.
+
+        $ make zhtw_webdocs
+        
+3. Open the `htmlout-zhtw/index.html`.
