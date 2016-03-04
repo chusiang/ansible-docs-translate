@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Vault &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/>
+        <link rel="next" title="從指定任務開始執行palybook以及分步執行playbook" href="playbooks_startnstep.html"/>
+        <link rel="prev" title="標籤" href="playbooks_tags.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_acceleration.html">Accelerated Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_async.html">非同步操作和輪詢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_checkmode.html">Check Mode (&#8220;Dry Run&#8221;)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_delegation.html">委託,滾動更新,本地動作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_environment.html">配置環境 (在代理環境中)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_error_handling.html">Playbooks 中的錯誤處理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_tags.html">標籤</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Vault</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-can-be-encrypted-with-vault">Vault可以加密些什麼</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-files">建立加密檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing">Editing加密檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rekeying-files">金鑰更新加密檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#encrypting-files">加密普通檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decrypting-files">解密已加密檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-files">查閱已加密檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vaultplaybook">在Vault下執行Playbook</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_startnstep.html">從指定任務開始執行palybook以及分步執行playbook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks_special_topics.html">Playbooks: Special Topics</a> &raquo;</li>
+      
+    <li>Vault</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_vault.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vault">
+<h1><a class="toc-backref" href="#id7">Vault</a><a class="headerlink" href="#vault" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#vault" id="id7">Vault</a><ul>
+<li><a class="reference internal" href="#what-can-be-encrypted-with-vault" id="id8">Vault可以加密些什麼</a></li>
+<li><a class="reference internal" href="#creating-files" id="id9">建立加密檔案</a></li>
+<li><a class="reference internal" href="#editing" id="id10">Editing加密檔案</a></li>
+<li><a class="reference internal" href="#rekeying-files" id="id11">金鑰更新加密檔案</a></li>
+<li><a class="reference internal" href="#encrypting-files" id="id12">加密普通檔案</a></li>
+<li><a class="reference internal" href="#decrypting-files" id="id13">解密已加密檔案</a></li>
+<li><a class="reference internal" href="#viewing-files" id="id14">查閱已加密檔案</a></li>
+<li><a class="reference internal" href="#vaultplaybook" id="id15">在Vault下執行Playbook</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Ansible 1.5的新版本中, &#8220;Vault&#8221; 作為 ansible 的一項新功能可將例如passwords,keys等敏感資料檔案進行加密,而非存放在明文的 playbooks 或 roles 中. 這些 vault 檔案可以分散存放也可以集中存放.</p>
+<p>通過`ansible-vault` 來編輯檔案,經常用到的命令如 <cite>&#8211;ask-vault-pass</cite> , <cite>&#8211;vault-password-file</cite> . 這裡,你可以在 ansible.cfg 中定義密碼檔案所在位置,這個選項就不需要在命令列中指定標誌了.</p>
+<div class="section" id="what-can-be-encrypted-with-vault">
+<span id="id1"></span><h2><a class="toc-backref" href="#id8">Vault可以加密些什麼</a><a class="headerlink" href="#what-can-be-encrypted-with-vault" title="Permalink to this headline">¶</a></h2>
+<p>vault 可以加密任何 Ansible 使用的結構化資料檔案. 甚至可以包括 &#8220;group_vars/&#8221; 或 &#8220;host_vars/&#8221; inventory 變數, &#8220;include_vars&#8221; 或 &#8220;vars_files&#8221; 載入的變數, 通過 ansible-playbook 命令列使用 &#8220;-e &#64;file.yml&#8221; 或 &#8220;-e &#64;file.json&#8221; 命令傳輸的變數檔案. Role 變數和所有預設的變數都可以被 vault 加密.</p>
+<p>因為 Ansible tasks, handlers等都是資料檔案, 所有的這些均可以被 vault 加密. 如果你不喜歡你使用的變數被洩漏,你可以將整個 task 檔案部分加密. 然後,這個工作量比較大而且可能給你的同事帶來不便哦 :)</p>
+</div>
+<div class="section" id="creating-files">
+<span id="id2"></span><h2><a class="toc-backref" href="#id9">建立加密檔案</a><a class="headerlink" href="#creating-files" title="Permalink to this headline">¶</a></h2>
+<p>執行如下命令,建立加密檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault create foo.yml
+</pre></div>
+</div>
+<p>首先你將被提示輸出密碼, 經過Vault加密過的檔案如需檢視需同時輸入密碼後才能進行.</p>
+<p>提供密碼後, 工具將載入你定義的 $EDITOR 的編輯工具預設是 vim, 一旦你關閉了編輯會話框,生成後的檔案將會是加密檔案.</p>
+<p>預設加密方式是 AES (基於共享金鑰)</p>
+</div>
+<div class="section" id="editing">
+<span id="editing-encrypted-files"></span><h2><a class="toc-backref" href="#id10">Editing加密檔案</a><a class="headerlink" href="#editing" title="Permalink to this headline">¶</a></h2>
+<p>編輯加密檔案,使用 <cite>ansible-vault edit</cite> . 該命令會先加密檔案為臨時檔案並允許你編輯這個檔案,當完成編輯後會儲存回你所命名的檔案並刪除臨時檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault edit foo.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="rekeying-files">
+<span id="id3"></span><h2><a class="toc-backref" href="#id11">金鑰更新加密檔案</a><a class="headerlink" href="#rekeying-files" title="Permalink to this headline">¶</a></h2>
+<p>如果你希望變更密碼,使用如下 命令:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault rekey foo.yml bar.yml baz.yml
+</pre></div>
+</div>
+<p>如上命令可以同時批量修改多個檔案的組織密碼並重新設定新密碼.</p>
+</div>
+<div class="section" id="encrypting-files">
+<span id="id4"></span><h2><a class="toc-backref" href="#id12">加密普通檔案</a><a class="headerlink" href="#encrypting-files" title="Permalink to this headline">¶</a></h2>
+<p>如果你希望加密一個已經存在的檔案,使用 <cite>ansible-vault encrypt</cite> . 該命令也可同時批量操作多個檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault encrypt foo.yml bar.yml baz.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="decrypting-files">
+<span id="id5"></span><h2><a class="toc-backref" href="#id13">解密已加密檔案</a><a class="headerlink" href="#decrypting-files" title="Permalink to this headline">¶</a></h2>
+<p>如果不希望繼續加密一個已經加密過的檔案,通過 <cite>ansible-vault decrypt</cite>  你可以永久解密. 命令將解密並儲存到硬碟上,這樣你不用再使用 <cite>ansible-vault edit</cite> 來編輯檔案了:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault decrypt foo.yml bar.yml baz.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="viewing-files">
+<span id="id6"></span><h2><a class="toc-backref" href="#id14">查閱已加密檔案</a><a class="headerlink" href="#viewing-files" title="Permalink to this headline">¶</a></h2>
+<p><em>Available since Ansible 1.8</em></p>
+<p>如果你不希望通過編輯的方式來檢視檔案, <cite>ansible-vault view</cite>  可以滿足你的需要:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-vault view foo.yml bar.yml baz.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="vaultplaybook">
+<span id="running-a-playbook-with-vault"></span><h2><a class="toc-backref" href="#id15">在Vault下執行Playbook</a><a class="headerlink" href="#vaultplaybook" title="Permalink to this headline">¶</a></h2>
+<p>執行 vault 加密後的playbook檔案,最少需要提交如下兩個標誌之一. 互動式的指定 vault 的密碼檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook site.yml --ask-vault-pass
+</pre></div>
+</div>
+<p>該提示被用來解密(僅在記憶體中)任何 vault 加密訪問過的檔案. 目前這些檔案中所有的指令請求將被使用相同的密碼加密.</p>
+<p>另外,密碼也可以定義在一個檔案或者一個指令碼中,但是需要 Ansible 1.7 以上的版本才能支援. 當使用該功能時,一定要確認密碼檔案的許可權是安全的以確保沒有人可以隨意訪問或者變更密碼檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook site.yml --vault-password-file ~/.vault_pass.txt
+
+ansible-playbook site.yml --vault-password-file ~/.vault_pass.py
+</pre></div>
+</div>
+<p>密碼儲存一行一個</p>
+<p>如果你使用的是指令碼而不是普通檔案,確保指令碼是可執行的,這樣密碼可以輸出至標準裝置.如果你的指令碼需要提示輸入資料,那提示可以被髮送到標準錯誤.</p>
+<p>如果你是從持續整合系統(例如Jenkins)中使用 Ansible 的話上面的這種情況你會用的到.</p>
+<p>(<cite>&#8211;vault-password-file</cite> 參數可以在 <a class="reference internal" href="playbooks_intro.html#ansible-pull"><span>Ansible-Pull（拉取配置而非推送配置）</span></a> 命令中被使用,儘管這將需要分發keys到對應的節點上,所以 這些瞭解這些隱性問題後 &#8211;  vault 更傾向使用 push 方式)</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_startnstep.html" class="btn btn-neutral float-right" title="從指定任務開始執行palybook以及分步執行playbook" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_tags.html" class="btn btn-neutral" title="標籤" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

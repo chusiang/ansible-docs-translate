@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>新手上路 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="Inventory檔案" href="intro_inventory.html"/>
+        <link rel="prev" title="Installation" href="intro_installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">新手上路</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gs-about">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">你的第一條命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-note-about-host-key-checking">公鑰認證</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Inventory檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">動態 Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_configuration.html">Ansible的配置檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_windows.html">Windows Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>新手上路</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_getting_started.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id6">新手上路</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">新手上路</a><ul>
+<li><a class="reference internal" href="#gs-about" id="id7">前言</a></li>
+<li><a class="reference internal" href="#id3" id="id8">你的第一條命令</a></li>
+<li><a class="reference internal" href="#a-note-about-host-key-checking" id="id9">公鑰認證</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="gs-about">
+<span id="id2"></span><h2><a class="toc-backref" href="#id7">前言</a><a class="headerlink" href="#gs-about" title="Permalink to this headline">¶</a></h2>
+<p>現在你已經閱讀了 <a class="reference internal" href="intro_installation.html"><em>Installation</em></a> 安裝指南並安裝了Ansible.是時候通過一些命令開始深入瞭解Ansible了.</p>
+<p>我們最先展示的並非那強大的集配置,部署,自動化於一身的playbook.
+Playbooks 相關內容將在另一章節中講述.</p>
+<p>本章節講述如何進行初始化.一旦你有了這些概念,請去閱讀 <a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a> 以獲取更多細節,然後你就能去深入playbook並探索它最有趣的部分.</p>
+<p id="remote-connection-information">遠端連線概述</p>
+<hr class="docutils" />
+<p>在我們開始前要先理解Ansible是如何通過SSH與遠端伺服器連線是很重要的.</p>
+<p>Ansible 1.3及之後的版本預設會在本地的 OpenSSH可用時會嘗試用其進行遠端通訊.這會啟用ControlPersist(一個性能特性),Kerberos,和在~/.ssh/config中的配置選項如 Jump Host setup.然而,當你使用Linux企業版6作為主控機(紅帽企業版及其衍生版如CentOS),其OpenSSH版本可能過於老舊無法支援ControlPersist.
+在這些作業系統中,Ansible將會退回並採用 paramiko (由Python實現的高質量OpenSSH庫).
+如果你希望能夠使用像是Kerberized SSH之類的特性,煩請考慮使用Fedora, OS X, 或 Ubuntu 作為你的主控機直到相關平臺上有更新版本的OpenSSH可供使用,或者啟用Ansible的“accelerated mode”.參見 <a class="reference internal" href="playbooks_acceleration.html"><em>Accelerated Mode</em></a>.</p>
+<p>在Ansible 1.2 及之前的版本,預設將會使用 paramiko. 本地OpenSSH必須通過-c ssh 或者 在配置檔案中設定.</p>
+<p>你偶爾會遇到不支援SFTP的裝置.雖然這很少見,但你會有概率中獎.你可以通過在配置檔案(<a class="reference internal" href="intro_configuration.html"><em>Ansible的配置檔案</em></a>)中切換至 SCP模式來與之連結.</p>
+<p>說起遠端裝置,Ansible會預設假定你使用 SSH Key(我們推薦這種)但是密碼也一樣可以.通過在需要的地方新增 &#8211;ask-pass選項 來啟用密碼驗證.如果使用了sudo 特性,當sudo需要密碼時,也同樣適當的提供了&#8211;ask-sudo-pass選項.</p>
+<p>也許這是常識,但也值得分享:任何管理系統受益於被管理的機器在主控機附近執行.如果在雲中執行,可以考慮在使用雲中的一臺機器來執行Ansible.</p>
+<p>作為一個進階話題,Ansible不止支援SSH來遠端連線.連線方式是外掛化的而且還有許多本地化管理的選項諸如管理 chroot, lxc, 和 jail containers.一個叫做‘ansible-pull’的模式能夠反轉主控關係並使遠端系統通過定期從中央git目錄檢出 並 拉取 配置指令來實現背景連線通訊.</p>
+</div>
+<div class="section" id="id3">
+<span id="id4"></span><h2><a class="toc-backref" href="#id8">你的第一條命令</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>現在你已經安裝了Ansible,是時候從一些基本知識開始了.
+編輯(或建立)/etc/ansible/hosts 並在其中加入一個或多個遠端系統.你的public SSH key必須在這些系統的``authorized_keys``中:</p>
+<div class="highlight-python"><div class="highlight"><pre>192.168.1.50
+aserver.example.org
+bserver.example.org
+</pre></div>
+</div>
+<p>這裡有個節點設定檔案(inventory file)將會在 <a class="reference internal" href="intro_inventory.html"><em>Inventory檔案</em></a> 中得到深入說明.
+我們假定你使用SSH Key來授權.為了避免在建立SSH連線時,重複輸入密碼你可以這麼
+做:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ssh-agent bash
+<span class="nv">$ </span>ssh-add ~/.ssh/id_rsa
+</pre></div>
+</div>
+<p>(根據你的建立方式,你也許希望使用Ansible的 <code class="docutils literal"><span class="pre">--private-key</span></code> 選項,通過指定pem檔案來代替SSH Key來授權)
+現在ping 你的所有節點:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ansible all -m ping
+</pre></div>
+</div>
+<p>Ansible會像SSH那樣試圖用你的當前使用者名稱來連線你的遠端機器.要覆寫遠端使用者名稱,只需使用&#8217;-u&#8217;參數.
+如果你想訪問 sudo模式,這裡也有標識(flags)來實現:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># as bruce</span>
+<span class="nv">$ </span>ansible all -m ping -u bruce
+<span class="c"># as bruce, sudoing to root</span>
+<span class="nv">$ </span>ansible all -m ping -u bruce --sudo
+<span class="c"># as bruce, sudoing to batman</span>
+<span class="nv">$ </span>ansible all -m ping -u bruce --sudo --sudo-user batman
+</pre></div>
+</div>
+<p>(如果你碰巧想要使用其他sudo的實現方式,你可以通過修改Ansible的配置檔案來實現.也可以通過傳遞標識給sudo(如-H)來設定.)
+現在對你的所有節點執行一個命令:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ansible all -a <span class="s2">&quot;/bin/echo hello&quot;</span>
+</pre></div>
+</div>
+<p>恭喜你！你剛剛通過Ansible連線了你的所有節點.很快你就會閱讀更多的關於現實案例 <a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a> 並探索可以通過不同的模組做什麼以及研究Ansible的playbook語言</p>
+<p><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a> .Ansible不只是能執行命令,它同樣也擁有強大的配置管理和部署特性.雖然還有更多內容等待你的探索,但你基礎設施已經能完全工作了！</p>
+</div>
+<div class="section" id="a-note-about-host-key-checking">
+<span id="id5"></span><h2><a class="toc-backref" href="#id9">公鑰認證</a><a class="headerlink" href="#a-note-about-host-key-checking" title="Permalink to this headline">¶</a></h2>
+<p>Ansible1.2.1及其之後的版本都會預設啟用公鑰認證.</p>
+<p>如果有個主機重新安裝並在“known_hosts”中有了不同的key,這會提示一個錯誤資訊直到被糾正為止.在使用Ansible時,你可能不想遇到這樣的情況:如果有個主機沒有在“known_hosts”中被初始化將會導致在互動使用Ansible或定時執行Ansible時對key資訊的確認提示.</p>
+<p>如果你想禁用此項行為並明白其含義,你能夠通過編輯 /etc/ansible/ansible.cfg or ~/.ansible.cfg來實現:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">defaults</span><span class="p">]</span>
+<span class="n">host_key_checking</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>或者你也可以通過設定環境變數來實現:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">ANSIBLE_HOST_KEY_CHECKING</span><span class="o">=</span>False
+</pre></div>
+</div>
+<p>同樣注意在paramiko 模式中 公鑰認證 相當的慢.因此,當使用這項特性時,切換至&#8217;SSH&#8217;是推薦做法.</p>
+<p id="a-note-about-logging">Ansible將會對遠端系統模組參數記錄在遠端的syslog中,除非一個任務或者play被標記了“no_log: True”屬性,稍後解釋.
+在主控機上啟用基本的日誌功能參見 <a class="reference internal" href="intro_configuration.html"><em>Ansible的配置檔案</em></a> 文件 並 在配置檔案中設定&#8217;log_path&#8217;.企業使用者可能也對 <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> 感興趣.</p>
+<p>塔提供了非常實用資料庫日誌.它使一次次向下鑽取並檢視基於主機,項目,和特定的結果整合為可能———— 同時提供了圖形和 RESTful API.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="intro_inventory.html"><em>Inventory檔案</em></a></dt>
+<dd>More information about inventory</dd>
+<dt><a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a></dt>
+<dd>Examples of basic commands</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Learning Ansible&#8217;s configuration management language</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro_inventory.html" class="btn btn-neutral float-right" title="Inventory檔案" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

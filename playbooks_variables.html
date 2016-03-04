@@ -1,0 +1,991 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Variables &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks" href="playbooks.html"/>
+        <link rel="next" title="條件選擇" href="playbooks_conditionals.html"/>
+        <link rel="prev" title="Playbook Roles and Include Statements" href="playbooks_roles.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks.html">Playbooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#valid-variable-names">合法的變數名</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory">在Inventory中定義變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">在playbook中定義變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role">在檔案和role中定義變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jinja2">使用變數: 關於Jinja2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jinja2-filters">Jinja2過濾器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yaml">YAML陷阱</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#facts">使用Facts獲取的資訊</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disabling-facts">關閉Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#facts-facts-d">本地Facts(Facts.d)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fact">Fact快取</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registered-variables">註冊變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-complex-variable-data">訪問複雜變數資料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#magic-variables-and-hostvars">魔法變數,以及如何訪問其它主機的資訊</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-file-separation-details">變數檔案分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#passing-variables-on-the-command-line">命令列中傳遞變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-precedence">變數的優先順序: 我該在什麼地方放置變數?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html">迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks.html">Playbooks</a> &raquo;</li>
+      
+    <li>Variables</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_variables.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="variables">
+<h1><a class="toc-backref" href="#id10">Variables</a><a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#variables" id="id10">Variables</a><ul>
+<li><a class="reference internal" href="#valid-variable-names" id="id11">合法的變數名</a></li>
+<li><a class="reference internal" href="#inventory" id="id12">在Inventory中定義變數</a></li>
+<li><a class="reference internal" href="#playbook" id="id13">在playbook中定義變數</a></li>
+<li><a class="reference internal" href="#role" id="id14">在檔案和role中定義變數</a></li>
+<li><a class="reference internal" href="#jinja2" id="id15">使用變數: 關於Jinja2</a></li>
+<li><a class="reference internal" href="#jinja2-filters" id="id16">Jinja2過濾器</a></li>
+<li><a class="reference internal" href="#yaml" id="id17">YAML陷阱</a></li>
+<li><a class="reference internal" href="#facts" id="id18">使用Facts獲取的資訊</a></li>
+<li><a class="reference internal" href="#disabling-facts" id="id19">關閉Facts</a></li>
+<li><a class="reference internal" href="#facts-facts-d" id="id20">本地Facts(Facts.d)</a></li>
+<li><a class="reference internal" href="#fact" id="id21">Fact快取</a></li>
+<li><a class="reference internal" href="#registered-variables" id="id22">註冊變數</a></li>
+<li><a class="reference internal" href="#accessing-complex-variable-data" id="id23">訪問複雜變數資料</a></li>
+<li><a class="reference internal" href="#magic-variables-and-hostvars" id="id24">魔法變數,以及如何訪問其它主機的資訊</a></li>
+<li><a class="reference internal" href="#variable-file-separation-details" id="id25">變數檔案分割</a></li>
+<li><a class="reference internal" href="#passing-variables-on-the-command-line" id="id26">命令列中傳遞變數</a></li>
+<li><a class="reference internal" href="#variable-precedence" id="id27">變數的優先順序: 我該在什麼地方放置變數?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>已經存在的自動化技術使得重複做事變得更加容易,但你的所有系統有時則不會這樣.
+在有些系統中你想設定一些行為或者配置,這與其它系統稍有不同.</p>
+<p>並且,遠端系統的可視行為或狀態會影響我們配置這些系統.（比如你需要得到一個系統的IP地址,甚至用該值來配置另一個系統）.</p>
+<p>你可能有一些非常相似的模板或配置檔案,而有些變數則稍微不同.
+Ansible中的變數用來處理系統間的不同.</p>
+<p>為了理解變數,你也需要深入閱讀 <a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a> 和 <a class="reference internal" href="playbooks_loops.html"><em>迴圈</em></a>.有用的模組(比如&#8221;group_by&#8221;模組和&#8221;when&#8221;條件)也可以結合變數使用,用於管理系統間的不同之處.</p>
+<p>強烈建議你學習 ansible-examples github程式碼庫,裡面有大量使用變數的例子.</p>
+<div class="section" id="valid-variable-names">
+<span id="id1"></span><h2><a class="toc-backref" href="#id11">合法的變數名</a><a class="headerlink" href="#valid-variable-names" title="Permalink to this headline">¶</a></h2>
+<p>在使用變數之前最好先知道什麼是合法的變數名.
+變數名可以為字母,數字以及下劃線.變數始終應該以字母開頭.
+&#8220;foo_port&#8221;是個合法的變數名.&#8221;foo5&#8221;也是.
+&#8220;foo-port&#8221;, &#8220;foo port&#8221;, &#8220;foo.port&#8221; 和 &#8220;12&#8221;則不是合法的變數名.</p>
+<p>很簡單吧,繼續往下看.</p>
+</div>
+<div class="section" id="inventory">
+<span id="variables-in-inventory"></span><h2><a class="toc-backref" href="#id12">在Inventory中定義變數</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
+<p>我們已經在其它文件中覆蓋了大量關於使用變數的場景,所以這裡沒多少新的知識點,權當加深記憶.</p>
+<p>通常你想基於一個機器位於哪個群組而設定變數.比如,位於波士頓的很多機器會使用 &#8216;boston.ntp.example.com&#8217; 作為NTP伺服器.</p>
+<p>請看 <a class="reference internal" href="intro_inventory.html"><em>Inventory檔案</em></a> 文件來學習在inventory中使用多種方式來定義變數.</p>
+</div>
+<div class="section" id="playbook">
+<span id="playbook-variables"></span><h2><a class="toc-backref" href="#id13">在playbook中定義變數</a><a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<p>在playbook中,可以直接定義變數,如下所示:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  vars:
+    http_port: 80
+</pre></div>
+</div>
+<p>這種所見即所得的方式非常好.</p>
+</div>
+<div class="section" id="role">
+<span id="included-variables"></span><h2><a class="toc-backref" href="#id14">在檔案和role中定義變數</a><a class="headerlink" href="#role" title="Permalink to this headline">¶</a></h2>
+<p>事實上在其它地方我們也講過這點了.
+正如在 <a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a> 描述的一樣,變數也可以通過檔案包含在playbook中,該變數可以作為或者不作為“Ansible Role”的一部分.使用role是首選,因為它提供了一個很好的組織體系.</p>
+</div>
+<div class="section" id="jinja2">
+<span id="about-jinja2"></span><h2><a class="toc-backref" href="#id15">使用變數: 關於Jinja2</a><a class="headerlink" href="#jinja2" title="Permalink to this headline">¶</a></h2>
+<p>我們已經知道很多關於定義變數的知識,那麼你知道如何使用它們嗎？</p>
+<p>Ansible允許你使用Jinja2模板系統在playbook中引用變數.藉助Jinja你能做很多複雜的操作,首先你要學習基本使用.
+例如,在簡單的模板中你可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>My amp goes to {{ max_amp_value }}
+</pre></div>
+</div>
+<p>這就是變數替換最基本的形式.
+你也可以在playbook中直接這樣用,你偶爾想這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>template: src=foo.cfg.j2 dest={{ remote_install_path }}/foo.cfg
+</pre></div>
+</div>
+<p>In the above example, we used a variable to help decide where to place a file.
+在上述的例子中,我們使用變數來決定檔案放置在哪裡.
+在模板中你自動會獲取在主機範圍之內的所有變數的訪問權.事實上更多,你可以讀取其它主機的變數.我們將演示如何做.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">在模板中Jinja2可以用迴圈和條件語句,而在playbook中則不行.Ansible playbook是純粹的機器解析的YAML.這是一個非常重要的功能,這意味著根據檔案可以生成程式碼,或者其它系統工具能夠讀取Ansible檔案.雖然並不是所有人都需要這個功能,但我們不能封鎖可能性.</p>
+</div>
+</div>
+<div class="section" id="jinja2-filters">
+<span id="id2"></span><h2><a class="toc-backref" href="#id16">Jinja2過濾器</a><a class="headerlink" href="#jinja2-filters" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這並不是常用的特性.只在合適的時候使用它們,這是一個附加知識點.</p>
+</div>
+<p>Jinja2中的過濾器可以把一個模板表示式轉換為另一個.Jinja2附帶了很多這樣的功能.請參見Jinja2官方模板文件中的 <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#builtin-filters">builtin filters</a>.</p>
+<p>另外,Ansible還支援其它特性.請看 <code class="xref doc docutils literal"><span class="pre">playbooks_filters</span></code> 文件中關於一系列可用的過濾器及示例.</p>
+</div>
+<div class="section" id="yaml">
+<span id="yaml-gotchas"></span><h2><a class="toc-backref" href="#id17">YAML陷阱</a><a class="headerlink" href="#yaml" title="Permalink to this headline">¶</a></h2>
+<p>YAML語法要求如果值以{{ foo }}開頭的話我們需要將整行用雙引號包起來.這是為了確認你不是想聲明一個YAML字典.該知識點在 <a class="reference internal" href="YAMLSyntax.html"><em>YAML 語法</em></a> 頁面有所講述.</p>
+<p>這樣是不行的:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: app_servers
+  vars:
+      app_path: {{ base_path }}/22
+</pre></div>
+</div>
+<p>你應該這麼做:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: app_servers
+  vars:
+       app_path: &quot;{{ base_path }}/22&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="facts">
+<span id="vars-and-facts"></span><h2><a class="toc-backref" href="#id18">使用Facts獲取的資訊</a><a class="headerlink" href="#facts" title="Permalink to this headline">¶</a></h2>
+<p>還有其它地方可以獲取變數,這些變數是自動發現的,而不是使用者自己設定的.</p>
+<p>Facts通過訪問遠端系統獲取相應的資訊.
+一個例子就是遠端主機的IP地址或者作業系統是什麼.
+使用以下命令可以檢視哪些資訊是可用的:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible hostname -m setup
+</pre></div>
+</div>
+<p>這會返回巨量的變數資料,比如對於Ubutu 12.04系統,Ansible 1.4獲取的資訊顯示如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;ansible_all_ipv4_addresses&quot;: [
+    &quot;REDACTED IP ADDRESS&quot;
+],
+&quot;ansible_all_ipv6_addresses&quot;: [
+    &quot;REDACTED IPV6 ADDRESS&quot;
+],
+&quot;ansible_architecture&quot;: &quot;x86_64&quot;,
+&quot;ansible_bios_date&quot;: &quot;09/20/2012&quot;,
+&quot;ansible_bios_version&quot;: &quot;6.00&quot;,
+&quot;ansible_cmdline&quot;: {
+    &quot;BOOT_IMAGE&quot;: &quot;/boot/vmlinuz-3.5.0-23-generic&quot;,
+    &quot;quiet&quot;: true,
+    &quot;ro&quot;: true,
+    &quot;root&quot;: &quot;UUID=4195bff4-e157-4e41-8701-e93f0aec9e22&quot;,
+    &quot;splash&quot;: true
+},
+&quot;ansible_date_time&quot;: {
+    &quot;date&quot;: &quot;2013-10-02&quot;,
+    &quot;day&quot;: &quot;02&quot;,
+    &quot;epoch&quot;: &quot;1380756810&quot;,
+    &quot;hour&quot;: &quot;19&quot;,
+    &quot;iso8601&quot;: &quot;2013-10-02T23:33:30Z&quot;,
+    &quot;iso8601_micro&quot;: &quot;2013-10-02T23:33:30.036070Z&quot;,
+    &quot;minute&quot;: &quot;33&quot;,
+    &quot;month&quot;: &quot;10&quot;,
+    &quot;second&quot;: &quot;30&quot;,
+    &quot;time&quot;: &quot;19:33:30&quot;,
+    &quot;tz&quot;: &quot;EDT&quot;,
+    &quot;year&quot;: &quot;2013&quot;
+},
+&quot;ansible_default_ipv4&quot;: {
+    &quot;address&quot;: &quot;REDACTED&quot;,
+    &quot;alias&quot;: &quot;eth0&quot;,
+    &quot;gateway&quot;: &quot;REDACTED&quot;,
+    &quot;interface&quot;: &quot;eth0&quot;,
+    &quot;macaddress&quot;: &quot;REDACTED&quot;,
+    &quot;mtu&quot;: 1500,
+    &quot;netmask&quot;: &quot;255.255.255.0&quot;,
+    &quot;network&quot;: &quot;REDACTED&quot;,
+    &quot;type&quot;: &quot;ether&quot;
+},
+&quot;ansible_default_ipv6&quot;: {},
+&quot;ansible_devices&quot;: {
+    &quot;fd0&quot;: {
+        &quot;holders&quot;: [],
+        &quot;host&quot;: &quot;&quot;,
+        &quot;model&quot;: null,
+        &quot;partitions&quot;: {},
+        &quot;removable&quot;: &quot;1&quot;,
+        &quot;rotational&quot;: &quot;1&quot;,
+        &quot;scheduler_mode&quot;: &quot;deadline&quot;,
+        &quot;sectors&quot;: &quot;0&quot;,
+        &quot;sectorsize&quot;: &quot;512&quot;,
+        &quot;size&quot;: &quot;0.00 Bytes&quot;,
+        &quot;support_discard&quot;: &quot;0&quot;,
+        &quot;vendor&quot;: null
+    },
+    &quot;sda&quot;: {
+        &quot;holders&quot;: [],
+        &quot;host&quot;: &quot;SCSI storage controller: LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)&quot;,
+        &quot;model&quot;: &quot;VMware Virtual S&quot;,
+        &quot;partitions&quot;: {
+            &quot;sda1&quot;: {
+                &quot;sectors&quot;: &quot;39843840&quot;,
+                &quot;sectorsize&quot;: 512,
+                &quot;size&quot;: &quot;19.00 GB&quot;,
+                &quot;start&quot;: &quot;2048&quot;
+            },
+            &quot;sda2&quot;: {
+                &quot;sectors&quot;: &quot;2&quot;,
+                &quot;sectorsize&quot;: 512,
+                &quot;size&quot;: &quot;1.00 KB&quot;,
+                &quot;start&quot;: &quot;39847934&quot;
+            },
+            &quot;sda5&quot;: {
+                &quot;sectors&quot;: &quot;2093056&quot;,
+                &quot;sectorsize&quot;: 512,
+                &quot;size&quot;: &quot;1022.00 MB&quot;,
+                &quot;start&quot;: &quot;39847936&quot;
+            }
+        },
+        &quot;removable&quot;: &quot;0&quot;,
+        &quot;rotational&quot;: &quot;1&quot;,
+        &quot;scheduler_mode&quot;: &quot;deadline&quot;,
+        &quot;sectors&quot;: &quot;41943040&quot;,
+        &quot;sectorsize&quot;: &quot;512&quot;,
+        &quot;size&quot;: &quot;20.00 GB&quot;,
+        &quot;support_discard&quot;: &quot;0&quot;,
+        &quot;vendor&quot;: &quot;VMware,&quot;
+    },
+    &quot;sr0&quot;: {
+        &quot;holders&quot;: [],
+        &quot;host&quot;: &quot;IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)&quot;,
+        &quot;model&quot;: &quot;VMware IDE CDR10&quot;,
+        &quot;partitions&quot;: {},
+        &quot;removable&quot;: &quot;1&quot;,
+        &quot;rotational&quot;: &quot;1&quot;,
+        &quot;scheduler_mode&quot;: &quot;deadline&quot;,
+        &quot;sectors&quot;: &quot;2097151&quot;,
+        &quot;sectorsize&quot;: &quot;512&quot;,
+        &quot;size&quot;: &quot;1024.00 MB&quot;,
+        &quot;support_discard&quot;: &quot;0&quot;,
+        &quot;vendor&quot;: &quot;NECVMWar&quot;
+    }
+},
+&quot;ansible_distribution&quot;: &quot;Ubuntu&quot;,
+&quot;ansible_distribution_release&quot;: &quot;precise&quot;,
+&quot;ansible_distribution_version&quot;: &quot;12.04&quot;,
+&quot;ansible_domain&quot;: &quot;&quot;,
+&quot;ansible_env&quot;: {
+    &quot;COLORTERM&quot;: &quot;gnome-terminal&quot;,
+    &quot;DISPLAY&quot;: &quot;:0&quot;,
+    &quot;HOME&quot;: &quot;/home/mdehaan&quot;,
+    &quot;LANG&quot;: &quot;C&quot;,
+    &quot;LESSCLOSE&quot;: &quot;/usr/bin/lesspipe %s %s&quot;,
+    &quot;LESSOPEN&quot;: &quot;| /usr/bin/lesspipe %s&quot;,
+    &quot;LOGNAME&quot;: &quot;root&quot;,
+    &quot;LS_COLORS&quot;: &quot;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:&quot;,
+    &quot;MAIL&quot;: &quot;/var/mail/root&quot;,
+    &quot;OLDPWD&quot;: &quot;/root/ansible/docsite&quot;,
+    &quot;PATH&quot;: &quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;,
+    &quot;PWD&quot;: &quot;/root/ansible&quot;,
+    &quot;SHELL&quot;: &quot;/bin/bash&quot;,
+    &quot;SHLVL&quot;: &quot;1&quot;,
+    &quot;SUDO_COMMAND&quot;: &quot;/bin/bash&quot;,
+    &quot;SUDO_GID&quot;: &quot;1000&quot;,
+    &quot;SUDO_UID&quot;: &quot;1000&quot;,
+    &quot;SUDO_USER&quot;: &quot;mdehaan&quot;,
+    &quot;TERM&quot;: &quot;xterm&quot;,
+    &quot;USER&quot;: &quot;root&quot;,
+    &quot;USERNAME&quot;: &quot;root&quot;,
+    &quot;XAUTHORITY&quot;: &quot;/home/mdehaan/.Xauthority&quot;,
+    &quot;_&quot;: &quot;/usr/local/bin/ansible&quot;
+},
+&quot;ansible_eth0&quot;: {
+    &quot;active&quot;: true,
+    &quot;device&quot;: &quot;eth0&quot;,
+    &quot;ipv4&quot;: {
+        &quot;address&quot;: &quot;REDACTED&quot;,
+        &quot;netmask&quot;: &quot;255.255.255.0&quot;,
+        &quot;network&quot;: &quot;REDACTED&quot;
+    },
+    &quot;ipv6&quot;: [
+        {
+            &quot;address&quot;: &quot;REDACTED&quot;,
+            &quot;prefix&quot;: &quot;64&quot;,
+            &quot;scope&quot;: &quot;link&quot;
+        }
+    ],
+    &quot;macaddress&quot;: &quot;REDACTED&quot;,
+    &quot;module&quot;: &quot;e1000&quot;,
+    &quot;mtu&quot;: 1500,
+    &quot;type&quot;: &quot;ether&quot;
+},
+&quot;ansible_form_factor&quot;: &quot;Other&quot;,
+&quot;ansible_fqdn&quot;: &quot;ubuntu2.example.com&quot;,
+&quot;ansible_hostname&quot;: &quot;ubuntu2&quot;,
+&quot;ansible_interfaces&quot;: [
+    &quot;lo&quot;,
+    &quot;eth0&quot;
+],
+&quot;ansible_kernel&quot;: &quot;3.5.0-23-generic&quot;,
+&quot;ansible_lo&quot;: {
+    &quot;active&quot;: true,
+    &quot;device&quot;: &quot;lo&quot;,
+    &quot;ipv4&quot;: {
+        &quot;address&quot;: &quot;127.0.0.1&quot;,
+        &quot;netmask&quot;: &quot;255.0.0.0&quot;,
+        &quot;network&quot;: &quot;127.0.0.0&quot;
+    },
+    &quot;ipv6&quot;: [
+        {
+            &quot;address&quot;: &quot;::1&quot;,
+            &quot;prefix&quot;: &quot;128&quot;,
+            &quot;scope&quot;: &quot;host&quot;
+        }
+    ],
+    &quot;mtu&quot;: 16436,
+    &quot;type&quot;: &quot;loopback&quot;
+},
+&quot;ansible_lsb&quot;: {
+    &quot;codename&quot;: &quot;precise&quot;,
+    &quot;description&quot;: &quot;Ubuntu 12.04.2 LTS&quot;,
+    &quot;id&quot;: &quot;Ubuntu&quot;,
+    &quot;major_release&quot;: &quot;12&quot;,
+    &quot;release&quot;: &quot;12.04&quot;
+},
+&quot;ansible_machine&quot;: &quot;x86_64&quot;,
+&quot;ansible_memfree_mb&quot;: 74,
+&quot;ansible_memtotal_mb&quot;: 991,
+&quot;ansible_mounts&quot;: [
+    {
+        &quot;device&quot;: &quot;/dev/sda1&quot;,
+        &quot;fstype&quot;: &quot;ext4&quot;,
+        &quot;mount&quot;: &quot;/&quot;,
+        &quot;options&quot;: &quot;rw,errors=remount-ro&quot;,
+        &quot;size_available&quot;: 15032406016,
+        &quot;size_total&quot;: 20079898624
+    }
+],
+&quot;ansible_nodename&quot;: &quot;ubuntu2.example.com&quot;,
+&quot;ansible_os_family&quot;: &quot;Debian&quot;,
+&quot;ansible_pkg_mgr&quot;: &quot;apt&quot;,
+&quot;ansible_processor&quot;: [
+    &quot;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&quot;
+],
+&quot;ansible_processor_cores&quot;: 1,
+&quot;ansible_processor_count&quot;: 1,
+&quot;ansible_processor_threads_per_core&quot;: 1,
+&quot;ansible_processor_vcpus&quot;: 1,
+&quot;ansible_product_name&quot;: &quot;VMware Virtual Platform&quot;,
+&quot;ansible_product_serial&quot;: &quot;REDACTED&quot;,
+&quot;ansible_product_uuid&quot;: &quot;REDACTED&quot;,
+&quot;ansible_product_version&quot;: &quot;None&quot;,
+&quot;ansible_python_version&quot;: &quot;2.7.3&quot;,
+&quot;ansible_selinux&quot;: false,
+&quot;ansible_ssh_host_key_dsa_public&quot;: &quot;REDACTED KEY VALUE&quot;
+&quot;ansible_ssh_host_key_ecdsa_public&quot;: &quot;REDACTED KEY VALUE&quot;
+&quot;ansible_ssh_host_key_rsa_public&quot;: &quot;REDACTED KEY VALUE&quot;
+&quot;ansible_swapfree_mb&quot;: 665,
+&quot;ansible_swaptotal_mb&quot;: 1021,
+&quot;ansible_system&quot;: &quot;Linux&quot;,
+&quot;ansible_system_vendor&quot;: &quot;VMware, Inc.&quot;,
+&quot;ansible_user_id&quot;: &quot;root&quot;,
+&quot;ansible_userspace_architecture&quot;: &quot;x86_64&quot;,
+&quot;ansible_userspace_bits&quot;: &quot;64&quot;,
+&quot;ansible_virtualization_role&quot;: &quot;guest&quot;,
+&quot;ansible_virtualization_type&quot;: &quot;VMware&quot;
+</pre></div>
+</div>
+<p>可以在playbook中這樣引用以上例子中第一個硬碟的模型:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_devices</span><span class="o">.</span><span class="n">sda</span><span class="o">.</span><span class="n">model</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>同樣,作為系統報告的主機名如以下所示:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_nodename</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>不合格的主機名顯示了句號(.)之前的字元串:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_hostname</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>在模板和條件判斷(請看 <code class="xref doc docutils literal"><span class="pre">playbook_conditionals</span></code> )中會經常使用Facts.</p>
+<p>還可以使用Facts根據特定的條件動態建立主機群組,請檢視 <a class="reference internal" href="modules.html"><em>模組相關</em></a> 文件中的 &#8216;group_by&#8217; 小節獲取詳細內容.以及參見 <a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a> 章節討論的廣義條件語句部分.</p>
+</div>
+<div class="section" id="disabling-facts">
+<span id="id3"></span><h2><a class="toc-backref" href="#id19">關閉Facts</a><a class="headerlink" href="#disabling-facts" title="Permalink to this headline">¶</a></h2>
+<p>如果你不需要使用你主機的任何fact資料,你已經知道了你係統的一切,那麼你可以關閉fact資料的獲取.這有利於增強Ansilbe面對大量系統的push模組,或者你在實驗性平臺中使用Ansible.在任何playbook中可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: whatever
+  gather_facts: no
+</pre></div>
+</div>
+</div>
+<div class="section" id="facts-facts-d">
+<span id="local-facts"></span><h2><a class="toc-backref" href="#id20">本地Facts(Facts.d)</a><a class="headerlink" href="#facts-facts-d" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>正如在playbook章節討論的一樣,Ansible facts主要用於獲取遠端系統的資料,從而可以在playbook中作為變數使用.</p>
+<p>通常facts中的資料是由Ansible中的 ‘setup’模組自動發現的.使用者也可以自定義facts模組,在API文件中有說明.然而,如果不借助於fact模組,而是通過一個簡單的方式為Ansible變數提供系統或使用者資料？</p>
+<p>比如,你想使用者能夠控制受他們管理的系統的一些切面,那麼應該怎麼做？ &#8220;Facts.d&#8221;是這樣的一種機制.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">可能 &#8220;局部facts&#8221;有點用詞不當,它與 &#8220;中心供應的使用者值&#8221;相對應,為&#8221;局部供應的使用者值&#8221;,或者facts是 &#8220;局部動態測定的值&#8221;.</p>
+</div>
+<p>如果遠端受管理的機器有一個 &#8220;/etc/ansible/facts.d&#8221; 目錄,那麼在該目錄中任何以 &#8221;.fact&#8221;結尾的檔案都可以在Ansible中提供局部facts.這些檔案可以是JSON,INI或者任何可以返回JSON的可執行檔案.</p>
+<p>例如建設有一個 /etc/ansible/facts.d/perferences.fact檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">general</span><span class="p">]</span>
+<span class="n">asdf</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">bar</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>這將產生一個名為 &#8220;general&#8221; 的雜湊表fact,裡面成員有 &#8216;asdf&#8217; 和 &#8216;bar&#8217;.
+可以這樣驗證:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible &lt;hostname&gt; -m setup -a &quot;filter=ansible_local&quot;
+</pre></div>
+</div>
+<p>然後你會看到有以下fact被新增:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;ansible_local&quot;: {
+        &quot;preferences&quot;: {
+            &quot;general&quot;: {
+                &quot;asdf&quot; : &quot;1&quot;,
+                &quot;bar&quot;  : &quot;2&quot;
+            }
+        }
+ }
+</pre></div>
+</div>
+<p>而且也可以在template或palybook中訪問該資料:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_local</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">asdf</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>本地名稱空間放置其它使用者提供的fact或者playbook中定義的變數覆蓋系統facts值.</p>
+<p>如果你有個一個playook,它複製了一個自定義的fact,然後執行它,請顯式呼叫來重新執行setup模組,這樣可以讓我們在該playbook中使用這些fact.否則,在下一個play中才能獲取這些自定義的fact資訊.這裡有一個示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  tasks:
+    - name: create directory for ansible custom facts
+      file: state=directory recurse=yes path=/etc/ansible/facts.d
+    - name: install custom impi fact
+      copy: src=ipmi.fact dest=/etc/ansible/facts.d
+    - name: re-read facts after adding custom fact
+      setup: filter=ansible_local
+</pre></div>
+</div>
+<p>然而在該模式中你也可以編寫一個fact模組,這只不過是多了一個選項.</p>
+</div>
+<div class="section" id="fact">
+<span id="fact-caching"></span><h2><a class="toc-backref" href="#id21">Fact快取</a><a class="headerlink" href="#fact" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
+<p>正如該文件中其它地方所示,從一個伺服器引用另一個伺服器的變數是可行的.比如:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">hostvars</span><span class="p">[</span><span class="s">&#39;asdf.example.com&#39;</span><span class="p">][</span><span class="s">&#39;ansible_os_family&#39;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>如果禁用 &#8220;Fact Caching&#8221;,為了實現以上功能,Ansible在當前play之前已經與 &#8216;asdf.example.com&#8217; 通訊過,或者在playbook有其它優先的play.這是ansible的預設配置.</p>
+<p>為了避免這些,Ansible 1.8允許在playbook執行期間儲存facts.但該功能需要手動開啟.這有什麼用處那？</p>
+<p>想象一下,如果我們有一個非常大的基礎設施,裡面有數千個主機.Fact快取可以配置在夜間執行,但小型伺服器叢集可以配置fact隨時執行,或者在白天定期執行.即使開啟了fact快取,也不需要訪問所有伺服器來引用它們的變數和資訊.</p>
+<p>使用fact快取可以跨群組訪問變數,即使群組間在當前/user/bin/ansible-playbook執行中並沒有通訊過.</p>
+<p>為了啟用fact快取,在大多數plays中你可以修改 &#8216;gathering&#8217; 設定為 &#8216;smart&#8217; 或者 &#8216;explicit&#8217;,也可以設定 &#8216;gather_facts&#8217; 為False.</p>
+<p>當前,Ansible可以使用兩種持久的快取外掛: redis和jsonfile.</p>
+<p>可以在ansible.cfg中配置fact快取使用redis:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">defaults</span><span class="p">]</span>
+<span class="n">gathering</span> <span class="o">=</span> <span class="n">smart</span>
+<span class="n">fact_caching</span> <span class="o">=</span> <span class="n">redis</span>
+<span class="n">fact_caching_timeout</span> <span class="o">=</span> <span class="mi">86400</span>
+<span class="c"># seconds</span>
+</pre></div>
+</div>
+<p>請執行適當的系統命令來啟動和執行redis:</p>
+<div class="highlight-python"><div class="highlight"><pre>yum install redis
+service redis start
+pip install redis
+</pre></div>
+</div>
+<p>請注意可以使用pip來安裝Python redis庫,在EPEL中的包版本對Ansible來說太舊了.
+在當前Ansible版本中,該功能還處於試用狀態,Redis外掛還不支援埠或密碼配置,以後會改善這點.
+在ansible.cfg中使用以下程式碼來配置fact快取使用jsonfile:</p>
+<div class="highlight-python"><div class="highlight"><pre>[defaults]
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /path/to/cachedir
+fact_caching_timeout = 86400
+# seconds
+</pre></div>
+</div>
+<p><cite>fact_caching_connection</cite> 是一個放置在可讀目錄(如果目錄不存在,ansible會試圖建立它)中的本地檔案路徑.</p>
+</div>
+<div class="section" id="registered-variables">
+<span id="id4"></span><h2><a class="toc-backref" href="#id22">註冊變數</a><a class="headerlink" href="#registered-variables" title="Permalink to this headline">¶</a></h2>
+<p>變數的另一個主要用途是在執行命令時,把命令結果儲存到一個變數中.不同模組的執行結果是不同的.執行playbook時使用-v選項可以看到可能的結果值.
+在ansible執行任務的結果值可以儲存在變數中,以便稍後使用它.在 <a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a> 章節有一些示例.</p>
+<p>這裡有一個語法示例,在上面文件中也有所提及:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: web_servers
+
+  tasks:
+
+     - shell: /usr/bin/foo
+       register: foo_result
+       ignore_errors: True
+
+     - shell: /usr/bin/bar
+       when: foo_result.rc == 5
+</pre></div>
+</div>
+<p>在當前主機接下來playbook執行過程中註冊的變數是有效地.這與Ansile中的 &#8220;facts&#8221; 生命週期一樣. 實際上註冊變數和facts很相似.</p>
+</div>
+<div class="section" id="accessing-complex-variable-data">
+<span id="id5"></span><h2><a class="toc-backref" href="#id23">訪問複雜變數資料</a><a class="headerlink" href="#accessing-complex-variable-data" title="Permalink to this headline">¶</a></h2>
+<p>在該文件中我們已經討論了一些與facts有關的高階特性.</p>
+<p>有些提供的facts,比如網路資訊等,是一個巢狀的資料結構.訪問它們使用簡單的 {{ foo }} 語法並不夠用,當仍然很容易.如下所示:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_eth0</span><span class="p">[</span><span class="s">&quot;ipv4&quot;</span><span class="p">][</span><span class="s">&quot;address&quot;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>或者這樣寫:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_eth0</span><span class="o">.</span><span class="n">ipv4</span><span class="o">.</span><span class="n">address</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>相似的,以下程式碼展示了我們如何訪問陣列的第一個元素:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">foo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="magic-variables-and-hostvars">
+<span id="id6"></span><h2><a class="toc-backref" href="#id24">魔法變數,以及如何訪問其它主機的資訊</a><a class="headerlink" href="#magic-variables-and-hostvars" title="Permalink to this headline">¶</a></h2>
+<p>Ansible會自動提供給你一些變數,即使你並沒有定義過它們.這些變數中重要的有 &#8216;hostvars&#8217;,&#8217;group_names&#8217;,和 &#8216;groups&#8217;.由於這些變數名是預留的,所以使用者不應當覆蓋它們. &#8216;environmen&#8217; 也是預留的.
+hostvars可以讓你訪問其它主機的變數,包括哪些主機中獲取到的facts.如果你還沒有在當前playbook或者一組playbook的任何play中訪問那個主機,那麼你可以獲取變數,但無法看到facts值.
+如果資料庫伺服器想使用另一個節點的某個 &#8216;fact&#8217; 值,或者賦值給該節點的一個inventory變數.可以在一個模板中甚至命令列中輕鬆實現:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">hostvars</span><span class="p">[</span><span class="s">&#39;test.example.com&#39;</span><span class="p">][</span><span class="s">&#39;ansible_distribution&#39;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>另外, <em>group_names</em> 是當前主機所在所有群組的列表(陣列).所以可以使用Jinja2語法在模板中根據該主機所在群組關係(或角色)來產生變化:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% if &#39;webserver&#39; in group_names %}
+   # some part of a configuration file that only applies to webservers
+{% endif %}
+</pre></div>
+</div>
+<p><em>groups</em> 是inventory中所有群組(主機)的列表.可用於列舉群組中的所有主機.例如:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% for host in groups[&#39;app_servers&#39;] %}
+   # something that applies to all app servers.
+{% endfor %}
+</pre></div>
+</div>
+<p>一個經常使用的正規化是找出該群組中的所有IP地址:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% for host in groups[&#39;app_servers&#39;] %}
+   {{ hostvars[host][&#39;ansible_eth0&#39;][&#39;ipv4&#39;][&#39;address&#39;] }}
+{% endfor %}
+</pre></div>
+</div>
+<p>比如,一個前端代理伺服器需要指向所有的應用伺服器,在伺服器間設定正確的防火牆規則等.你需要確保所有主機的facts在使用前都已被獲取到,例如執行一個play來檢查這些facts是否已經被快取起來(fact快取是Ansible 1.8中的新特性).</p>
+<p>另外, <em>inventory_hostname</em> 是Ansible inventory主機檔案中配置的主機名稱.由於其它一些神祕原因你不想使用自發現的主機名 <cite>ansible_hostname</cite> 時,你可以使用 <em>inventory_hostname</em> .如果主機的FQDN很長,那麼*inventory_hostname_short*則會只包含域名第一個分號之前的部分,而捨棄其它部分.</p>
+<p><em>play_hosts</em> 是在當前play範圍中可用的一組主機名.比如可以為多個主機填寫模板,以便將這些主機注入負載均衡器規則.</p>
+<p><em>delegate_to</em> is the inventory hostname of the host that the current task has been delegated to using &#8216;delegate_to&#8217;.</p>
+<p><em>delegate_to</em> 是使用 &#8216;delegate_to&#8217; 代理的任務中主機的inventory主機名.</p>
+<p>不要擔心以上東西,除非你需要使用它們.你會知道什麼時候用它們.</p>
+<p><em>inventory_dir</em> 是儲存Ansible inventory主機檔案的目錄路徑, <em>inventory_file</em> 是指向Ansible inventory主機檔案的路徑和檔名.</p>
+<p>最後, <em>role_path</em> 會返回當前role的目錄名(1.8及以後).只有在role中才能使用該變數.</p>
+</div>
+<div class="section" id="variable-file-separation-details">
+<span id="id7"></span><h2><a class="toc-backref" href="#id25">變數檔案分割</a><a class="headerlink" href="#variable-file-separation-details" title="Permalink to this headline">¶</a></h2>
+<p>把playbook置於原始碼管理之下是個很好的注意,當你可能會想把playbook源碼公開之餘還想保持某些重要的變數私有.有時你也想把某些資訊放置在不同的檔案中,遠離主playbook檔案.</p>
+<p>你可以使用外部的變數檔案來實現:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: all
+  remote_user: root
+  vars:
+    favcolor: blue
+  vars_files:
+    - /vars/external_vars.yml
+
+  tasks:
+
+  - name: this is just a placeholder
+    command: /bin/echo foo
+</pre></div>
+</div>
+<p>這可以保證你共享playbook源碼時隔離敏感資料的風險.</p>
+<p>每個變數檔案的內容是一個簡單的YAML檔案,如下所示:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# in the above example, this would be vars/external_vars.yml
+somevar: somevalue
+password: magic
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It&#8217;s also possible to keep per-host and per-group variables in very
+similar files, this is covered in <a class="reference internal" href="intro_inventory.html#splitting-out-vars"><span>分檔案定義 Host 和 Group 變數</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">保持每個主機和群組的變數在非常小的檔案中是可能,請參見 <a class="reference internal" href="intro_inventory.html#splitting-out-vars"><span>分檔案定義 Host 和 Group 變數</span></a>.</p>
+</div>
+</div>
+<div class="section" id="passing-variables-on-the-command-line">
+<span id="id8"></span><h2><a class="toc-backref" href="#id26">命令列中傳遞變數</a><a class="headerlink" href="#passing-variables-on-the-command-line" title="Permalink to this headline">¶</a></h2>
+<p>除了`vars_prompt`和`vars_files`也可以通過Ansible命令列傳送變數.如果你想編寫一個通用的釋出playbook時則特別有用,你可以傳遞應用的版本以便部署:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook release.yml --extra-vars &quot;version=1.23.45 other_variable=foo&quot;
+</pre></div>
+</div>
+<p>其它場景中也很有用,比如為playbook設定主機群組或使用者.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: &#39;{{ hosts }}&#39;
+  remote_user: &#39;{{ user }}&#39;
+
+  tasks:
+     - ...
+
+ansible-playbook release.yml --extra-vars &quot;hosts=vipers user=starbuck&quot;
+</pre></div>
+</div>
+<p>Ansible 1.2中你也可以給extra-vars傳遞JSON,比如:</p>
+<div class="highlight-python"><div class="highlight"><pre>--extra-vars &#39;{&quot;pacman&quot;:&quot;mrs&quot;,&quot;ghosts&quot;:[&quot;inky&quot;,&quot;pinky&quot;,&quot;clyde&quot;,&quot;sue&quot;]}&#39;
+</pre></div>
+</div>
+<p>key=value形式非常簡單,但很實用!</p>
+<p>Ansible 1.3中,實用&#8221;&#64;&#8221;語法可以為extra-vars傳遞JSON檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre>--extra-vars &quot;@some_file.json&quot;
+</pre></div>
+</div>
+<p>同樣在Ansible 1.3中,我們可以為extra-vars傳遞YAML格式,無論直接通過命令列還是放置在檔案中.</p>
+</div>
+<div class="section" id="variable-precedence">
+<span id="id9"></span><h2><a class="toc-backref" href="#id27">變數的優先順序: 我該在什麼地方放置變數?</a><a class="headerlink" href="#variable-precedence" title="Permalink to this headline">¶</a></h2>
+<p>很多人都在問變數過載的規則是怎麼樣的.最終Ansible的哲學是你最好知道哪裡放置變數,然後會簡化變數覆蓋的複雜度.</p>
+<p>避免在47個地方定義 &#8220;x&#8221; 變數然後詢問 &#8220;那個x會被使用&#8221;. 為什麼那？ 因為這不是Ansible做事的哲學.</p>
+<p>世界上只有一個帝國大廈.也只有一個蒙娜麗莎.請弄明白在那裡定義變數,而不要把事情搞複雜.</p>
+<p>然而,我們還是來討卵一下優先權的問題.它存在.你有可能會用到它.</p>
+<p>如果同樣名稱的變數在多個地方都有定義,那麼採納是有個確定的順序,如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>* extra vars (-e in the command line) always win
+* then comes connection variables defined in inventory (ansible_ssh_user, etc)
+* then comes &quot;most everything else&quot; (command line switches, vars in play, included vars, role vars, etc)
+* then comes the rest of the variables defined in inventory
+* then comes facts discovered about a system
+* then &quot;role defaults&quot;, which are the most &quot;defaulty&quot; and lose in priority to everything.
+
+* extra vars (在命令列中使用 -e)優先順序最高
+* 然後是在inventory中定義的連線變數(比如ansible_ssh_user)
+* 接著是大多數的其它變數(命令列轉換,play中的變數,included的變數,role中的變數等)
+* 然後是在inventory定義的其它變數
+* 然後是由系統發現的facts
+* 然後是 &quot;role預設變數&quot;, 這個是最預設的值,很容易喪失優先權
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In versions prior to 1.5.4, facts discovered about a system were in the &#8220;most everything else&#8221; category above.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">在1.5.4版本級以後,關於系統的自發現的facts也包含在大多數的其它變數中.</p>
+</div>
+<p>這樣看起來太理論化了.讓我們來看一段示例,</p>
+<p>First off, group variables are super powerful.</p>
+<p>Site wide defaults should be defined as a &#8216;group_vars/all&#8217; setting.  Group variables are generally placed alongside
+your inventory file.  They can also be returned by a dynamic inventory script (see <a class="reference internal" href="intro_dynamic_inventory.html"><em>動態 Inventory</em></a>) or defined
+in things like <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> from the UI or API:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# file: /etc/ansible/group_vars/all
+# this is the site wide default
+ntp_server: default-time.example.com
+</pre></div>
+</div>
+<p>Regional information might be defined in a &#8216;group_vars/region&#8217; variable.  If this group is a child of the &#8216;all&#8217; group (which it is, because all groups are), it will override the group that is higher up and more general:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# file: /etc/ansible/group_vars/boston
+ntp_server: boston-time.example.com
+</pre></div>
+</div>
+<p>If for some crazy reason we wanted to tell just a specific host to use a specific NTP server, it would then override the group variable!:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# file: /etc/ansible/host_vars/xyz.boston.example.com
+ntp_server: override.example.com
+</pre></div>
+</div>
+<p>So that covers inventory and what you would normally set there.  It&#8217;s a great place for things that deal with geography or behavior.  Since groups are frequently the entity that maps roles onto hosts, it is sometimes a shortcut to set variables on the group instead of defining them on a role.  You could go either way.</p>
+<p>Remember:  Child groups override parent groups, and hosts always override their groups.</p>
+<p>Next up: learning about role variable precedence.</p>
+<p>We&#8217;ll pretty much assume you are using roles at this point.  You should be using roles for sure.  Roles are great.  You are using
+roles aren&#8217;t you?  Hint hint.</p>
+<p>Ok, so if you are writing a redistributable role with reasonable defaults, put those in the &#8216;roles/x/defaults/main.yml&#8217; file.  This means
+the role will bring along a default value but ANYTHING in Ansible will override it.  It&#8217;s just a default.  That&#8217;s why it says &#8220;defaults&#8221; :)
+See <a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a> for more info about this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# file: roles/x/defaults/main.yml
+# if not overridden in inventory or as a parameter, this is the value that will be used
+http_port: 80
+</pre></div>
+</div>
+<p>if you are writing a role and want to ensure the value in the role is absolutely used in that role, and is not going to be overridden
+by inventory, you should put it in roles/x/vars/main.yml like so, and inventory values cannot override it.  -e however, still will:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# file: roles/x/vars/main.yml
+# this will absolutely be used in this role
+http_port: 80
+</pre></div>
+</div>
+<p>So the above is a great way to plug in constants about the role that are always true.  If you are not sharing your role with others,
+app specific behaviors like ports is fine to put in here.  But if you are sharing roles with others, putting variables in here might
+be bad. Nobody will be able to override them with inventory, but they still can by passing a parameter to the role.</p>
+<p>Parameterized roles are useful.</p>
+<p>If you are using a role and want to override a default, pass it as a parameter to the role like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>roles:
+   - { role: apache, http_port: 8080 }
+</pre></div>
+</div>
+<p>This makes it clear to the playbook reader that you&#8217;ve made a conscious choice to override some default in the role, or pass in some
+configuration that the role can&#8217;t assume by itself.  It also allows you to pass something site-specific that isn&#8217;t really part of the
+role you are sharing with others.</p>
+<p>This can often be used for things that might apply to some hosts multiple times,
+like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>roles:
+   - { role: app_user, name: Ian    }
+   - { role: app_user, name: Terry  }
+   - { role: app_user, name: Graham }
+   - { role: app_user, name: John   }
+</pre></div>
+</div>
+<p>That&#8217;s a bit arbitrary, but you can see how the same role was invoked multiple Times.  In that example it&#8217;s quite likely there was
+no default for &#8216;name&#8217; supplied at all.  Ansible can yell at you when variables aren&#8217;t defined &#8211; it&#8217;s the default behavior in fact.</p>
+<p>So that&#8217;s a bit about roles.</p>
+<p>There are a few bonus things that go on with roles.</p>
+<p>Generally speaking, variables set in one role are available to others.  This means if you have a &#8220;roles/common/vars/main.yml&#8221; you
+can set variables in there and make use of them in other roles and elsewhere in your playbook:</p>
+<div class="highlight-python"><div class="highlight"><pre>roles:
+   - { role: common_settings }
+   - { role: something, foo: 12 }
+   - { role: something_else }
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are some protections in place to avoid the need to namespace variables.
+In the above, variables defined in common_settings are most definitely available to &#8216;something&#8217; and &#8216;something_else&#8217; tasks, but if
+&#8220;something&#8217;s&#8221; guaranteed to have foo set at 12, even if somewhere deep in common settings it set foo to 20.</p>
+</div>
+<p>So, that&#8217;s precedence, explained in a more direct way.  Don&#8217;t worry about precedence, just think about if your role is defining a
+variable that is a default, or a &#8220;live&#8221; variable you definitely want to use.  Inventory lies in precedence right in the middle, and
+if you want to forcibly override something, use -e.</p>
+<p>If you found that a little hard to understand, take a look at the <a class="reference external" href="https://github.com/ansible/ansible-examples">ansible-examples</a> repo on our github for a bit more about
+how all of these things can work together.</p>
+<p>如果你還感覺有點難以理解,你可以學習我們放在github中的 <a class="reference external" href="https://github.com/ansible/ansible-examples">ansible-examples</a> 程式碼庫,來了解這些東西是如何一起協作的.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a></dt>
+<dd>Conditional statements in playbooks</dd>
+<dt><code class="xref doc docutils literal"><span class="pre">playbooks_filters</span></code></dt>
+<dd>Jinja2 filters and their uses</dd>
+<dt><a class="reference internal" href="playbooks_loops.html"><em>迴圈</em></a></dt>
+<dd>Looping in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a></dt>
+<dd>Playbook organization by roles</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Best practices in playbooks</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_conditionals.html" class="btn btn-neutral float-right" title="條件選擇" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_roles.html" class="btn btn-neutral" title="Playbook Roles and Include Statements" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

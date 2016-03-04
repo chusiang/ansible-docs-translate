@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>YAML 語法 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="prev" title="術語表" href="glossary.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">YAML 語法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">基本的 YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gotchas">Gotchas</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>YAML 語法</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/YAMLSyntax.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yaml">
+<h1>YAML 語法<a class="headerlink" href="#yaml" title="Permalink to this headline">¶</a></h1>
+<p>這個頁面提供一個正確的 YAML 語法的基本概述, 它被用來描述一個 playbooks(我們的配置管理語言).</p>
+<p>我們使用 YAML 是因為它像 XML 或 JSON 是一種利於人們讀寫的資料格式. 此外在大多數變成語言中有使用 YAML 的庫.</p>
+<p>你可能希望讀 <a class="reference internal" href="playbooks.html"><em>Playbooks</em></a> 實踐中如何使用的.</p>
+<div class="section" id="id1">
+<h2>基本的 YAML<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>對於 Ansible, 每一個 YAML 檔案都是從一個列表開始. 列表中的每一項都是一個鍵值對, 通常它們被稱為一個 &#8220;雜湊&#8221; 或 &#8220;字典&#8221;. 所以, 我們需要知道如何在 YAML 中編寫列表和字典.</p>
+<p>YAML 還有一個小的怪癖. 所有的 YAML 檔案(無論和 Ansible 有沒有關係)開始行都應該是 <code class="docutils literal"><span class="pre">---</span></code>.  這是 YAML 格式的一部分, 表明一個檔案的開始.</p>
+<p>列表中的所有成員都開始於相同的縮排級別, 並且使用一個 <code class="docutils literal"><span class="pre">&quot;-</span> <span class="pre">&quot;</span></code> 作為開頭(一個橫槓和一個空格):</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# 一個美味水果的列表
+- Apple
+- Orange
+- Strawberry
+- Mango
+</pre></div>
+</div>
+<p>一個字典是由一個簡單的 <code class="docutils literal"><span class="pre">鍵:</span> <span class="pre">值</span></code> 的形式組成(這個冒號後面必須是一個空格):</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# 一位職工的記錄
+name: Example Developer
+job: Developer
+skill: Elite
+</pre></div>
+</div>
+<p>字典也可以使用縮排形式來表示, 如果你喜歡這樣的話:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# 一位職工的記錄
+{name: Example Developer, job: Developer, skill: Elite}
+</pre></div>
+</div>
+<p id="truthiness">Ansible並不是太多的使用這種格式, 但是你可以通過以下格式來指定一個布爾值(true/fase):</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+create_key: yes
+needs_agent: no
+knows_oop: True
+likes_emacs: TRUE
+uses_cvs: false
+</pre></div>
+</div>
+<p>讓我們把目前所學到的 YAML 例子組合在一起. 這些在 Ansible 中什麼也幹不了, 但這些格式將會給你感覺:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# 一位職工記錄
+name: Example Developer
+job: Developer
+skill: Elite
+employed: True
+foods:
+    - Apple
+    - Orange
+    - Strawberry
+    - Mango
+languages:
+    ruby: Elite
+    python: Elite
+    dotnet: Lame
+</pre></div>
+</div>
+<p>這就是你開始編寫 <cite>Ansible</cite> playbooks 所需要知道的所有 YAML 語法.</p>
+</div>
+<div class="section" id="gotchas">
+<h2>Gotchas<a class="headerlink" href="#gotchas" title="Permalink to this headline">¶</a></h2>
+<p>儘管 YAML 通常是友好的, 但是下面將會導致一個 YAML 語法錯誤:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo: somebody said I should put a colon here: so I did
+</pre></div>
+</div>
+<p>你需要使用引號來包裹任何包含冒號的雜湊值, 像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo: &quot;somebody said I should put a colon here: so I did&quot;
+</pre></div>
+</div>
+<p>然後這個冒號將會被結尾.</p>
+<p>此外, Ansible 使用 &#8220;{{ var }}&#8221; 來引用變數. 如果一個值以 &#8220;{&#8221; 開頭, YAML 將認為它是一個字典, 所以我們必須引用它, 像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo: &quot;{{ variable }}&quot;
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Learn what playbooks can do and how to write/run them.</dd>
+<dt><a class="reference external" href="http://yamllint.com/">YAMLLint</a></dt>
+<dd>YAML Lint (online) helps you debug YAML syntax if you are having problems</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Github examples directory</a></dt>
+<dd>Complete playbook files from the github project source</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="glossary.html" class="btn btn-neutral" title="術語表" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

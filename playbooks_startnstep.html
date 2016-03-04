@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>從指定任務開始執行palybook以及分步執行playbook &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/>
+        <link rel="next" title="模組相關" href="modules.html"/>
+        <link rel="prev" title="Vault" href="playbooks_vault.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_acceleration.html">Accelerated Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_async.html">非同步操作和輪詢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_checkmode.html">Check Mode (&#8220;Dry Run&#8221;)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_delegation.html">委託,滾動更新,本地動作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_environment.html">配置環境 (在代理環境中)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_error_handling.html">Playbooks 中的錯誤處理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_tags.html">標籤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_vault.html">Vault</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">從指定任務開始執行palybook以及分步執行playbook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start-at-task">Start-at-task</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">分步執行playbook</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks_special_topics.html">Playbooks: Special Topics</a> &raquo;</li>
+      
+    <li>從指定任務開始執行palybook以及分步執行playbook</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_startnstep.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="palybookplaybook">
+<h1>從指定任務開始執行palybook以及分步執行playbook<a class="headerlink" href="#palybookplaybook" title="Permalink to this headline">¶</a></h1>
+<p>以下列出了幾種方式來執行playbook.這對於測試或偵錯新的playbook很有幫助.</p>
+<div class="section" id="start-at-task">
+<span id="id1"></span><h2>Start-at-task<a class="headerlink" href="#start-at-task" title="Permalink to this headline">¶</a></h2>
+<p>如果你想從指定的任務開始執行playbook,可以使用``&#8211;start-at``選項:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook playbook.yml --start-at=&quot;install packages&quot;
+</pre></div>
+</div>
+<p>以上命令就會在名為&#8221;install packages&#8221;的任務開始執行你的playbook.</p>
+</div>
+<div class="section" id="playbook">
+<span id="step"></span><h2>分步執行playbook<a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<p>我們也可以通過``&#8211;step``選項來互動式的執行playbook:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook playbook.yml --step
+</pre></div>
+</div>
+<p>這樣ansible在每個任務前會自動停止,並詢問是否應該執行該任務.</p>
+<p>比如你有個名為``configure ssh``的任務,playbook執行到這裡會停止並詢問:</p>
+<div class="highlight-python"><div class="highlight"><pre>Perform task: configure ssh (y/n/c):
+</pre></div>
+</div>
+<p>&#8220;y&#8221;回答會執行該任務,&#8221;n&#8221;回答會跳過該任務,而&#8221;c&#8221;回答則會繼續執行剩餘的所有任務而不再詢問你.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="模組相關" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_vault.html" class="btn btn-neutral" title="Vault" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

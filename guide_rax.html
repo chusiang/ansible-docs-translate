@@ -1,0 +1,974 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rackspace 雲指南 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="詳細指南" href="guides.html"/>
+        <link rel="next" title="Google Cloud Platform Guide" href="guide_gce.html"/>
+        <link rel="prev" title="Amazon Web Services Guide" href="guide_aws.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">詳細指南</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Rackspace 雲指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">介紹</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credentials-file">憑證檔案</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python">在 Python 的虛擬環境中執行(可選)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#provisioning">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory">主機 Inventory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rax-py">rax.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-inventory">標準的 Inventory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">使用案例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#network-and-server">網路和伺服器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#complete-environment">完整的環境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rackconnect-managed-cloud">RackConnect 和 Managed Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-usage">高階用法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tower">Tower 中的自動伸縮</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rackspace-cloud">Rackspace Cloud 中的流程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_gce.html">Google Cloud Platform Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vagrant.html">使用Vagrant和Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rolling_upgrade.html">持續交付與滾動升級</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="guides.html">詳細指南</a> &raquo;</li>
+      
+    <li>Rackspace 雲指南</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/guide_rax.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rackspace">
+<h1>Rackspace 雲指南<a class="headerlink" href="#rackspace" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<span id="id1"></span><h2>介紹<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 包含一些與 Rackspace Cloud 互動的核心模組.</p>
+<p>本節的目的是說明在 Rackspace Cloud 的環境下如何使用 Ansible 模組(和使用 inventory scripts).</p>
+<p>使用其他模組的先決條件是最少的. 除 Ansible 之外, 所有的模組依賴 pyrax 1.5 或更高版本. 你需要將這個 Python 模組安裝在執行主機上.</p>
+<p>pyrax 在一些作業系統的包倉庫中是不存在的, 所以你可能需要通過 pip 安裝:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install pyrax
+</pre></div>
+</div>
+<p>下面的步驟將會一直從控制機器通過 Rackspace Cloud API 執行, 所以將 localhost 新增到 inventory 檔案中是有意義的. (在未來 Ansible 可能不在依賴這一步):</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[localhost]</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+</pre></div>
+</div>
+<p>在 playbook 中, 我們將會使用下面典型的模式:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="credentials-file">
+<span id="id2"></span><h2>憑證檔案<a class="headerlink" href="#credentials-file" title="Permalink to this headline">¶</a></h2>
+<p>這個 <cite>rax.py</cite> inventory 指令碼和所有 <cite>rax</cite> 模組均支援一種標準的 <cite>pyrax</cite> 憑證檔案, 它看起來像這樣:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[rackspace_cloud]</span>
+<span class="na">username</span> <span class="o">=</span> <span class="s">myraxusername</span>
+<span class="na">api_key</span> <span class="o">=</span> <span class="s">d41d8cd98f00b204e9800998ecf8427e</span>
+</pre></div>
+</div>
+<p>設定環境變數 RAX_CREDS_FILE 到憑證檔案的路徑, 這將幫助 Ansible 找到它並載入這些資訊.</p>
+<p>更多關於憑證檔案的資訊可以參考這裡
+<a class="reference external" href="https://github.com/rackspace/pyrax/blob/master/docs/getting_started.md#authenticating">https://github.com/rackspace/pyrax/blob/master/docs/getting_started.md#authenticating</a></p>
+<div class="section" id="python">
+<span id="virtual-environment"></span><h3>在 Python 的虛擬環境中執行(可選)<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>大多數使用者不喜歡使用虛擬環境, 但是有些使用者喜歡, 特別是一些 Python 開發者.</p>
+<p>當 Ansible 被安裝到 Python 的虛擬環境時, 相比較預設安裝到全局環境中, 需要有一些特殊考慮. Ansible 假定, 除非有其他明確的指定, python 二進位制可執行檔案為 /usr/bin/python. 這是通過模組中直譯器一行確定的, 然而可以使用 inventory 變數 &#8216;ansible_python_interpreter&#8217; 來重新指定, Ansible 將使用指定的路徑去尋找 Python. 使用 Python 虛擬環境解析器, 這可能是模組在 &#8216;localhost&#8217; 執行或者通過 &#8216;local_action&#8217; 來執行的原因. 通過設定 inventory, 模組將會在虛擬環境中執行並且擁有單獨的虛擬包, 特別是 pyrax. 如果使用虛擬環境, 你可能需要修改你本地 inventory 來定義這個虛擬位置, 像下面一樣:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[localhost]</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local ansible_python_interpreter=/path/to/ansible_venv/bin/python</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="provisioning">
+<span id="id3"></span><h2>配置<a class="headerlink" href="#provisioning" title="Permalink to this headline">¶</a></h2>
+<p>現在到了有趣的部分.</p>
+<p>這個 &#8216;rax&#8217; 模組在 Rackspace Cloud 中具有提供 instances 的能力. 典型的配置任務將通過你的 Ansible 控制伺服器(在我們的例子中, localhost)請求 Rackspace cloud API. 這是因為這幾個原因:</p>
+<blockquote>
+<div><ul class="simple">
+<li>避免 pyrax 庫安裝在遠端節點</li>
+<li>無需加密和分發憑證到遠端節點</li>
+<li>快且簡單</li>
+</ul>
+</div></blockquote>
+<p>下面是一個在 ad-hoc 模式下配置 instance 的簡單例項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ansible localhost -m rax -a <span class="s2">&quot;name=awx flavor=4 image=ubuntu-1204-lts-precise-pangolin wait=yes&quot;</span> -c <span class="nb">local</span>
+</pre></div>
+</div>
+<p>這些內容轉換成 playbook 像下面一樣, 假設參數定義在變數中:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Provision a set of instances</span>
+    <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">flavor</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_flavor</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_image</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">count</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_count</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">group</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+    <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+</pre></div>
+</div>
+<p>rax 模組返回節點建立 instance 的資料, 像 IP 地址, 主機名, 和登陸密碼. 通過註冊返回值的步驟, 可以使用它動態新增到主機的 inventory 中(臨時在記憶體中). 這有利於在新建的 instance 上進行配置操作. 在下面的示例中, 將會使用上面成功建立的伺服器的資訊, 通過每個節點的主機名, IP 地址, 和 root 密碼動態新增到一個名為 raxhosts 組中.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add the instances we created (by public IP) to the group &#39;raxhosts&#39;</span>
+  <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">add_host</span>
+      <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="l-Scalar-Plain">ansible_ssh_host</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_accessipv4</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="l-Scalar-Plain">ansible_ssh_pass</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_adminpass</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="l-Scalar-Plain">groups</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">raxhosts</span>
+  <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.success</span>
+  <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.action == &#39;create&#39;</span>
+</pre></div>
+</div>
+<p>現在使用已經建立的主機組, 接下來將會使用下面的 playbook 配置 raxhosts 組中的伺服器</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Configuration play</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">raxhosts</span>
+  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ntp</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">webserver</span>
+</pre></div>
+</div>
+<p>上面的方法將提供的主機配置在一起. 這並不總是你想要了, 那麼讓我們進入下一章節.</p>
+</div>
+<div class="section" id="inventory">
+<span id="host-inventory"></span><h2>主機 Inventory<a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
+<p>一旦你的節點被建立啟動, 你很可能會多次和他們進行通訊. 最好的方法是通過 &#8220;rax&#8221; inventory 外掛, 動態查詢 Rackspace Cloud 告訴 Ansible 哪些節點需要被管理. 你可能會使用 Ansible 啟動的這些 event 來管理其他的工具, 包含 Rackspace 雲使用者介面. 這個 inventory 外掛可以通過元資料, 區域, OS, 配置等來進行分組. 在 &#8220;rax&#8221; 中高度推薦使用元資料, 它可以很容易的在主機組和 roles 之間排序. 如果你不想使用 &#8220;rax.py&#8221; 這個動態 inventory 指令碼, 你仍然可以選擇手動管理你的 INI inventory 檔案, 儘管這是不被推薦的.</p>
+<p>Ansible 可以使用多個動態 inventory 外掛和 INI 資料檔案. 僅僅需要將他們放在一個目錄下, 並確保指令碼添加了執行許可權, INI 檔案則不需要.</p>
+<div class="section" id="rax-py">
+<span id="raxpy"></span><h3>rax.py<a class="headerlink" href="#rax-py" title="Permalink to this headline">¶</a></h3>
+<p>使用 rackspace 動態 inventory 指令碼, 複製 <code class="docutils literal"><span class="pre">rax.py</span></code> 到你的 inventory 目錄下並且賦予執行許可權. 你可以為 <code class="docutils literal"><span class="pre">rax.py</span></code> 指定一個憑證檔案利用 <code class="docutils literal"><span class="pre">RAX_CREDS_FILE</span></code> 環境變數.</p>
+<p><code class="docutils literal"><span class="pre">rax.py</span></code> 也接收 <code class="docutils literal"><span class="pre">RAX_REGION</span></code> 環境變數, 其中可以包含單個區域或者用逗號隔開的區域列表.</p>
+<p>當使用 <code class="docutils literal"><span class="pre">rax.py</span></code>, 你將不需要在 inventory 中定義 &#8216;localhost&#8217;.</p>
+<p>正如前面所提到的, 你將經常在主機迴圈之外執行這些模組, 並且需要定義 &#8216;localhost&#8217;. 這裡推薦這樣做, 建立一個 <code class="docutils literal"><span class="pre">inventory</span></code> 目錄, 並且將 <code class="docutils literal"><span class="pre">rax.py</span></code> 和包含 <code class="docutils literal"><span class="pre">localhost</span></code> 的檔案放在這個目錄下.</p>
+<p>執行 <code class="docutils literal"><span class="pre">ansible</span></code> 或 <code class="docutils literal"><span class="pre">ansible_playbook</span></code> 並且指定一個包含 <code class="docutils literal"><span class="pre">inventory</span></code> 的目錄而不是一個檔案, ansible 將會讀取這個目錄下的所有檔案.</p>
+<p>讓我們測試下我們的 inventory 指令碼是否可以和 Reckspace Cloud 通訊.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ RAX_CREDS_FILE</span><span class="o">=</span>~/.raxpub ansible all -i inventory/ -m setup
+</pre></div>
+</div>
+<p>假設所有的屬性配置都是正確的, 這個 <code class="docutils literal"><span class="pre">rax.py</span></code> inventory 指令碼將會輸入類似於下面的資訊, 這些將會被用作 inventory 和變數.</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;ORD&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;test&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;_meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;hostvars&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;ansible_ssh_host&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_accessipv4&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_accessipv6&quot;</span><span class="p">:</span> <span class="s2">&quot;2607:f0d0:1002:51::4&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;private&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;2.2.2.2&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">4</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">4</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;2607:f0d0:1002:51::4&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">6</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;rax_config_drive&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_created&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-11-14T20:48:22Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_flavor&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;performance1-1&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ord.servers.api.rackspacecloud.com/111111/flavors/performance1-1&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;rel&quot;</span><span class="p">:</span> <span class="s2">&quot;bookmark&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;rax_hostid&quot;</span><span class="p">:</span> <span class="s2">&quot;e7b6961a9bd943ee82b13816426f1563bfda6846aad84d52af45a4904660cde0&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_human_id&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_id&quot;</span><span class="p">:</span> <span class="s2">&quot;099a447b-a644-471f-87b9-a7f580eb0c2a&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_image&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;b211c7bf-b5b4-4ede-a8de-a4368750c653&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ord.servers.api.rackspacecloud.com/111111/images/b211c7bf-b5b4-4ede-a8de-a4368750c653&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;rel&quot;</span><span class="p">:</span> <span class="s2">&quot;bookmark&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;rax_key_name&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;rax_links&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ord.servers.api.rackspacecloud.com/v2/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;rel&quot;</span><span class="p">:</span> <span class="s2">&quot;self&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ord.servers.api.rackspacecloud.com/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;rel&quot;</span><span class="p">:</span> <span class="s2">&quot;bookmark&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="nt">&quot;rax_metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;rax_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_name_attr&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_networks&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;private&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;2.2.2.2&quot;</span>
+                    <span class="p">],</span>
+                    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;2607:f0d0:1002:51::4&quot;</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;rax_os-dcf_diskconfig&quot;</span><span class="p">:</span> <span class="s2">&quot;AUTO&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_os-ext-sts_power_state&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="nt">&quot;rax_os-ext-sts_task_state&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;rax_os-ext-sts_vm_state&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_progress&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                <span class="nt">&quot;rax_status&quot;</span><span class="p">:</span> <span class="s2">&quot;ACTIVE&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_tenant_id&quot;</span><span class="p">:</span> <span class="s2">&quot;111111&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-11-14T20:49:27Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;rax_user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;22222&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="standard-inventory">
+<span id="id4"></span><h3>標準的 Inventory<a class="headerlink" href="#standard-inventory" title="Permalink to this headline">¶</a></h3>
+<p>當使用標準的 ini 格式的 inventory檔案(相對於 inventory 外掛), 它仍然可以從 Rackspace API 檢索和發現 hostvar 資訊.</p>
+<p>這可以使用像下面 inventory 格式來實現類似於 <code class="docutils literal"><span class="pre">rax_facts</span></code> 的功能:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[test_servers]</span>
+<span class="na">hostname1 rax_region</span><span class="o">=</span><span class="s">ORD</span>
+<span class="na">hostname2 rax_region</span><span class="o">=</span><span class="s">ORD</span>
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Gather info about servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test_servers</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Get facts about servers</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">inventory_hostname</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_region</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Map some facts</span>
+      <span class="l-Scalar-Plain">set_fact</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">ansible_ssh_host</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_accessipv4</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+<p>雖然你不需要知道它是如何工作的, 瞭解返回的變數這也將是有趣的.</p>
+<p>這個 <code class="docutils literal"><span class="pre">rax_facts</span></code> 模組提供像下面內容的 facts, 這將匹配 <code class="docutils literal"><span class="pre">rax.py</span></code> inventory 指令碼:</p>
+<div class="highlight-python"><div class="highlight"><pre>.. code-block:: json
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;ansible_facts&#8221;: {</dt>
+<dd><p class="first">&#8220;rax_accessipv4&#8221;: &#8220;1.1.1.1&#8221;,
+&#8220;rax_accessipv6&#8221;: &#8220;2607:f0d0:1002:51::4&#8221;,
+&#8220;rax_addresses&#8221;: {</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8220;private&#8221;: [</dt>
+<dd><dl class="first docutils">
+<dt>{</dt>
+<dd>&#8220;addr&#8221;: &#8220;2.2.2.2&#8221;,
+&#8220;version&#8221;: 4</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>],
+&#8220;public&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;addr&#8221;: &#8220;1.1.1.1&#8221;,
+&#8220;version&#8221;: 4</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div>&#8220;addr&#8221;: &#8220;2607:f0d0:1002:51::4&#8221;,
+&#8220;version&#8221;: 6</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+&#8220;rax_config_drive&#8221;: &#8220;&#8221;,
+&#8220;rax_created&#8221;: &#8220;2013-11-14T20:48:22Z&#8221;,
+&#8220;rax_flavor&#8221;: {</p>
+<blockquote>
+<div><p>&#8220;id&#8221;: &#8220;performance1-1&#8221;,
+&#8220;links&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;href&#8221;: &#8220;<a class="reference external" href="https://ord.servers.api.rackspacecloud.com/111111/flavors/performance1-1">https://ord.servers.api.rackspacecloud.com/111111/flavors/performance1-1</a>&#8221;,
+&#8220;rel&#8221;: &#8220;bookmark&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+&#8220;rax_hostid&#8221;: &#8220;e7b6961a9bd943ee82b13816426f1563bfda6846aad84d52af45a4904660cde0&#8221;,
+&#8220;rax_human_id&#8221;: &#8220;test&#8221;,
+&#8220;rax_id&#8221;: &#8220;099a447b-a644-471f-87b9-a7f580eb0c2a&#8221;,
+&#8220;rax_image&#8221;: {</p>
+<blockquote>
+<div><p>&#8220;id&#8221;: &#8220;b211c7bf-b5b4-4ede-a8de-a4368750c653&#8221;,
+&#8220;links&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;href&#8221;: &#8220;<a class="reference external" href="https://ord.servers.api.rackspacecloud.com/111111/images/b211c7bf-b5b4-4ede-a8de-a4368750c653">https://ord.servers.api.rackspacecloud.com/111111/images/b211c7bf-b5b4-4ede-a8de-a4368750c653</a>&#8221;,
+&#8220;rel&#8221;: &#8220;bookmark&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+&#8220;rax_key_name&#8221;: null,
+&#8220;rax_links&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;href&#8221;: &#8220;<a class="reference external" href="https://ord.servers.api.rackspacecloud.com/v2/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a">https://ord.servers.api.rackspacecloud.com/v2/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a</a>&#8221;,
+&#8220;rel&#8221;: &#8220;self&#8221;</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div>&#8220;href&#8221;: &#8220;<a class="reference external" href="https://ord.servers.api.rackspacecloud.com/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a">https://ord.servers.api.rackspacecloud.com/111111/servers/099a447b-a644-471f-87b9-a7f580eb0c2a</a>&#8221;,
+&#8220;rel&#8221;: &#8220;bookmark&#8221;</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>],
+&#8220;rax_metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;foo&#8221;: &#8220;bar&#8221;</div></blockquote>
+<p>},
+&#8220;rax_name&#8221;: &#8220;test&#8221;,
+&#8220;rax_name_attr&#8221;: &#8220;name&#8221;,
+&#8220;rax_networks&#8221;: {</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8220;private&#8221;: [</dt>
+<dd>&#8220;2.2.2.2&#8221;</dd>
+</dl>
+<p>],
+&#8220;public&#8221;: [</p>
+<blockquote>
+<div>&#8220;1.1.1.1&#8221;,
+&#8220;2607:f0d0:1002:51::4&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p class="last">},
+&#8220;rax_os-dcf_diskconfig&#8221;: &#8220;AUTO&#8221;,
+&#8220;rax_os-ext-sts_power_state&#8221;: 1,
+&#8220;rax_os-ext-sts_task_state&#8221;: null,
+&#8220;rax_os-ext-sts_vm_state&#8221;: &#8220;active&#8221;,
+&#8220;rax_progress&#8221;: 100,
+&#8220;rax_status&#8221;: &#8220;ACTIVE&#8221;,
+&#8220;rax_tenant_id&#8221;: &#8220;111111&#8221;,
+&#8220;rax_updated&#8221;: &#8220;2013-11-14T20:49:27Z&#8221;,
+&#8220;rax_user_id&#8221;: &#8220;22222&#8221;</p>
+</dd>
+</dl>
+<p class="last">},
+&#8220;changed&#8221;: false</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>使用案例<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>本節涵蓋了一些特定案例外及額外的使用案例.</p>
+<div class="section" id="network-and-server">
+<span id="id6"></span><h3>網路和伺服器<a class="headerlink" href="#network-and-server" title="Permalink to this headline">¶</a></h3>
+<p>建立一個獨立的雲網絡並且建立一臺伺服器</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Build Servers on an Isolated Network</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Network create request</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_network</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">label</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-net</span>
+        <span class="l-Scalar-Plain">cidr</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.3.0/24</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server create request</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web%04d.example.org</span>
+        <span class="l-Scalar-Plain">flavor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+        <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-1204-lts-precise-pangolin</span>
+        <span class="l-Scalar-Plain">disk_config</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">manual</span>
+        <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">public</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">my-net</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+        <span class="l-Scalar-Plain">count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+        <span class="l-Scalar-Plain">exact_count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">wait_timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">360</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complete-environment">
+<span id="id7"></span><h3>完整的環境<a class="headerlink" href="#complete-environment" title="Permalink to this headline">¶</a></h3>
+<p>使用伺服器建立一個完整的 web 服務環境, 自定義網路和負載均衡, 安裝 nginx 並且建立自定義的 index.html</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Build environment</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Load Balancer create request</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_clb</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-lb</span>
+        <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+        <span class="l-Scalar-Plain">protocol</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HTTP</span>
+        <span class="l-Scalar-Plain">algorithm</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ROUND_ROBIN</span>
+        <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">PUBLIC</span>
+        <span class="l-Scalar-Plain">timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+        <span class="l-Scalar-Plain">meta</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">app</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-cool-app</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">clb</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Network create request</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_network</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">label</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-net</span>
+        <span class="l-Scalar-Plain">cidr</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.3.0/24</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">network</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server create request</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web%04d.example.org</span>
+        <span class="l-Scalar-Plain">flavor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">performance1-1</span>
+        <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-1204-lts-precise-pangolin</span>
+        <span class="l-Scalar-Plain">disk_config</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">manual</span>
+        <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">public</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">private</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">my-net</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+        <span class="l-Scalar-Plain">count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+        <span class="l-Scalar-Plain">exact_count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add servers to web host group</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">add_host</span>
+        <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_host</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_accessipv4</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_pass</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_adminpass</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">groups</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+      <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.success</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.action == &#39;create&#39;</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add servers to Load balancer</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_clb_nodes</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">load_balancer_id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">clb.balancer.id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_networks.private|first</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+        <span class="l-Scalar-Plain">condition</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">enabled</span>
+        <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">primary</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">IAD</span>
+      <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.success</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.action == &#39;create&#39;</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Configure servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+  <span class="l-Scalar-Plain">handlers</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">restart nginx</span>
+      <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=nginx state=restarted</span>
+
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Install nginx</span>
+      <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pkg=nginx state=latest update_cache=yes cache_valid_time=86400</span>
+      <span class="l-Scalar-Plain">notify</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">restart nginx</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Ensure nginx starts on boot</span>
+      <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">name=nginx state=started enabled=yes</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create custom index.html</span>
+      <span class="l-Scalar-Plain">copy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">content=&quot;{{ inventory_hostname }}&quot; dest=/usr/share/nginx/www/index.html</span>
+            <span class="l-Scalar-Plain">owner=root group=root mode=0644</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rackconnect-managed-cloud">
+<span id="rackconnect-and-manged-cloud"></span><h3>RackConnect 和 Managed Cloud<a class="headerlink" href="#rackconnect-managed-cloud" title="Permalink to this headline">¶</a></h3>
+<p>當使用 RackConnect version 2 或者 Rackspace Managed Cloud, Rackspace 將在成功建立的伺服器上自動執行這些任務. 如果你在 RackConnect 或 Managed Cloud 自動執行之前執行了, 你可能會獲得錯誤或者不可用的伺服器.</p>
+<p>這些例子展示了建立伺服器並且確保 Rackspace 自動執行完成之前將會繼續執行這些任務.</p>
+<p>為了簡單, 這些例子將會被連線起來, 但是都只需要使用 RackConnect. 當僅使用 Managed Cloud, RackConnect 將會忽略這部分.</p>
+<p>RackConnect 部分只適用於 RackConnect 版本 2.</p>
+<div class="section" id="using-a-control-machine">
+<span id="id8"></span><h4>使用一臺控制伺服器<a class="headerlink" href="#using-a-control-machine" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create an exact count of servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server build requests</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web%03d.example.org</span>
+        <span class="l-Scalar-Plain">flavor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">performance1-1</span>
+        <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-1204-lts-precise-pangolin</span>
+        <span class="l-Scalar-Plain">disk_config</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">manual</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">DFW</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">present</span>
+        <span class="l-Scalar-Plain">count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+        <span class="l-Scalar-Plain">exact_count</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+        <span class="l-Scalar-Plain">wait</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add servers to in memory groups</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">add_host</span>
+        <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_host</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_accessipv4</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_pass</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_adminpass</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">ansible_ssh_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">rax_id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item.rax_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">groups</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web,new_web</span>
+      <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.success</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax.action == &#39;create&#39;</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rackconnect and managed cloud automation to complete</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">new_web</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rackconnnect automation to complete</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">DFW</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts.ansible_facts[&#39;rax_metadata&#39;][&#39;rackconnect_automation_status&#39;]|default(&#39;&#39;) == &#39;DEPLOYED&#39;</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for managed cloud automation to complete</span>
+      <span class="l-Scalar-Plain">local_action</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts</span>
+        <span class="l-Scalar-Plain">credentials</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~/.raxpub</span>
+        <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">rax_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+        <span class="l-Scalar-Plain">region</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">DFW</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_facts.ansible_facts[&#39;rax_metadata&#39;][&#39;rax_service_level_automation&#39;]|default(&#39;&#39;) == &#39;Complete&#39;</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Base Configure Servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">web</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">openssh</span>
+      <span class="l-Scalar-Plain">opensshd_PermitRootLogin</span><span class="p-Indicator">:</span> <span class="s">&quot;no&quot;</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ntp</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ansible-pull">
+<span id="using-ansible-pull"></span><h4>利用 Ansible Pull<a class="headerlink" href="#ansible-pull" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Ensure Rackconnect and Managed Cloud Automation is complete</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Check for completed bootstrap</span>
+      <span class="l-Scalar-Plain">stat</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/bootstrap_complete</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Get region</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xenstore-read vm-data/provider_data/region</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rax_region</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rackconnect automation to complete</span>
+      <span class="l-Scalar-Plain">uri</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="s">&quot;https://{{</span><span class="nv"> </span><span class="s">rax_region.stdout|trim</span><span class="nv"> </span><span class="s">}}.api.rackconnect.rackspace.com/v1/automation_status?format=json&quot;</span>
+        <span class="l-Scalar-Plain">return_content</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yes</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">automation_status</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">automation_status[&#39;automation_status&#39;]|default(&#39;&#39;) == &#39;DEPLOYED&#39;</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for managed cloud automation to complete</span>
+      <span class="l-Scalar-Plain">wait_for</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/tmp/rs_managed_cloud_automation_complete</span>
+        <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Set bootstrap completed</span>
+      <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/bootstrap_complete</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">touch</span>
+        <span class="l-Scalar-Plain">owner</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0400</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Base Configure Servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">openssh</span>
+      <span class="l-Scalar-Plain">opensshd_PermitRootLogin</span><span class="p-Indicator">:</span> <span class="s">&quot;no&quot;</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ntp</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ansible-xenstore">
+<span id="using-ansible-pull-with-xenstore"></span><h4>利用 Ansible 拉取 XenStore<a class="headerlink" href="#ansible-xenstore" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Ensure Rackconnect and Managed Cloud Automation is complete</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Check for completed bootstrap</span>
+      <span class="l-Scalar-Plain">stat</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/bootstrap_complete</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rackconnect_automation_status xenstore key to exist</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xenstore-exists vm-data/user-metadata/rackconnect_automation_status</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rcas_exists</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+      <span class="l-Scalar-Plain">failed_when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rcas_exists.rc|int &gt; 1</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rcas_exists.rc|int == 0</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rackconnect automation to complete</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xenstore-read vm-data/user-metadata/rackconnect_automation_status</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rcas</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rcas.stdout|replace(&#39;&quot;&#39;, &#39;&#39;) == &#39;DEPLOYED&#39;</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for rax_service_level_automation xenstore key to exist</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xenstore-exists vm-data/user-metadata/rax_service_level_automation</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rsla_exists</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+      <span class="l-Scalar-Plain">failed_when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rsla_exists.rc|int &gt; 1</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rsla_exists.rc|int == 0</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for managed cloud automation to complete</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xenstore-read vm-data/user-metadata/rackconnect_automation_status</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rsla</span>
+      <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bootstrap.stat.exists != True</span>
+      <span class="l-Scalar-Plain">until</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rsla.stdout|replace(&#39;&quot;&#39;, &#39;&#39;) == &#39;DEPLOYED&#39;</span>
+      <span class="l-Scalar-Plain">retries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+      <span class="l-Scalar-Plain">delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Set bootstrap completed</span>
+      <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/bootstrap_complete</span>
+        <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">touch</span>
+        <span class="l-Scalar-Plain">owner</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0400</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Base Configure Servers</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">openssh</span>
+      <span class="l-Scalar-Plain">opensshd_PermitRootLogin</span><span class="p-Indicator">:</span> <span class="s">&quot;no&quot;</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">role</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ntp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="advanced-usage">
+<span id="id9"></span><h2>高階用法<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tower">
+<span id="awx-autoscale"></span><h3>Tower 中的自動伸縮<a class="headerlink" href="#tower" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> 中包含一個非常好的功能 自動伸縮. 在這種模式下, 一個簡單的 curl 指令碼可以呼叫定義的 URL, 通過這個請求, 伺服器將會被 &#8220;dial out&#8221; 或者配置一個新的伺服器並啟動. 這對於臨時節點的控制是非常偉大的. 檢視 Tower 文件獲取更多細節.</p>
+<p>在 Tower 上使用回撥的方式覆蓋 Pull 模式的好處在於, 任務的結果被集中的存放, 避免了主機之間資訊共享</p>
+</div>
+<div class="section" id="rackspace-cloud">
+<span id="pending-information"></span><h3>Rackspace Cloud 中的流程<a class="headerlink" href="#rackspace-cloud" title="Permalink to this headline">¶</a></h3>
+<p>Ansible 是一個強大的編排工具, 搭配 rax 模組使你有機會完成複雜任務的部署和配置. 這裡的關鍵是自動配置的基礎設施, 就像一個環境中任何的服務軟體. 複雜的部署以前可能需要手動配置負載均衡器或手動配置伺服器. 利用 Ansible 和 rax 模組, 可以使其他節點參照當前執行的一些節點來部署, 或者一個叢集的應用程式依賴於具有公共元資料的節點數量. 例如, 人們可以完成下列情況:</p>
+<ul class="simple">
+<li>將伺服器從雲負載均衡器中一個一個的刪除, 更新, 驗證並且返回一個負載均衡池</li>
+<li>對一個已存在的線上環境進行擴充套件, 哪些節點需要提供軟體, 引導, 配置和安裝</li>
+<li>在節點下線之前將應用程式的日誌上傳至中心儲存, 像雲端儲存</li>
+<li>關於伺服器在負載均衡器中的 DNS 記錄的建立和銷燬</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guide_gce.html" class="btn btn-neutral float-right" title="Google Cloud Platform Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guide_aws.html" class="btn btn-neutral" title="Amazon Web Services Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

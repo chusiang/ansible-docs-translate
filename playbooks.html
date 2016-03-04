@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playbooks &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Playbooks 介紹" href="playbooks_intro.html"/>
+        <link rel="prev" title="快速學習視訊" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Playbooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html">迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Playbooks</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playbooks">
+<h1>Playbooks<a class="headerlink" href="#playbooks" title="Permalink to this headline">¶</a></h1>
+<p>Playbooks 是 Ansible的配置,部署,編排語言.他們可以被描述為一個需要希望遠端主機執行命令的方案,或者一組IT程式執行的命令集合.</p>
+<p>如果 Ansible 模組你是工作室中的工具,那麼 playbooks 就是你設定的方案計劃.</p>
+<p>在基礎層面, playbooks 可以被用來管理用於部署到遠端主機的配置檔案.在更高的層面上,playbooks 可以依次對多層式架構上的伺服器執行上線包括滾動更新在內的操作並可以將操作委託給其他主機包括在此過程中發生的與監視伺服器,負載均衡伺服器的互動操作在內.</p>
+<p>雖然這裡講發很多,但是不需要立刻一次性全部學完.你可以從小功能開始,當你需要的時候再來這裡找對應的功能即可.</p>
+<p>Playbooks 被設計的非常簡單易懂和基於text language二次開發.有多種辦法來組織 playbooks 和其附屬的檔案,同時我們也會提供一些關於學習 Ansible 的建議.</p>
+<p>這裡強烈建議在閱讀的 playbook 文件的時候同步參閱 <cite>Example Playbooks &lt;https://github.com/ansible/ansible-examples&gt;</cite> 章節. 這些例子是最佳實戰以及如何將各種概念靈活貫穿結合在一起.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#about-playbooks">Playbooks 簡介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#playbook">Playbook 語言的示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#playbook-basics">playbook基礎</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_intro.html#playbook-hosts-and-users">主機與使用者</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_intro.html#tasks">Tasks 列表</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#action-shorthand">Action Shorthand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#handlers">Handlers: 在發生改變時執行的操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#executing-a-playbook">執行一個 playbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#ansible-pull">Ansible-Pull（拉取配置而非推送配置）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html#tips-and-tricks">提示與技巧</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#id1">介紹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#task-include-files">Task Include Files 和鼓勵重用機制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#role-default-variables">Role Default Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#role-dependencies">Role Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#embedding-modules-in-roles">Embedding Modules In Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html#ansible-galaxy">Ansible Galaxy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_variables.html">Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#valid-variable-names">合法的變數名</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#inventory">在Inventory中定義變數</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#playbook">在playbook中定義變數</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#role">在檔案和role中定義變數</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#jinja2">使用變數: 關於Jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#jinja2-filters">Jinja2過濾器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#yaml">YAML陷阱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#facts">使用Facts獲取的資訊</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#disabling-facts">關閉Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#facts-facts-d">本地Facts(Facts.d)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#fact">Fact快取</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#registered-variables">註冊變數</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#accessing-complex-variable-data">訪問複雜變數資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#magic-variables-and-hostvars">魔法變數,以及如何訪問其它主機的資訊</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#variable-file-separation-details">變數檔案分割</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#passing-variables-on-the-command-line">命令列中傳遞變數</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html#variable-precedence">變數的優先順序: 我該在什麼地方放置變數?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#when">When 語句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#id2">載入客戶事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#roles-includes-when">在roles 和 includes 上面應用&#8217;when&#8217;語句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#id3">條件匯入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#id4">基於變數選擇檔案和模版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html#id5">註冊變數</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_loops.html">迴圈</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#standard-loops">標準迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#nested-loops">巢狀迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#looping-over-hashes">對雜湊表使用迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#looping-over-fileglobs">對檔案列表使用迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#id6">對並行資料集使用迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#id7">對子元素使用迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#looping-over-integer-sequences">對整數序列使用迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#random-choice">隨機選擇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#do-until">Do-Until迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#with-first-found">查詢第一個匹配的檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#looping-over-the-results-of-a-program-execution">迭代程式的執行結果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#indexed-lists">使用索引迴圈列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#using-ini-with-a-loop">迴圈配置檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#flattening-a-list">扁平化列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#using-register-with-a-loop">迴圈中使用註冊器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html#writing-your-own-iterators">自定義迭代</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#content-organization">Content Organization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#directory-layout">Directory Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#use-dynamic-inventory-with-clouds">Use Dynamic Inventory With Clouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#how-to-differentiate-stage-vs-production">How to Differentiate  Stage vs Production</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#group-and-host-variables">Group And Host Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#top-level-playbooks-are-separated-by-role">Top Level Playbooks Are Separated By Role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#task-and-handler-organization-for-a-role">Task And Handler Organization For A Role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#what-this-organization-enables-examples">What This Organization Enables (Examples)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html#deployment-vs-configuration-organization">Deployment vs Configuration Organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#stage-vs-production">Stage vs Production</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#rolling-updates">Rolling Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#always-mention-the-state">Always Mention The State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#group-by-roles">Group By Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#operating-system-and-distribution-variance">Operating System and Distribution Variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#bundling-ansible-modules-with-playbooks">Bundling Ansible Modules With Playbooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#whitespace-and-comments">Whitespace and Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#always-name-tasks">Always Name Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#keep-it-simple">Keep It Simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html#version-control">Version Control</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_intro.html" class="btn btn-neutral float-right" title="Playbooks 介紹" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="快速學習視訊" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

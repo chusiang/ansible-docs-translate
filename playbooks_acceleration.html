@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Accelerated Mode &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/>
+        <link rel="next" title="非同步操作和輪詢" href="playbooks_async.html"/>
+        <link rel="prev" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Accelerated Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">你也許不需要這個！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">加速模式詳解</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_async.html">非同步操作和輪詢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_checkmode.html">Check Mode (&#8220;Dry Run&#8221;)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_delegation.html">委託,滾動更新,本地動作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_environment.html">配置環境 (在代理環境中)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_error_handling.html">Playbooks 中的錯誤處理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_tags.html">標籤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_vault.html">Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_startnstep.html">從指定任務開始執行palybook以及分步執行playbook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks_special_topics.html">Playbooks: Special Topics</a> &raquo;</li>
+      
+    <li>Accelerated Mode</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_acceleration.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accelerated-mode">
+<h1>Accelerated Mode<a class="headerlink" href="#accelerated-mode" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<div class="section" id="id1">
+<h2>你也許不需要這個！<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>你在使用 Ansible 1.5 或者 之後的版本嗎？ 如果是的話,因為被稱之為 &#8220;SSH pipelining&#8221; 的新特性,你也許就不需要加速模式了.詳情請閱讀:ref:<cite>pipelining</cite> 部分的章節.</p>
+<p>對於使用 1.5 及之後版本的使用者,加速模式只在以下情況下有用處: (A) 管理紅帽企業版 Linux 6 或者更早的那些依然使用 paramiko 的版本 或者 (B) 像在文件中描述的那樣:無法在 TTYs 中使用 sudo.</p>
+<p>如果你能夠使用pipelining,Ansible 將會降低通過 wire 傳輸檔案的總量來提升有效率,並且在幾乎所有情況下（甚至可能包括了傳輸大型檔案）都能與加速模式相匹敵.歸功於更少的移動檔案塊,管道幾乎在所有的情況下優於加速模式.</p>
+<p>加速模式將為了支援那些仍使用紅帽企業版 Linux 6 做主控機或因其他環境因素受限制而保留.</p>
+</div>
+<div class="section" id="id2">
+<h2>加速模式詳解<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>儘管 OpenSSH 使用的 ControlPersist 特性既快速又可伸縮,但這會在 SSH 連線時造成少量的開銷.雖然很多人不會遇到這樣一個需求,但是如果你當前執行的平臺不支援 ControlPersist (如 一臺 EL6 control machine),
+你大概會對 tuning 選項更感興趣.</p>
+<p>加速模式只是使用來加速連線的,它仍需使用 SSH 來進行初始安全金鑰交換.它沒有額外增加需要管理的基礎設施的公共key,也不需要諸如 NTP 或 DNS.</p>
+<p>加速模式在任何情況下將比啟用 ControlPersist 特性的 SSH 快2-6倍,10倍於 paramiko.</p>
+<p>加速模式通過啟動一個臨時的 SSH 守護程序來工作.只要這個守護程序在執行,Ansible 將會直接通過 socket 來連線.Ansible 通過在連線時交換臨時的 AES key 來確保安全(這個祕鑰對每個主機都是不同的並且會定期重新生成).</p>
+<p>預設配置下,Ansible 會為加速模式開啟5099埠(此配置可修改).一旦運行了,守護程序將會維持連線 30 分鐘,過了時限後該連線將會自動終結,你需要重啟一個 SSH.</p>
+<p>加速模式對它所基於的 fireball 模式(已被廢棄)做了許多改進:</p>
+<ul class="simple">
+<li>不需要 bootstrapping,僅需在你想要執行加速模式的playbook上新增一行程式碼.</li>
+<li>支援 sudo 命令(下文參見詳情)</li>
+<li>更少的依賴需求.ZeroMQ 不在需要,除了 python-keyczar 外再無其他依賴包需要安裝.</li>
+<li>Python 版本必須大於等於 2.5</li>
+</ul>
+<p>只需在你的 play 中新增 <cite>accelerate: true</cite> 即可使用加速模式:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: all
+  accelerate: true
+
+  tasks:
+
+  - name: some task
+    command: echo {{ item }}
+    with_items:
+    - foo
+    - bar
+    - baz
+</pre></div>
+</div>
+<p>如果你希望改變 Ansible 用於加速模式的埠,你只需新增 <cite>accelerated_port</cite> 選項:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: all
+  accelerate: true
+  # default port is 5099
+  accelerate_port: 10000
+</pre></div>
+</div>
+<p><cite>accelerate_port</cite> 選項也同樣能通過指定環境變數 ACCELERATE_PORT 或者在你的 <cite>ansible.cfg</cite> 中配置:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">accelerate</span><span class="p">]</span>
+<span class="n">accelerate_port</span> <span class="o">=</span> <span class="mi">5099</span>
+</pre></div>
+</div>
+<p>如先前所述,加速模式同樣支援通過 sudo 命令來執行任務.但是有兩點需要予以提醒:</p>
+<ul class="simple">
+<li>你必須移除 sudoers 選項中的 requiretty.</li>
+<li>目前仍不支援 sudo 密碼提示,所以 NOPASSWD 選項是必須的.</li>
+</ul>
+<p>如果是 Ansible 版本是 <cite>1.6</cite>,你同樣可以允許多個連線多個祕鑰來連線多個 Ansible 管理節點.你可以通過在你的 <cite>ansible.cfg</cite> 中新增如下配置:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">accelerate_multi_key</span> <span class="o">=</span> <span class="n">yes</span>
+</pre></div>
+</div>
+<p>當啟用時,守護程序將會開啟一個 UNIX socket 檔案(預設位於 <cite>$ANSIBLE_REMOTE_TEMP/.ansible-accelerate/.local.socket</cite>).來自 SSH 的新的連線能夠通過這個 socket 檔案來上載新的祕鑰給守護程序.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_async.html" class="btn btn-neutral float-right" title="非同步操作和輪詢" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_special_topics.html" class="btn btn-neutral" title="Playbooks: Special Topics" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developing Plugins &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="開發者須知" href="developing.html"/>
+        <link rel="next" title="幫助測試PR" href="developing_test_pr.html"/>
+        <link rel="prev" title="Developing Modules" href="developing_modules.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="developing.html">開發者須知</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_inventory.html">開發動態的Inventory資料來源</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules.html">Developing Modules</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Developing Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connection-type-plugins">Connection Type Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookup-plugins">Lookup Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vars-plugins">Vars Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-plugins">Filter Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#callbacks">Callbacks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring">Configuring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#development">Development</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#distributing-plugins">Distributing Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developing_test_pr.html">幫助測試PR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="developing.html">開發者須知</a> &raquo;</li>
+      
+    <li>Developing Plugins</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/developing_plugins.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developing-plugins">
+<h1><a class="toc-backref" href="#id2">Developing Plugins</a><a class="headerlink" href="#developing-plugins" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#developing-plugins" id="id2">Developing Plugins</a><ul>
+<li><a class="reference internal" href="#connection-type-plugins" id="id3">Connection Type Plugins</a></li>
+<li><a class="reference internal" href="#lookup-plugins" id="id4">Lookup Plugins</a></li>
+<li><a class="reference internal" href="#vars-plugins" id="id5">Vars Plugins</a></li>
+<li><a class="reference internal" href="#filter-plugins" id="id6">Filter Plugins</a></li>
+<li><a class="reference internal" href="#callbacks" id="id7">Callbacks</a><ul>
+<li><a class="reference internal" href="#examples" id="id8">Examples</a></li>
+<li><a class="reference internal" href="#configuring" id="id9">Configuring</a></li>
+<li><a class="reference internal" href="#development" id="id10">Development</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#distributing-plugins" id="id11">Distributing Plugins</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Ansible is pluggable in a lot of other ways separate from inventory scripts and callbacks.  Many of these features are there to cover fringe use cases and are infrequently needed, and others are pluggable simply because they are there to implement core features
+in ansible and were most convenient to be made pluggable.</p>
+<p>This section will explore these features, though they are generally not common in terms of things people would look to extend quite
+as often.</p>
+<div class="section" id="connection-type-plugins">
+<span id="developing-connection-type-plugins"></span><h2><a class="toc-backref" href="#id3">Connection Type Plugins</a><a class="headerlink" href="#connection-type-plugins" title="Permalink to this headline">¶</a></h2>
+<p>By default, ansible ships with a &#8216;paramiko&#8217; SSH, native ssh (just called &#8216;ssh&#8217;), &#8216;local&#8217; connection type, and there are also some minor players like &#8216;chroot&#8217; and &#8216;jail&#8217;.  All of these can be used
+in playbooks and with /usr/bin/ansible to decide how you want to talk to remote machines.  The basics of these connection types
+are covered in the <a class="reference internal" href="intro_getting_started.html"><em>新手上路</em></a> section.  Should you want to extend Ansible to support other transports (SNMP? Message bus?
+Carrier Pigeon?) it&#8217;s as simple as copying the format of one of the existing modules and dropping it into the connection plugins
+directory.   The value of &#8216;smart&#8217; for a connection allows selection of paramiko or openssh based on system capabilities, and chooses
+&#8216;ssh&#8217; if OpenSSH supports ControlPersist, in Ansible 1.2.1 an later.  Previous versions did not support &#8216;smart&#8217;.</p>
+<p>More documentation on writing connection plugins is pending, though you can jump into <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/connections">lib/ansible/plugins/connections</a> and figure things out pretty easily.</p>
+</div>
+<div class="section" id="lookup-plugins">
+<span id="developing-lookup-plugins"></span><h2><a class="toc-backref" href="#id4">Lookup Plugins</a><a class="headerlink" href="#lookup-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Language constructs like &#8220;with_fileglob&#8221; and &#8220;with_items&#8221; are implemented via lookup plugins.  Just like other plugin types, you can write your own.</p>
+<p>More documentation on writing lookup plugins is pending, though you can jump into <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/lookup">lib/ansible/plugins/lookup</a> and figure
+things out pretty easily.</p>
+</div>
+<div class="section" id="vars-plugins">
+<span id="developing-vars-plugins"></span><h2><a class="toc-backref" href="#id5">Vars Plugins</a><a class="headerlink" href="#vars-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Playbook constructs like &#8216;host_vars&#8217; and &#8216;group_vars&#8217; work via &#8216;vars&#8217; plugins.  They inject additional variable
+data into ansible runs that did not come from an inventory, playbook, or command line.  Note that variables
+can also be returned from inventory, so in most cases, you won&#8217;t need to write or understand vars_plugins.</p>
+<p>More documentation on writing vars plugins is pending, though you can jump into <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/inventory/vars_plugins">lib/ansible/inventory/vars_plugins</a> and figure
+things out pretty easily.</p>
+<p>If you find yourself wanting to write a vars_plugin, it&#8217;s more likely you should write an inventory script instead.</p>
+</div>
+<div class="section" id="filter-plugins">
+<span id="developing-filter-plugins"></span><h2><a class="toc-backref" href="#id6">Filter Plugins</a><a class="headerlink" href="#filter-plugins" title="Permalink to this headline">¶</a></h2>
+<p>If you want more Jinja2 filters available in a Jinja2 template (filters like to_yaml and to_json are provided by default), they can be extended by writing a filter plugin.  Most of the time, when someone comes up with an idea for a new filter they would like to make available in a playbook, we&#8217;ll just include them in &#8216;core.py&#8217; instead.</p>
+<p>Jump into <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/filter">lib/ansible/plugins/filter</a> for details.</p>
+</div>
+<div class="section" id="callbacks">
+<span id="developing-callbacks"></span><h2><a class="toc-backref" href="#id7">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<p>Callbacks are one of the more interesting plugin types.  Adding additional callback plugins to Ansible allows for adding new behaviors when responding to events.</p>
+<div class="section" id="examples">
+<span id="callback-examples"></span><h3><a class="toc-backref" href="#id8">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Example callbacks are shown in <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/callback">lib/ansible/plugins/callback</a>.</p>
+<p>The <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/callback/log_plays.py">log_plays</a>
+callback is an example of how to intercept playbook events to a log
+file, and the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/callback/mail.py">mail</a>
+callback sends email when playbooks complete.</p>
+<p>The <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/callback/osx_say.py">osx_say</a>
+callback provided is particularly entertaining &#8211; it will respond with
+computer synthesized speech on OS X in relation to playbook events,
+and is guaranteed to entertain and/or annoy coworkers.</p>
+</div>
+<div class="section" id="configuring">
+<span id="configuring-callbacks"></span><h3><a class="toc-backref" href="#id9">Configuring</a><a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h3>
+<p>To activate a callback drop it in a callback directory as configured in <span class="xref std std-ref">ansible.cfg</span>.</p>
+</div>
+<div class="section" id="development">
+<span id="callback-development"></span><h3><a class="toc-backref" href="#id10">Development</a><a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h3>
+<p>More information will come later, though see the source of any of the existing callbacks and you should be able to get started quickly.
+They should be reasonably self-explanatory.</p>
+</div>
+</div>
+<div class="section" id="distributing-plugins">
+<span id="id1"></span><h2><a class="toc-backref" href="#id11">Distributing Plugins</a><a class="headerlink" href="#distributing-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Plugins are loaded from both Python&#8217;s site_packages (those that ship with ansible) and a configured plugins directory, which defaults
+to /usr/share/ansible/plugins, in a subfolder for each plugin type:</p>
+<div class="highlight-python"><div class="highlight"><pre>* action_plugins
+* lookup_plugins
+* callback_plugins
+* connection_plugins
+* filter_plugins
+* vars_plugins
+</pre></div>
+</div>
+<p>To change this path, edit the ansible configuration file.</p>
+<p>In addition, plugins can be shipped in a subdirectory relative to a top-level playbook, in folders named the same as indicated above.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="modules.html"><em>模組相關</em></a></dt>
+<dd>List of built-in modules</dd>
+<dt><a class="reference internal" href="developing_api.html"><em>Python API</em></a></dt>
+<dd>Learn about the Python API for task execution</dd>
+<dt><a class="reference internal" href="developing_inventory.html"><em>開發動態的Inventory資料來源</em></a></dt>
+<dd>Learn about how to develop dynamic inventory sources</dd>
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>Learn about how to write Ansible modules</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">Mailing List</a></dt>
+<dd>The development mailing list</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developing_test_pr.html" class="btn btn-neutral float-right" title="幫助測試PR" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="developing_modules.html" class="btn btn-neutral" title="Developing Modules" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

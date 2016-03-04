@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>開發動態的Inventory資料來源 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="開發者須知" href="developing.html"/>
+        <link rel="next" title="Developing Modules" href="developing_modules.html"/>
+        <link rel="prev" title="Python API" href="developing_api.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="developing.html">開發者須知</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="developing_api.html">Python API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">開發動態的Inventory資料來源</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-script-conventions">指令碼規範</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-script-tuning">開啟呼叫外部Inventory指令碼</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules.html">Developing Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_plugins.html">Developing Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_test_pr.html">幫助測試PR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="developing.html">開發者須知</a> &raquo;</li>
+      
+    <li>開發動態的Inventory資料來源</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/developing_inventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inventory">
+<h1>開發動態的Inventory資料來源<a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#inventory-script-conventions" id="id3">指令碼規範</a></li>
+<li><a class="reference internal" href="#inventory-script-tuning" id="id4">開啟呼叫外部Inventory指令碼</a></li>
+</ul>
+</div>
+<p>如 <a class="reference internal" href="intro_dynamic_inventory.html"><em>動態 Inventory</em></a> 所介紹,ansible可以從一個動態的資料來源獲取到inventory資訊,包含雲端資料來源</p>
+<p>怎麼寫一個自己的資料來源?</p>
+<p>很簡單！我們僅僅需要建立一個在適當參數下,能夠返回正確JSON格式資料的指令碼或者程式,你可以使用任何語言來實現.</p>
+<div class="section" id="inventory-script-conventions">
+<span id="id1"></span><h2><a class="toc-backref" href="#id3">指令碼規範</a><a class="headerlink" href="#inventory-script-conventions" title="Permalink to this headline">¶</a></h2>
+<p>當我們在外部使用``&#8211;list``參數呼叫這個指令碼時,這個指令碼必須返回一個JSON雜湊/字典,它包含所管理的所有組.每個組的value應該是一個關於其包含的主機/IP雜湊/字典,它可能是一個子組或者組的變數或者僅僅是一個主機/IP的列表, 例如:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;databases&quot;</span>   <span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;hosts&quot;</span>   <span class="p">:</span> <span class="p">[</span> <span class="s">&quot;host1.example.com&quot;</span><span class="p">,</span> <span class="s">&quot;host2.example.com&quot;</span> <span class="p">],</span>
+        <span class="s">&quot;vars&quot;</span>    <span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;a&quot;</span>   <span class="p">:</span> <span class="n">true</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&quot;webservers&quot;</span>  <span class="p">:</span> <span class="p">[</span> <span class="s">&quot;host2.example.com&quot;</span><span class="p">,</span> <span class="s">&quot;host3.example.com&quot;</span> <span class="p">],</span>
+    <span class="s">&quot;atlanta&quot;</span>     <span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;hosts&quot;</span>   <span class="p">:</span> <span class="p">[</span> <span class="s">&quot;host1.example.com&quot;</span><span class="p">,</span> <span class="s">&quot;host4.example.com&quot;</span><span class="p">,</span> <span class="s">&quot;host5.example.com&quot;</span> <span class="p">],</span>
+        <span class="s">&quot;vars&quot;</span>    <span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;b&quot;</span>   <span class="p">:</span> <span class="n">false</span>
+        <span class="p">},</span>
+        <span class="s">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s">&quot;marietta&quot;</span><span class="p">,</span> <span class="s">&quot;5points&quot;</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s">&quot;marietta&quot;</span>    <span class="p">:</span> <span class="p">[</span> <span class="s">&quot;host6.example.com&quot;</span> <span class="p">],</span>
+    <span class="s">&quot;5points&quot;</span>     <span class="p">:</span> <span class="p">[</span> <span class="s">&quot;host7.example.com&quot;</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.0.</span></p>
+</div>
+<p>在版本1.0之前,每一個組只能是一個包含hostnames/IP Address的列表,像上面的webservers, marietta, 5points組</p>
+<p>當我們使用``&#8211;host &lt;hostname&gt;``(這裡的&lt;hostname&gt;只指相對上面資料中的host)參數呼叫時,這個指令碼必須返回一條空的JSON 雜湊/字典, 或者關於變數的JSON雜湊/字典,這些變數將被用來模板或者playbooks. 返回變數是可選的,如果指令碼不希望這樣做,返回一條空的雜湊/字典即可:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;favcolor&quot;</span>   <span class="p">:</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    <span class="s">&quot;ntpserver&quot;</span>  <span class="p">:</span> <span class="s">&quot;wolf.example.com&quot;</span><span class="p">,</span>
+    <span class="s">&quot;monitoring&quot;</span> <span class="p">:</span> <span class="s">&quot;pack.example.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inventory-script-tuning">
+<span id="id2"></span><h2><a class="toc-backref" href="#id4">開啟呼叫外部Inventory指令碼</a><a class="headerlink" href="#inventory-script-tuning" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>這個inventory腳本系統在所有的Ansible版本中都將會被呼叫,但是當使用``&#8211;host``參數操作每一臺主機時,這將是十分麻煩(低效率),尤其是當它用在呼叫遠端子系統時.在Ansible 1.3以後的版本(包含1.3),如果inventory指令碼返回的頂級元素為&#8221;_meta&#8221;,它可能會返回所有主機的變數.如果這個元素中包含一個名為&#8221;hostvars&#8221;的value,這個inventory指令碼對每一臺主機使用``&#8211;host``時將不會被呼叫.這將大大增加主機的執行效率,並且也使客戶端更容易實現這個指令碼的資料快取.</p>
+<p>這個資料將會被新增到JSON字典的頂級,像下面的格式:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+
+    <span class="c"># results of inventory script as above go here</span>
+    <span class="c"># inventory指令碼將到此終止</span>
+    <span class="c"># ...</span>
+
+    <span class="s">&quot;_meta&quot;</span> <span class="p">:</span> <span class="p">{</span>
+       <span class="s">&quot;hostvars&quot;</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="s">&quot;moocow.example.com&quot;</span>     <span class="p">:</span> <span class="p">{</span> <span class="s">&quot;asdf&quot;</span> <span class="p">:</span> <span class="mi">1234</span> <span class="p">},</span>
+          <span class="s">&quot;llama.example.com&quot;</span>      <span class="p">:</span> <span class="p">{</span> <span class="s">&quot;asdf&quot;</span> <span class="p">:</span> <span class="mi">5678</span> <span class="p">},</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="developing_api.html"><em>Python API</em></a></dt>
+<dd>Python API to Playbooks and Ad Hoc Task Execution</dd>
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>How to develop modules</dd>
+<dt><a class="reference internal" href="developing_plugins.html"><em>Developing Plugins</em></a></dt>
+<dd>How to develop plugins</dd>
+<dt><a class="reference external" href="http://ansible.com/ansible-tower">Ansible Tower</a></dt>
+<dd>REST API endpoint and GUI for Ansible, syncs with dynamic inventory</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">Development Mailing List</a></dt>
+<dd>Mailing list for development topics</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developing_modules.html" class="btn btn-neutral float-right" title="Developing Modules" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="developing_api.html" class="btn btn-neutral" title="Python API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

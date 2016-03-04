@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>動態 Inventory &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="Patterns" href="intro_patterns.html"/>
+        <link rel="prev" title="Inventory檔案" href="intro_inventory.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">新手上路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Inventory檔案</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">動態 Inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cobbler-inventory">Cobbler 外部 Inventory 指令碼</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-ec2-inventory">AWS EC2 外部 inventory 指令碼</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-inventory-scripts">其它 inventory 指令碼</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-multiple-sources">使用多個 inventory 源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-groups-of-dynamic">動態組作為靜態組的子組</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_configuration.html">Ansible的配置檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_windows.html">Windows Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>動態 Inventory</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_dynamic_inventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inventory">
+<span id="dynamic-inventory"></span><h1><a class="toc-backref" href="#id4">動態 Inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#inventory" id="id4">動態 Inventory</a><ul>
+<li><a class="reference internal" href="#cobbler-inventory" id="id5">Cobbler 外部 Inventory 指令碼</a></li>
+<li><a class="reference internal" href="#aws-ec2-inventory" id="id6">AWS EC2 外部 inventory 指令碼</a></li>
+<li><a class="reference internal" href="#other-inventory-scripts" id="id7">其它 inventory 指令碼</a></li>
+<li><a class="reference internal" href="#using-multiple-sources" id="id8">使用多個 inventory 源</a></li>
+<li><a class="reference internal" href="#static-groups-of-dynamic" id="id9">動態組作為靜態組的子組</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>使用配置管理系統經常有一種需求,可能要在其他的軟體系統中儲存自己的 inventory 配置資訊.</p>
+<p>Ansible 本身通過基於文字的方式來記錄 inventory 配置資訊,這在前面已介紹過（詳見 <a class="reference internal" href="intro_inventory.html"><em>Inventory檔案</em></a> ）.</p>
+<p>除此之外,Ansible 也支援用其他方式儲存配置資訊.</p>
+<p>在其他軟體系統儲存配置資訊的例子有:</p>
+<div class="highlight-python"><div class="highlight"><pre>1, 從雲端拉取 inventory
+2, LDAP（Lightweight Directory Access Protocol,輕量級目錄訪問協議）
+3, `Cobbler &lt;http://cobbler.github.com&gt;`_
+4, 或者是一份昂貴的企業版的 CMDB（配置管理資料庫） 軟體.
+</pre></div>
+</div>
+<p>對於這些需求,Ansible 可通過一個外部 inventory 系統來支援.在 ansible 的 &#8220;/plugins&#8221; 外掛目錄下已經含有一些選項 &#8211; 包括 EC2/Eucalyptus, Rackspace Cloud,and OpenStack,我們稍後會詳細介紹它們.</p>
+<p>Ansible <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> 提供了一個數據庫來儲存 inventory 配置資訊, 這個資料庫可以通過 web 訪問,或通過 REST 訪問.
+Tower 與所有你使用的 Ansible 動態 inventory 源保持同步,並提供了一個圖形化的 inventory 編輯器.
+有了這個資料庫,便可以很容易的關聯過去的事件歷史,可以看到在上一次 playbook 執行時,哪裡出現了執行失敗的情況.</p>
+<p>關於如何編寫你自己的動態 inventory 源,請參見 <a class="reference internal" href="developing_inventory.html"><em>開發動態的Inventory資料來源</em></a>.</p>
+<div class="section" id="cobbler-inventory">
+<span id="cobbler-example"></span><h2><a class="toc-backref" href="#id5">Cobbler 外部 Inventory 指令碼</a><a class="headerlink" href="#cobbler-inventory" title="Permalink to this headline">¶</a></h2>
+<p>當管理的物理機器到達了一定數量的時,很多使用 Ansible 的使用者可能同時也會使用到 <a class="reference external" href="http://cobbler.github.com">Cobbler</a> .
+（注: Cobbler 最初由 Michael DeHaan 編寫,現在項目主導人是 James Cammarata, 他目前在 Ansible 公司工作）.</p>
+<p>Cobbler 主要用於作業系統的 kickoff 安裝,以及管理 DHCP 和 DNS,除此之外,它有一個通用層,可為多種配置管理系統（甚至是同時的）提供資料.
+所以 Cobbler 也被一些管理員稱為是輕量級的 CMDB.</p>
+<p>如何將 Ansible 的 inventory 與 Cobbler 聯絡起來呢？方法是:
+將指令碼 <a class="reference external" href="https://raw.github.com/ansible/ansible/devel/plugins/inventory/cobbler.py">script</a> 拷貝到 /etc/ansible,通過 <cite>chmod +x</cite> 賦予可執行許可權.</p>
+<p>在使用 Ansible 之前,先啟動 cobblerd 程序.</p>
+<p>現在使用 Ansible 要加上  <code class="docutils literal"><span class="pre">-i</span></code> 選項 （ 例如:<code class="docutils literal"><span class="pre">-i</span> <span class="pre">/etc/ansible/cobbler.py</span></code>）.cobbler.py這個指令碼使用 Cobbler 的 XMLRPC API 與 Cobbler 通訊.</p>
+<p>執行指令碼 <code class="docutils literal"><span class="pre">/etc/ansible/cobbler.py</span></code> ,應該能看到一些 JSON 格式的資料輸出（也許還沒有具體的內容）.</p>
+<p>在 cobbler 中,假設有一個如下的場景:</p>
+<div class="highlight-python"><div class="highlight"><pre>cobbler profile add --name=webserver --distro=CentOS6-x86_64
+cobbler profile edit --name=webserver --mgmt-classes=&quot;webserver&quot; --ksmeta=&quot;a=2 b=3&quot;
+cobbler system edit --name=foo --dns-name=&quot;foo.example.com&quot; --mgmt-classes=&quot;atlanta&quot; --ksmeta=&quot;c=4&quot;
+cobbler system edit --name=bar --dns-name=&quot;bar.example.com&quot; --mgmt-classes=&quot;atlanta&quot; --ksmeta=&quot;c=5&quot;
+</pre></div>
+</div>
+<p>&#8216;foo.example.com&#8217; 是一個域名,Ansible 可以通過這個域名定址找到對應的主機foo,對其進行操作.也可以通過組名 &#8216;webserver&#8217; 或者 &#8216;atlanta&#8217; 定址找到這個主機,只要這個主機是屬於這兩個組的.直接使用 foo 是不行的.例如執行命令 &#8220;ansible foo&#8221; ,無法找到該主機,但使用 &#8220;ansible &#8216;foo*&#8217;&#8221; 卻可以,因為域名 &#8216;foo.example.com&#8217; 以foo開頭.</p>
+<p>這個指令碼不僅提供主機和組的資訊.如果運行了 &#8216;setup&#8217; 模組（只要使用 playbooks,&#8217;setup&#8217; 模組會自動執行）,變數 a, b, c 可按照以下模板自動填充:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: /srv/motd.j2
+Welcome, I am templated with a value of a={{ a }}, b={{ b }}, and c={{ c }}
+</pre></div>
+</div>
+<p>模板的使用如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible webserver -m setup
+ansible webserver -m template -a &quot;src=/tmp/motd.j2 dest=/etc/motd&quot;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">組名 &#8216;webserver&#8217; 是 cobbler 中定義的.你仍然可以在 Ansible 的配置檔案中定義變數.
+但要注意,變數名相同時,外部 inventory 指令碼中定義的變數會覆蓋 Ansible 中的變數.</p>
+</div>
+<p>執行上面命令後,主機 foo 的/etc/motd檔案被寫入如下的內容:</p>
+<div class="highlight-python"><div class="highlight"><pre>Welcome, I am templated with a value of a=2, b=3, and c=4
+</pre></div>
+</div>
+<p>主機 &#8216;bar&#8217; (bar.example.com)的 /etc/motd 中寫入如下內容:</p>
+<div class="highlight-python"><div class="highlight"><pre>Welcome, I am templated with a value of a=2, b=3, and c=5
+</pre></div>
+</div>
+<p>你也可以通過下面這個命令測試變數的替換:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible webserver -m shell -a &quot;echo {{ a }}&quot;
+</pre></div>
+</div>
+<p>也就是說,你可以在參數或命令操作中使用變數的替換.</p>
+</div>
+<div class="section" id="aws-ec2-inventory">
+<span id="aws-example"></span><h2><a class="toc-backref" href="#id6">AWS EC2 外部 inventory 指令碼</a><a class="headerlink" href="#aws-ec2-inventory" title="Permalink to this headline">¶</a></h2>
+<p>使用 AWC EC2時,維護一份 inventory 檔案有時不是最好的方法.因為主機的數量有可能發生變動,或者主機是由外部的應用管理的,或者使用了 AWS autoscaling.這時,使用 <a class="reference external" href="https://raw.github.com/ansible/ansible/devel/plugins/inventory/ec2.py">EC2 external inventory</a> 指令碼是更好的選擇.</p>
+<p>指令碼的使用方式有兩種,最簡單的是直接使用 Ansible 的命令列選項 <code class="docutils literal"><span class="pre">-i</span></code> ,指定指令碼的路徑（指令碼要有可執行許可權）:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible -i ec2.py -u ubuntu us-east-1d -m ping
+</pre></div>
+</div>
+<p>第二種方式,把指令碼拷貝為 <cite>/etc/ansible/hosts</cite> ,並賦予可執行許可權.還需把 <a class="reference external" href="https://raw.githubusercontent.com/ansible/ansible/devel/plugins/inventory/ec2.ini">ec2.ini</a> 檔案拷貝到 <cite>/etc/ansible/ec2.ini</cite>,然後執行 ansible.</p>
+<p>要成功的呼叫 API 訪問 AWS,需要配置 Boto （Boto 是 AWS 的 Python 介面）.可用的方法有多種,請參見: <a class="reference external" href="http://docs.pythonboto.org/en/latest/boto_config_tut.html">methods</a> .</p>
+<p>最簡單的方法是定義兩個環境變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>export AWS_ACCESS_KEY_ID=&#39;AK123&#39;
+export AWS_SECRET_ACCESS_KEY=&#39;abc123&#39;
+</pre></div>
+</div>
+<p>如何知道配置是否正確,執行指令碼來測試:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd plugins/inventory
+./ec2.py --list
+</pre></div>
+</div>
+<p>你可以看到以 JSON 格式表示的覆蓋所有 regions 的 inventory 資訊.</p>
+<p>因為每一個 region 需要自己的 API 呼叫,如果你僅使用了所有 regions 中的一個子集,可以編輯 <code class="docutils literal"><span class="pre">ec2.ini</span></code> ,使之僅顯示你所感興趣的那些 regions.
+在配置檔案 <code class="docutils literal"><span class="pre">ec2.ini</span></code> 中,包含了其他配置選項,包括快取控制和目的地址變數.</p>
+<p>inventory 檔案的核心部分,是一些名字到目的地址的對映.預設的 <code class="docutils literal"><span class="pre">ec2.ini</span></code> 設定適用於在 EC2 之外執行 Ansible（比如一臺膝上型電腦）,但這不是最有效的方式.</p>
+<p>在 EC2 內部執行 Ansible 時,內部的 DNS 名和 IP 地址比公共 DNS 名更容易理解.你可以在 <code class="docutils literal"><span class="pre">ec2.ini</span></code> 檔案中修改 <code class="docutils literal"><span class="pre">destination_variable</span></code> 變數,
+改為一個例項的私有 DNS 名.對於在私有子網的 VPC 上執行 Ansible ,這種設定很重要,使得我們可以使用內部IP地址之外的方式訪問到一個VPC.在 <code class="docutils literal"><span class="pre">ec2.ini</span></code> 檔案中,
+<cite>vpc_destination_variable</cite> 可以命名為任意一個 <a class="reference external" href="http://docs.pythonboto.org/en/latest/ref/ec2.html#module-boto.ec2.instance">boto.ec2.instance</a> 變數.</p>
+<p>EC2 外部 inventory 提供了一種從多個組到例項的對映:</p>
+<p>全局
+例項都屬於 <code class="docutils literal"><span class="pre">ec2</span></code> 這個組.</p>
+<dl class="docutils">
+<dt>例項ID</dt>
+<dd>例如:
+<code class="docutils literal"><span class="pre">i-00112233</span></code>
+<code class="docutils literal"><span class="pre">i-a1b1c1d1</span></code></dd>
+<dt>Region</dt>
+<dd>屬於一個 AWS region 的所有例項構成的一個組.
+例如:
+<code class="docutils literal"><span class="pre">us-east-1</span></code>
+<code class="docutils literal"><span class="pre">us-west-2</span></code></dd>
+<dt>可用性區域</dt>
+<dd>所有屬於 availability zone 的例項構成一個組.
+例如:
+<code class="docutils literal"><span class="pre">us-east-1a</span></code>
+<code class="docutils literal"><span class="pre">us-east-1b</span></code></dd>
+<dt>安全組</dt>
+<dd><p class="first">例項可屬於一個或多個安全組.每一個組的字首都是 <code class="docutils literal"><span class="pre">security_group_</span></code> ,符號(-) 已被轉換為(_). with all characters except alphanumerics (這句沒明白)</p>
+<p class="last">例如:
+<code class="docutils literal"><span class="pre">security_group_default</span></code>
+<code class="docutils literal"><span class="pre">security_group_webservers</span></code>
+<code class="docutils literal"><span class="pre">security_group_Pete_s_Fancy_Group</span></code></p>
+</dd>
+<dt>標籤</dt>
+<dd>每一個例項可有多個不同的 key/value 鍵值對,這些鍵值對被稱為標籤.標籤名可以隨意定義,最常見的標籤是 &#8216;Name&#8217;.每一個鍵值對是這個例項自己的組.
+特殊字元已轉換為下劃線,格式為 <code class="docutils literal"><span class="pre">tag_KEY_VALUE</span></code>
+例如:
+<code class="docutils literal"><span class="pre">tag_Name_Web</span></code>
+<code class="docutils literal"><span class="pre">tag_Name_redis-master-001</span></code>
+<code class="docutils literal"><span class="pre">tag_aws_cloudformation_logical-id_WebServerGroup</span></code></dd>
+</dl>
+<p>使用 Ansible 與指定的伺服器進行互動時,EC2 inventory 指令碼被再次呼叫（呼叫時加上了命令列選項  <code class="docutils literal"><span class="pre">--host</span> <span class="pre">HOST</span></code> ）,這個呼叫會在索引快取中進行查詢,獲取例項 ID,然後呼叫 API 訪問 AWS,獲取指定例項的所有資訊.這些資訊被轉換為 playbooks 中的變數,可以進行訪問.每一個變數的字首為 <code class="docutils literal"><span class="pre">ec2_</span></code>,下面是一些變數的示例:</p>
+<ul class="simple">
+<li>ec2_architecture</li>
+<li>ec2_description</li>
+<li>ec2_dns_name</li>
+<li>ec2_id</li>
+<li>ec2_image_id</li>
+<li>ec2_instance_type</li>
+<li>ec2_ip_address</li>
+<li>ec2_kernel</li>
+<li>ec2_key_name</li>
+<li>ec2_launch_time</li>
+<li>ec2_monitored</li>
+<li>ec2_ownerId</li>
+<li>ec2_placement</li>
+<li>ec2_platform</li>
+<li>ec2_previous_state</li>
+<li>ec2_private_dns_name</li>
+<li>ec2_private_ip_address</li>
+<li>ec2_public_dns_name</li>
+<li>ec2_ramdisk</li>
+<li>ec2_region</li>
+<li>ec2_root_device_name</li>
+<li>ec2_root_device_type</li>
+<li>ec2_security_group_ids</li>
+<li>ec2_security_group_names</li>
+<li>ec2_spot_instance_request_id</li>
+<li>ec2_state</li>
+<li>ec2_state_code</li>
+<li>ec2_state_reason</li>
+<li>ec2_status</li>
+<li>ec2_subnet_id</li>
+<li>ec2_tag_Name</li>
+<li>ec2_tenancy</li>
+<li>ec2_virtualization_type</li>
+<li>ec2_vpc_id</li>
+</ul>
+<p>其中 <code class="docutils literal"><span class="pre">ec2_security_group_ids</span></code> 和 <code class="docutils literal"><span class="pre">ec2_security_group_names</span></code> 變數的值為所有安全組的列表,使用逗號分隔.每一個 EC2 標籤是一個格式為 <code class="docutils literal"><span class="pre">ec2_tag_KEY</span></code> 的變數.</p>
+<p>要檢視一個例項的完整的可用變數的列表,執行指令碼:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd plugins/inventory
+./ec2.py --host ec2-12-12-12-12.compute-1.amazonaws.com
+</pre></div>
+</div>
+<p>注意,AWS inventory 指令碼會將結果進行快取,以避免重複的 API 呼叫,這個快取的設定可在 ec2.ini 檔案中配置.要顯式地清空快取,你可以加上 <code class="docutils literal"><span class="pre">--refresh-cache</span></code> 選項,執行指令碼如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ./ec2.py --refresh-cache</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-inventory-scripts">
+<span id="id1"></span><h2><a class="toc-backref" href="#id7">其它 inventory 指令碼</a><a class="headerlink" href="#other-inventory-scripts" title="Permalink to this headline">¶</a></h2>
+<p>除了 Cobbler 和 EC2 之外,還有以下的系統可以使用 inventory 指令碼:</p>
+<div class="highlight-python"><div class="highlight"><pre>BSD Jails
+DigitalOcean
+Google Compute Engine
+Linode
+OpenShift
+OpenStack Nova
+Red Hat&#39;s SpaceWalk
+Vagrant (not to be confused with the provisioner in vagrant, which is preferred)
+Zabbix
+</pre></div>
+</div>
+<p>關於這些系統還沒有專門的章節講述如何操作,但步驟與上面所講述的 AWS 一樣,具體可看看Ansible checkout 的 &#8220;plugins/&#8221; 目錄.</p>
+<p>如果你開發了一個通用的 inventory 指令碼,請提交一個 pull request,我們可能會把它放入項目中.</p>
+</div>
+<div class="section" id="using-multiple-sources">
+<span id="id2"></span><h2><a class="toc-backref" href="#id8">使用多個 inventory 源</a><a class="headerlink" href="#using-multiple-sources" title="Permalink to this headline">¶</a></h2>
+<p>如果 -i 選項後給出的地址是一個目錄 （or as so configured in ansible.cfg）,Ansible 可以同一時間使用多個 inventory 源.這樣在同一個 ansible 執行操作中,可混合的使用動態和靜態的 inventory 源.</p>
+</div>
+<div class="section" id="static-groups-of-dynamic">
+<span id="id3"></span><h2><a class="toc-backref" href="#id9">動態組作為靜態組的子組</a><a class="headerlink" href="#static-groups-of-dynamic" title="Permalink to this headline">¶</a></h2>
+<p>在靜態 inventory 檔案中,如果定義一個由一些組作為子成員的組,這些子組也需要定義（譯者注:即包含具體的 host）,否則執行時 ansible 會返回一個錯誤.
+如果定義一些動態組作為一個靜態組的子組,也需在靜態 inventory 檔案中定義動態組,但是動態組定義為一個空的組即可:</p>
+<div class="highlight-python"><div class="highlight"><pre>[tag_Name_staging_foo]
+
+[tag_Name_staging_bar]
+
+[staging:children]
+tag_Name_staging_foo
+tag_Name_staging_bar
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="intro_inventory.html"><em>Inventory檔案</em></a></dt>
+<dd>All about static inventory files</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro_patterns.html" class="btn btn-neutral float-right" title="Patterns" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_inventory.html" class="btn btn-neutral" title="Inventory檔案" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Windows Support &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="快速學習視訊" href="quickstart.html"/>
+        <link rel="prev" title="Ansible的配置檔案" href="intro_configuration.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">新手上路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Inventory檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">動態 Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_configuration.html">Ansible的配置檔案</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Windows Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">windows下的執行方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-installing">安裝管理機</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory">Inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-system-prep">Windows System Prep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-to-powershell-3-0-or-higher">Getting to PowerShell 3.0 or higher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">可用的windows模組</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developers-developers-developers">開發者:支援的模組及工作原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">提醒:控制機必須是Linux系統</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-facts">Windows Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-playbook-examples">Windows Playbook Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-contributions">Windows Contributions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>Windows Support</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_windows.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="windows-support">
+<h1><a class="toc-backref" href="#id7">Windows Support</a><a class="headerlink" href="#windows-support" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#windows-support" id="id7">Windows Support</a><ul>
+<li><a class="reference internal" href="#windows" id="id8">windows下的執行方式</a></li>
+<li><a class="reference internal" href="#windows-installing" id="id9">安裝管理機</a></li>
+<li><a class="reference internal" href="#inventory" id="id10">Inventory</a></li>
+<li><a class="reference internal" href="#windows-system-prep" id="id11">Windows System Prep</a></li>
+<li><a class="reference internal" href="#getting-to-powershell-3-0-or-higher" id="id12">Getting to PowerShell 3.0 or higher</a></li>
+<li><a class="reference internal" href="#id3" id="id13">可用的windows模組</a></li>
+<li><a class="reference internal" href="#developers-developers-developers" id="id14">開發者:支援的模組及工作原理</a></li>
+<li><a class="reference internal" href="#linux" id="id15">提醒:控制機必須是Linux系統</a></li>
+<li><a class="reference internal" href="#windows-facts" id="id16">Windows Facts</a></li>
+<li><a class="reference internal" href="#windows-playbook-examples" id="id17">Windows Playbook Examples</a></li>
+<li><a class="reference internal" href="#windows-contributions" id="id18">Windows Contributions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="windows">
+<span id="windows-how-does-it-work"></span><h2><a class="toc-backref" href="#id8">windows下的執行方式</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>就如你剛所瞭解到的,Ansible預設是通過SSH協議來管理Linux/Unix伺服器.</p>
+<p>從1.7版本開始,Ansible也開始支援Windows機器的管理.不過是通過本機的PowerShell來實現遠端管理,而不是SSH.</p>
+<p>Ansible仍然通過一臺Linux系統機器來進行集中管理,使用Python的 &#8220;winrm&#8221; 模組來和遠端主機互動.</p>
+<p>在管理的過程是 Ansible無需在遠端主機上安裝任何額外的軟體,Ansible仍然使用 agentless(非c/s架構) 來保證其在 Linux/Unix的流行度.</p>
+<p>需要注意的是有開始這章前你最好對對 Ansible 有一個預先的瞭解,如果你還沒有寫過一個 Playbook, 那最好先跳到playbook的章節先了解熟悉再開始本章內容.</p>
+</div>
+<div class="section" id="windows-installing">
+<span id="id1"></span><h2><a class="toc-backref" href="#id9">安裝管理機</a><a class="headerlink" href="#windows-installing" title="Permalink to this headline">¶</a></h2>
+<p>On a Linux control machine:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install http://github.com/diyan/pywinrm/archive/master.zip#egg=pywinrm
+</pre></div>
+</div>
+<p>如果你想通過活動目錄連線域帳戶進行釋出(相對本地帳戶在遠端主機上建立):</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install kerberos
+</pre></div>
+</div>
+<p>Kerberos 在 OS X 和許多 Linux 發行版中是預設安裝且配置好的.如果你的管理機上還沒有安裝,那你需要執行如上的命令.</p>
+</div>
+<div class="section" id="inventory">
+<span id="windows-inventory"></span><h2><a class="toc-backref" href="#id10">Inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
+<p>Ansible&#8217;s支援windows需要依賴於少量標準變數來表明遠端主機的username, password, and connection type (windows).這些變數大部分都很容易被設定好.在 Ansible 中通過用來代替 SSH-keys 或 密碼輸入:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">windows</span><span class="p">]</span>
+<span class="n">winserver1</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">winserver2</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>在 group_vars/windows.yml,定義如下 inventory 變數:</p>
+<div class="highlight-python"><div class="highlight"><pre># it is suggested that these be encrypted with ansible-vault:
+# ansible-vault edit group_vars/windows.yml
+
+ansible_ssh_user: Administrator
+ansible_ssh_pass: SecretPasswordGoesHere
+ansible_ssh_port: 5986
+ansible_connection: winrm
+</pre></div>
+</div>
+<p>需要注意的是這裡的 ssh_port 不是真正的SSH協議的埠,but this is a holdover variable name from how Ansible is mostly an SSH-oriented system.(這句也沒看懂)再重複一遍,Windows 管理主機不是通過SSH協議.</p>
+<p>如果你已經安裝了 <code class="docutils literal"><span class="pre">kerberos</span></code> 模組和 <code class="docutils literal"><span class="pre">ansible_ssh_user</span></code> 包括 <code class="docutils literal"><span class="pre">&#64;</span></code> (e.g. <code class="docutils literal"><span class="pre">username&#64;realm</span></code>), Ansible會先嚐試Kerberos認證. * 這種方式主要用你通過Kerberos在遠端主機上的認證而不是 <code class="docutils literal"><span class="pre">ansible_ssh_user</span></code> * .如果上述辦法失敗了,要麼是因為你沒有在管理機上籤署(signed into)Kerberos,要麼是因為遠端主機上對應的域帳戶不可用,接著 Ansible 將返回原始(&#8220;plain&#8221;)username/password的認證方式.</p>
+<p>當你使用 playbook 時,請不要忘記指定 &#8211;ask-vault-pass 提供密碼來解鎖檔案.</p>
+<p>使用如下命令來測試你的配置,嘗試連線你的 Windows 節點.注意:這不是ICMP ping,只是利用 Windows 遠端工具來檢測 Ansible 的通道是否正常:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible windows [-i inventory] -m win_ping --ask-vault-pass
+</pre></div>
+</div>
+<p>如果你還沒有在你的系統上做任何準備工作,那上面的命令是無法正常工作的. 在下面最近的章節將會介紹 &#8220;how to enable PowerShell remoting&#8221; - 如果有需要的話也將介紹 &#8220;how to upgrade PowerShell to a version that is 3 or higher&#8221; .</p>
+<p>你可以稍後再執行該命令,以確保一切都能正常工作.</p>
+</div>
+<div class="section" id="windows-system-prep">
+<span id="id2"></span><h2><a class="toc-backref" href="#id11">Windows System Prep</a><a class="headerlink" href="#windows-system-prep" title="Permalink to this headline">¶</a></h2>
+<p>為了 Ansible 能管理你的windows機器,你將必須開啟並配置遠端機器上PowerShell.</p>
+<p>為了能自動化設定 WinRM,你可以在遠端機器上執行 <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">this PowerShell script</a></p>
+<p>Admins有可能希望微調配置,例如延長證過期時間.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Windows 7 和 Server 2008 R2 系統因為 Windows
+Management Framework 3.0的BUG,你必須安裝 hotfix <a class="reference external" href="http://support.microsoft.com/kb/2842230">http://support.microsoft.com/kb/2842230</a> 來避免記憶體溢位(OOM)和堆棧異常. 新安裝的 Server 2008 R2 系統沒有升級到最新版本的均存在這個問題.</p>
+<p class="last">Windows 8.1 and Server 2012 R2 不受影響是因為他們自身預設使用的是 Windows Management Framework 4.0.</p>
+</div>
+</div>
+<div class="section" id="getting-to-powershell-3-0-or-higher">
+<span id="getting-to-powershell-three-or-higher"></span><h2><a class="toc-backref" href="#id12">Getting to PowerShell 3.0 or higher</a><a class="headerlink" href="#getting-to-powershell-3-0-or-higher" title="Permalink to this headline">¶</a></h2>
+<p>多數 Ansible Windows 模組需要 PowerShell 3.0 或更高版本,同時也需要在其基礎上執行安裝指令碼. 需要注意的是 PowerShell 3.0 只在 Windows 7 SP1 ,Windows Server 2008 SP1, 和更新的windows釋出版才被支援.</p>
+<p>找到 Ansible 的checkout版本,複製 copy the <a class="reference external" href="https://github.com/cchurch/ansible/blob/devel/examples/scripts/upgrade_to_ps3.ps1">examples/scripts/upgrade_to_ps3.ps1</a> 指令碼到遠端主機同時以Administrator角色的帳戶執行 PowerShell 控制檯. 你就可以執行 PowerShell 3 並可以通過上面介紹的 win_ping 技術來測試連通性.</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id13">可用的windows模組</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>大多數 Ansible 模組尤其核心Ansible設計來組合 Linux/Unix 機器和任意 web services. 儘管 <a class="reference external" href="http://docs.ansible.com/list_of_windows_modules.html">&#8220;windows&#8221; subcategory of the Ansible module index</a> 列舉了各種各校的 Windows 模組.</p>
+<p>瀏覽上面的索引檢視可用模組.</p>
+<p>很多情況下, 其實沒有必要寫或者使用 Ansible 模組.</p>
+<p>尤其, &#8220;script&#8221; 模組可以用來執行任意 PowerShell 指令碼,允許 Windows administrators 組所有使用者通過 PowerSehll 以非常本地化的方式做任何事情.就像如下的 playbook:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: windows
+  tasks:
+    - script: foo.ps1 --argument --other-argument
+</pre></div>
+</div>
+<p>注意: 有一小部分 Ansible 模組不是以 &#8220;win&#8221; 開頭但依然是函數,包括 &#8220;slurp&#8221;,&#8221;raw&#8221;,和&#8221;setup&#8221;(fact 收集的工作原理).</p>
+</div>
+<div class="section" id="developers-developers-developers">
+<span id="id4"></span><h2><a class="toc-backref" href="#id14">開發者:支援的模組及工作原理</a><a class="headerlink" href="#developers-developers-developers" title="Permalink to this headline">¶</a></h2>
+<p>開發 ansible 模組主要在 <a class="reference external" href="http://docs.ansible.com/developing_modules.html">later section of the documentation</a> 介紹,專注於 Linux/Unix 平臺. 如果你想編寫 Windows 的 ansible 模組該怎麼辦呢?</p>
+<p>Windows 平臺主要通過 PowerShell 模組實現. 開始之前可以先略過 Linux/Unix 模組開發章節.</p>
+<p>Windows 模組在 Ansible &#8220;library/&#8221; 子目錄下的 &#8220;windows/&#8221; 子目錄下. 例如,如果一個模組命名為 &#8220;library/windows/win_ping&#8221;,那將會在 &#8220;win_ping&#8221; 檔案中嵌入一個文件,實際的 PowerShell 程式碼將存在 &#8220;win_ping.ps1&#8221; 檔案. 看下原始碼會有更深入的瞭解.</p>
+<p>模組(ps1 files)檔案應該以如下格式開頭:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!powershell</span>
+<span class="c"># &lt;license&gt;</span>
+
+<span class="c"># WANT_JSON</span>
+<span class="c"># POWERSHELL_COMMON</span>
+
+<span class="c"># code goes here, reading in stdin as JSON and outputting JSON</span>
+</pre></div>
+</div>
+<p>如上程式碼是為了告訴 ansible 合入一些程式碼並且
+The above magic is necessary to tell Ansible to mix in some common code and also know how to push modules out.  常規程式碼包括好包裝例如雜湊資料結構,jason格式標準輸出,還有一些更有用的東西.常規 Ansible 有著重複利用 Python 程式碼的理念 - 這點 Windows 也是等同的.
+你剛看到的 windows/ 模組只是一個開始. 附加模組已經被 git push 到 github上了.</p>
+</div>
+<div class="section" id="linux">
+<span id="windows-and-linux-control-machine"></span><h2><a class="toc-backref" href="#id15">提醒:控制機必須是Linux系統</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Windows 控制機不是這個項目的目標. Ansible 不會開發這個功能,因為受限於技術,產品和我們未來主要項目使用的程式碼. 一臺Linux控制機是必須的,可以用來管理 Windows 機器. Cygwin 也是不被支援的,所以請不要要求 Ansible 基於 Cygwin 來執行.</p>
+</div>
+<div class="section" id="windows-facts">
+<span id="id5"></span><h2><a class="toc-backref" href="#id16">Windows Facts</a><a class="headerlink" href="#windows-facts" title="Permalink to this headline">¶</a></h2>
+<p>Just as with Linux/Unix, facts can be gathered for windows hosts, which will return things such as the operating system version.  To see what variables are available about a windows host, run the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible winhost.example.com -m setup
+</pre></div>
+</div>
+<p>Note that this command invocation is exactly the same as the Linux/Unix equivalent.</p>
+</div>
+<div class="section" id="windows-playbook-examples">
+<span id="windows-playbook-example"></span><h2><a class="toc-backref" href="#id17">Windows Playbook Examples</a><a class="headerlink" href="#windows-playbook-examples" title="Permalink to this headline">¶</a></h2>
+<p>Look to the list of windows modules for most of what is possible, though also some modules like &#8220;raw&#8221; and &#8220;script&#8221; also work on Windows, as do &#8220;fetch&#8221; and &#8220;slurp&#8221;.</p>
+<p>Here is an example of pushing and running a PowerShell script:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: test script module
+  hosts: windows
+  tasks:
+    - name: run test script
+      script: files/test_script.ps1
+</pre></div>
+</div>
+<p>Running individual commands uses the &#8216;raw&#8217; module, as opposed to the shell or command module as is common on Linux/Unix operating systems:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: test raw module
+  hosts: windows
+  tasks:
+    - name: run ipconfig
+      raw: ipconfig
+      register: ipconfig
+    - debug: var=ipconfig
+</pre></div>
+</div>
+<p>And for a final example, here&#8217;s how to use the win_stat module to test for file existence.  Note that the data returned by the win_stat module is slightly different than what is provided by the Linux equivalent:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: test stat module
+  hosts: windows
+  tasks:
+    - name: test stat module on file
+      win_stat: path=&quot;C:/Windows/win.ini&quot;
+      register: stat_file
+
+    - debug: var=stat_file
+
+    - name: check stat_file result
+      assert:
+          that:
+             - &quot;stat_file.stat.exists&quot;
+             - &quot;not stat_file.stat.isdir&quot;
+             - &quot;stat_file.stat.size &gt; 0&quot;
+             - &quot;stat_file.stat.md5&quot;
+</pre></div>
+</div>
+<p>Again, recall that the Windows modules are all listed in the Windows category of modules, with the exception that the &#8220;raw&#8221;, &#8220;script&#8221;, and &#8220;fetch&#8221; modules are also available.  These modules do not start with a &#8220;win&#8221; prefix.</p>
+</div>
+<div class="section" id="windows-contributions">
+<span id="id6"></span><h2><a class="toc-backref" href="#id18">Windows Contributions</a><a class="headerlink" href="#windows-contributions" title="Permalink to this headline">¶</a></h2>
+<p>Windows support in Ansible is still very new, and contributions are quite welcome, whether this is in the
+form of new modules, tweaks to existing modules, documentation, or something else.  Please stop by the ansible-devel mailing list if you would like to get involved and say hi.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>How to write modules</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Learning ansible&#8217;s configuration management language</dd>
+<dt><a class="reference external" href="http://docs.ansible.com/list_of_windows_modules.html">List of Windows Modules</a></dt>
+<dd>Windows specific module list, all implemented in PowerShell</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="快速學習視訊" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_configuration.html" class="btn btn-neutral" title="Ansible的配置檔案" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible使用者 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Ansible Galaxy" href="galaxy.html"/>
+        <link rel="prev" title="Ansible Tower" href="tower.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Ansible使用者</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">我有個問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">我想跟上版本釋出公告</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">我想幫助分享和改善Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">我想讓Ansible開發的更快</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bug">我想報告 Bug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">我想幫助改善文件</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id6">對當前和未來的開發人員</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id7">我想學習如何在 Ansible 上開發</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">貢獻程式碼(特性或者修復bug)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id9">其它主題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id10">Ansible 職員</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">郵件列表資訊</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">版本號</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tower">Tower 支援問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#irc">IRC 頻道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">注意優先順序的標識</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">社群程式碼和產品</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">貢獻執照許可</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Ansible使用者</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/community.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>Community Information &amp; Contributing
+社群資訊與貢獻
+<code class="docutils literal"><span class="pre">````````````````````````````````</span></code></p>
+<p>Ansible是一個開源項目,它被設計於讓開發者和管理員在共同構建自動化解決方案的時候更好的合作.</p>
+<p>你想要參與進來嗎 &#8211; 不論是問問題,幫助其它使用者,像新人介紹ansible,或者幫助軟體和文件的完善,我們都非常歡迎你對這個項目的貢獻.</p>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ansible" id="id16">Ansible使用者</a><ul>
+<li><a class="reference internal" href="#id1" id="id17">我有個問題</a></li>
+<li><a class="reference internal" href="#id2" id="id18">我想跟上版本釋出公告</a></li>
+<li><a class="reference internal" href="#id3" id="id19">我想幫助分享和改善Ansible</a></li>
+<li><a class="reference internal" href="#id4" id="id20">我想讓Ansible開發的更快</a></li>
+<li><a class="reference internal" href="#bug" id="id21">我想報告 Bug</a></li>
+<li><a class="reference internal" href="#id5" id="id22">我想幫助改善文件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id23">對當前和未來的開發人員</a><ul>
+<li><a class="reference internal" href="#id7" id="id24">我想學習如何在 Ansible 上開發</a></li>
+<li><a class="reference internal" href="#id8" id="id25">貢獻程式碼(特性或者修復bug)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id26">其它主題</a><ul>
+<li><a class="reference internal" href="#id10" id="id27">Ansible 職員</a></li>
+<li><a class="reference internal" href="#id11" id="id28">郵件列表資訊</a></li>
+<li><a class="reference internal" href="#id12" id="id29">版本號</a></li>
+<li><a class="reference internal" href="#tower" id="id30">Tower 支援問題</a></li>
+<li><a class="reference internal" href="#irc" id="id31">IRC 頻道</a></li>
+<li><a class="reference internal" href="#id13" id="id32">注意優先順序的標識</a></li>
+<li><a class="reference internal" href="#id14" id="id33">社群程式碼和產品</a></li>
+<li><a class="reference internal" href="#id15" id="id34">貢獻執照許可</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="ansible">
+<h1><a class="toc-backref" href="#id16">Ansible使用者</a><a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id17">我有個問題</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>我們很樂意幫助你！</p>
+<p>Ansible問題最好在Ansible的google談論組上面詢問.`Ansible Google Group Mailing List &lt;<a class="reference external" href="http://groups.google.com/group/ansible-project">http://groups.google.com/group/ansible-project</a>&gt;`_.</p>
+<p>這裡有非常多的回答問題的列表和分享的技巧.任何人都可以加入進來,如果你只想線上閱讀的話,傳送郵件是可選的.為了減少垃圾郵件,儘管投遞很快就被批准,你的第一次投遞還是可能比較慢.</p>
+<p>在問問題的時候,確保讓大家知道你執行的相關命令,輸出內容,一些細節,和你使用的Ansible版本</p>
+<p>在需要的使用例項場合,儘量連結到 github 上展示,而不是在郵件列表中傳送附件.</p>
+<p>推薦你在問問題之前使用 Google 搜尋,檢視是否相關問題已經被回答過了,但是如果在註釋中發現時間很久了,相關主題可能不再回復.</p>
+<p>在問問題之前,確保使用的是最新的穩定版本的 Ansible ,你可以通過對比命令 &#8216;ansible &#8211;version&#8217; 的輸出和 <cite>PyPi &lt;https://pypi.python.org/pypi/ansible&gt;</cite> 上面的版本來進行檢查.</p>
+<p>同樣,你可以加入 IRC 頻道 - #ansible on irc.freenode.net .這也是一個很活躍的頻道, 如果還沒在郵件列表中沒有找到你想要的答案,因為郵件是非同步的,請暫停傳送郵件,你的郵件可能會引起核心開發人員的注意.</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id18">我想跟上版本釋出公告</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>版本通知釋出在 ansible 的項目上面,如果你不想跟上最新的郵件列表,你可以加入 Ansible 匿名郵件列表 <a class="reference external" href="http://groups.google.com/group/ansible-announce">Ansible Announce Mailing List</a></p>
+<p>這是一個低流量的只讀郵件列表,我們指揮在這裡釋出版本通知和 可選的通向到 Ansible 大事件的連結</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id19">我想幫助分享和改善Ansible</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>你可以通過告訴朋友和同事,寫部落格,來把 Ansible 分享給其它人,或者出現在使用者討論組上面(像 DevOps組,或者本地 LUG)</p>
+<p>你可以註冊一個免費的賬戶標記為 &#8220;Ansible&#8221;,在 speakerdeck 上面分享你的幻燈片.在推特上,你可以和 ansible 一起分享,或者跟隨我們  <a class="reference external" href="https://twitter.com/ansible">follow us</a>.</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id20">我想讓Ansible開發的更快</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果你是一個開發者,最有價值的事情就是檢視 github issue 列表,幫助修復 bug.我們總是在特性開發時,優先考慮修復 bug 問題,因此你可以做的最好的事情就是清楚 bug .</p>
+<p>如果你不是開發者,幫助測試提交的 bug 修復問題,也是很有價值的.你可以檢驗 ansible,在主分支下,開一個測試分支,合併 github 上的問題,測試,然後在指定的 issue 上面註釋.</p>
+</div>
+<div class="section" id="bug">
+<h2><a class="toc-backref" href="#id21">我想報告 Bug</a><a class="headerlink" href="#bug" title="Permalink to this headline">¶</a></h2>
+<p>Ansible實際使用中暴露的問題 &#8211; 如果和安全相關,請發郵件到 <cite>security&#64;ansible.com &lt;mailto:security&#64;ansible.com&gt;</cite>,而不是發到 Google 討論組上面 .</p>
+<p>有關核心語言的 Bug 應該被報道到 <cite>github.com/ansible/ansible &lt;https://github.com/ansible/ansible&gt;</cite> .在報告一個 Bug 之前首先檢查 bug/issue 檢視有關 issue 是否被報告了.</p>
+<p>模組相關的 Bugs 應該基於模組的分類發到 <cite>ansible-modules-core &lt;https://github.com/ansible/ansible-modules-core&gt;</cite> 或者  <cite>ansible-modules-extras &lt;https://github.com/ansible/ansible-modules-extras&gt;</cite> .這會被列到模組文件的底部.</p>
+<p>當你填bug資訊的時候,模組請使用 <cite>issue template &lt;https://github.com/ansible/ansible/raw/devel/ISSUE_TEMPLATE.md&gt;</cite> 提供所有相關的資訊,不管你正在填什麼類型的表格.
+(When filing a bug, please use the <a class="reference external" href="https://github.com/ansible/ansible/raw/devel/ISSUE_TEMPLATE.md">issue template</a> to provide all relevant information, regardless of what repo you are filing a ticket against.)</p>
+<p>知道你ansible的版本,和你執行的具體的命令,你期望什得到什麼結果,將會幫助我們和每個人世間,更快的知道問題.</p>
+<p>不要使用類似,&#8221;我如何做(how do I do this)&#8221; 類型的問題.這裡都是 IRC 的參與者回答有用的問題,而不是討論有什麼問題的.學會提問.</p>
+<p>尊重審稿人,使審稿人有時間幫助更多的忍,請提供 良好註釋,語言簡潔的playbook,包括playbook的片段和輸出內容.有用的資訊儘量提出來,省略無用的資訊</p>
+<p>當在 playbook 分享 YAML 時候,格式可以被儲存通過使用 <cite>code blocks &lt;https://help.github.com/articles/github-flavored-markdown#fenced-code-blocks&gt;</cite></p>
+<p>對於多檔案的內容,推薦使用 gist.github.com. 線上 pastebin 內容可能會過期,因此如果他們被長時間的引用,最好時間放久一點.(For multiple-file content, we encourage use of gist.github.com.  Online pastebin content can expire, so it&#8217;s nice to have things around for a longer term if they
+are referenced in a ticket.)</p>
+<p>如果你不確定你提供的是否為 bug,歡迎到 IRC 郵件列表提問一些相關的事情.</p>
+<p>因為我們是一個大文獻的項目,如果你確定你有一個 bug ,請確保你開啟 issue ,確保我們有這個與你有關的issue記錄.不要依靠社群的其他人代替你上傳這個bug.</p>
+<p>得到你的報告可能會花一些世間,具體資訊檢視下面的優先順序標識.</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id22">我想幫助改善文件</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>ansible 的文件也是一個社群項目.</p>
+<p>如果你想幫助改善文件,糾正錯別字,或者改善一些章節,或者寫一個新特性的文件, 提交一個 github pull 請求,程式碼位於“docsite/rst” 子目錄,同樣也有一個 &#8220;Edit On Github&#8221;連線到哪裡的.</p>
+<p>模組文件嵌入在源碼模組的底部,模組可能是 ansible-modules-core 或者 ansible-modules-extra 取決於在github上的模組.關於這的資訊一直列在網頁文件的每個模組底部</p>
+<p>除了模組,主文件也在重建文字格式.(Aside from modules, the main docs are in restructured text format.  )</p>
+<p>如果你對新的重組的文字不滿意,你可以在 github 上開啟一個的標籤,關於你發現的錯誤,或者你想新增的部分.更多的資訊或者建立 pull 請求,請參考 <a class="reference external" href="https://help.github.com/articles/using-pull-requests">github help guide</a>.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id23">對當前和未來的開發人員</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id24">我想學習如何在 Ansible 上開發</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>如果你剛開始使用 Ansible,想弄明白 Ansible 內部的工作機制,停止 Ansible-devel 郵件列表,像我們打個招呼,我們會帶你開始的.</p>
+<p>一個好的開始方式可以是在模組網站上閱讀一些開發文件,然後找到一個 bug 然後修復,或者新增一些新的小特性.</p>
+<p>模組最容易開始地方.</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id25">貢獻程式碼(特性或者修復bug)</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 項目的原始碼託管在 github 上 ,核心應用位於 <a class="reference external" href="https://github.com/ansible/ansible">github.com/ansible/ansible</a> ,還有兩個模組相關的子項目  <a class="reference external" href="https://github.com/ansible/ansible-modules-core">github.com/ansible/ansible-modules-core</a>. 如果你想知道一個模組是核心模組(&#8220;core&#8221;)還是額外模組(&#8220;extras&#8221;),查閱那個模組的網頁文件.</p>
+<p>在提交程式碼之前,先到 ansible-devel 郵件列表討論一下特性問題,這可以有效的避免後期重複的工作.如果你不確定一個新的特性是否合適,先去開發郵件列表討論一下,這樣相對後來不得不修改一個 pull 請求更容易一些.</p>
+<p>提交補丁的時候,一定要先執行單元測試“make tests”, 有一些基本的測試會自動運行當建立PR時候. 有更多的深入測試在測試/整合目錄,分為 destructive 和 non_destructive,執行這些如果他們屬於你的修改.他們被設定了標籤,這樣你就可以執行子集,一些測試需要雲憑證和只有他們提供的時候才會執行.當新增修復 bug 的新的特性的時候,最好新增新的測試防止後期重新回滾.</p>
+<p>使用 &#8220;git rebase&#8221; vs &#8220;git merge&#8221;(讓git pull 別名為git pull -rebase 是一個好主意) ,來避免合併提交.也有一些基礎測試可以執行在 &#8220;test/integration&#8221; 目錄</p>
+<p>為了保證歷史程式碼的整潔,和對新假如的程式碼做更好的審計,我們會要求那些包含合併註釋的重新提交.使用&#8221;git pull &#8211;rebase&#8221; 而不是 &#8220;git pull&#8221; 和 &#8220;git rebase&#8221; 而不是 &#8220;git merge&#8221;.同樣確保有主要分支在使用其他的分支的時候,這樣你才不會丟失註釋資訊.(Also be sure to use topic branches to keep your additions on different branches, such that they won&#8217;t pick up stray commits later.)</p>
+<p>如果你犯錯了,你不需要關閉你的 PR ,建立一個清潔的本地分支然後推送到github上面使用 &#8211;force 選項,輕質覆蓋已存在的分支(在沒人使用哪個分支作為參考的情況下是允許的).程式碼註釋不會丟失,他們只是不會連線到現有的分支</p>
+<p>然後我們將審閱你的貢獻和參與你的問題等等.</p>
+<p>因為我們有一個非常大的和活躍的社群,我們可能需要一段時間才能看到你的貢獻,看一下後面的優先順序部分來了解一下我們的工作佇列.要有耐心,你的要求可能不會馬上合併,我們也讓 devel 能夠使用,因此我們需要小心的測試pull 請求,而這需要花費時間.</p>
+<p>補丁應該一直在開發分支之上.</p>
+<p>記住,小而專請求更容易檢查和接受,如果有例項,會更加幫助我們理解 bug 修復的工具和新的特性.</p>
+<p>貢獻可以是新的特性,像模組,或者是修復一些你或其他人發現的 bug .如果你對寫新模組感興趣,請參考 <a class="reference external" href="http://docs.ansible.com/developing_modules.html">module development documentation</a>.</p>
+<p>Ansible的理念鼓勵簡單、可讀的程式碼和 一致的,保守擴充套件, 向後相容的改進.程式碼開發Ansible需要支援Python 2.6 +, 而程式碼模組執行需要在Python 2.4之上.請使用4個空格的縮排,而不是tab,(we do not enforce 80 column lines, we are fine with 120-140. We do not take &#8216;style only&#8217; requests unless the code is nearly unreadable, we are &#8220;PEP8ish&#8221;, but not strictly compliant.)</p>
+<p>你也可以通過測試和修改其他請求貢獻,特別是如果它是一個你用著有趣的東西.請保持你的評論清楚和中肯,禮貌的和有建設性的, ticket 不是一個好開始討論的地方( ansible-devel 和 IRC 是專門為 tickets 的).</p>
+<p>技巧：為了更容易的從一個分支執行,source &#8221;./hacking/env-setup&#8221; 就這樣,不需要安裝.</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id26">其它主題</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id27">Ansible 職員</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 一家支援Ansible和基於 Ansible 構建額外的解決方案的公司.我們會服務和支援那些有趣的東西.我們還提供了一個企業 web 前端 Ansible(見下面的 Tower ).</p>
+<p>我們最重要的任務是使 ansible 社群發生一些大事,包括組織Ansible的軟體版本.想獲取更多的資訊,聯絡 <a class="reference external" href="mailto:info&#37;&#52;&#48;ansible&#46;com">info<span>&#64;</span>ansible<span>&#46;</span>com</a></p>
+<p>在 IRC 上,你可以找到我們 jimi_c, abadger1999, Tybstar, bcoca.在郵件列表上,我們使用 &#64;ansible.com 的地址傳送.</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id28">郵件列表資訊</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Ansible有一些郵件列表,因為稽核的原因,你的第一次投遞郵件可能時間稍長,請允許一天時間的延遲.</p>
+<p><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-project">Ansible Project List</a> 分享 Ansible的技巧,問題解答,使用者討論.</p>
+<p><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-devel">Ansible Development List</a> 學習如何在Ansible上開發,詢問ansible未來的設計特性,討論擴充套件ansible或者正在進行的ansible特性.</p>
+<p><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-announce">Ansible Announce list</a> 關於ansible版本號的只讀共享資訊,小頻率的ansible事件資訊.例如：通知AnsibleFest的出現.</p>
+<p><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-lockdown">Ansible Lockdown List</a> 關於ansible lockdown項目的所有資訊,包括DISA STIG 自動化和 CIS Benchmarks</p>
+<p>對於非google賬戶訂閱一個組,你可以傳送郵件到這訂閱地址請求訂閱,例如：<a class="reference external" href="mailto:ansible-devel+subscribe&#37;&#52;&#48;googlegroups&#46;com">ansible-devel+subscribe<span>&#64;</span>googlegroups<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id29">版本號</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>以 &#8221;.0&#8221; 結尾的版本是朱版本,同時將會有很多新的特性.以其他整數結尾的 ,像&#8221;0.X.1&#8221; 和 &#8220;0.X.2&#8221;是小版本,這些僅僅包含 bug 修復</p>
+<p>通常來說,我們不會發布小版本號(儲存用於大的項目),但是如果現在具體下次釋出會有很長時間的話,偶爾可能決定去除包含大量修復的小版本.</p>
+<p>版本號基於沒有其他人使用 Van Halen 的歌曲命名.</p>
+</div>
+<div class="section" id="tower">
+<h2><a class="toc-backref" href="#id30">Tower 支援問題</a><a class="headerlink" href="#tower" title="Permalink to this headline">¶</a></h2>
+<p>Ansible <cite>Tower &lt;http://ansible.com/tower&gt;</cite> 是一個對 ansible 提供的使用者介面,服務,應用程式介面等等.</p>
+<p>如果你有關於 tower的問題,傳送郵件到 <cite>support&#64;ansible.com &lt;mailto:support&#64;ansible.com&gt;</cite> 而不是在IRC頻道上,或者一般郵件列表上提問</p>
+</div>
+<div class="section" id="irc">
+<h2><a class="toc-backref" href="#id31">IRC 頻道</a><a class="headerlink" href="#irc" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 有IRC 頻道 #ansible on irc.freenode.net.</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id32">注意優先順序的標識</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>在2013年,Ansible 位於 github 上開源軟體的前 5 名,到目前為止,有 800 多個對此項目貢獻者,更不用說一個非常大的使用者社群,下載了這個應用超過一百萬次了.因此,我們有將會有很多的活動.</p>
+<p>下面,我們會告訴你如何處理新來的請求的.</p>
+<p>在我們的 bug traker 中你會注意到一些標籤- P1,P2,P3,P4和P5.這是我們的內部用於對提交的 bug 排序的.</p>
+<p>除了一些例外,便於合併(比如文件類型), 我們都會首先花時間處理 P1 和 P2 item,包括 pull 請求.這些通常與重大的 bug 有關,同時影響大量的使用者群裡.因此,如果你看到一些 &#8220;P3 or P4 的分類,那些將不會得到立即的關注.</p>
+<p>這些標籤沒有定義,它們只是簡單的排序.然而,有些東西影響核心模組(yum,apt,等等)可能會有更高的優先順序,相比那些影響少數使用者的模組來說.</p>
+<p>因為我們非常強調測試和程式碼審查,可能需要幾個月的小功能合併.</p>
+<p>但是不要擔心,我們也會定期的給迪有限的佇列做定期的清理,給予一些關注,由其在新模組的改變上面.因此,這不意味著我們把精力都花費在高優先順序的東西上,而忽略了你的 請求(ticket)</p>
+<p>任何努力都會有幫助的,如果你促進快P3的 pull request 特性 ,你可以做的最好的事情是幫助處理 P2 bug 報告.</p>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id33">社群程式碼和產品</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>社群歡迎所有類型的使用者,什麼背景,什麼技術級別都可以.請尊敬其他人就像你想讓其他人尊敬你一樣,保持討論的活躍氛圍,不要產生衝突,避免各種歧視,褻瀆,避免無用的爭論(例如:vi和emace那個更好一樣.)</p>
+<p>在社群事件上面也是希望大家好好相處</p>
+<p>郵件列表應該集中在IT自動化上面.濫用社群的指南將不會被容忍,後果是禁用社群資源</p>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id34">貢獻執照許可</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>通過貢獻,你被授予一個完整的,不可吊銷的版權執照,依據這個項目的執照,這個執照對這個項目的所有使用者和開發者都有效.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="galaxy.html" class="btn btn-neutral float-right" title="Ansible Galaxy" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tower.html" class="btn btn-neutral" title="Ansible Tower" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

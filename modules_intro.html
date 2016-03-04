@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>簡介 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="模組相關" href="modules.html"/>
+        <link rel="next" title="核心模組" href="modules_core.html"/>
+        <link rel="prev" title="模組相關" href="modules.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">模組相關</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">簡介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules_core.html">核心模組</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules_extra.html">額外模組</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_return_values.html">共同的返回值</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">模組相關</a> &raquo;</li>
+      
+    <li>簡介</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/modules_intro.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>簡介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>模組(也被稱為 &#8220;task plugins&#8221; 或 &#8220;library plugins&#8221;)是在 Ansible 中實際在執行的.它們就
+是在每個 playbook 任務中被執行的.你也可以僅僅通過 &#8216;ansible&#8217; 命令來執行它們.</p>
+<p>讓我們回顧一下我們是如何通過命令列來執行三個不同的模組:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible webservers -m service -a &quot;name=httpd state=started&quot;
+ansible webservers -m ping
+ansible webservers -m command -a &quot;/sbin/reboot -t now&quot;
+</pre></div>
+</div>
+<p>每個模組都能接收參數. 幾乎所有的模組都接受鍵值對(<code class="docutils literal"><span class="pre">key=value</span></code>)參數,空格分隔.一些模組
+不接收參數,只需在命令列輸入相關的命令就能呼叫.</p>
+<p>在 playbook 中, Ansible 模組以類似的方式執行:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: reboot the servers
+  action: command /sbin/reboot -t now
+</pre></div>
+</div>
+<p>也可以簡寫成:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: reboot the servers
+  command: /sbin/reboot -t now
+</pre></div>
+</div>
+<p>另一種給模組傳遞參數的方式是使用 ymal 語法,這也被稱為 &#8216;complex args&#8217;</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: restart webserver
+  service:
+    name: httpd
+    state: restarted
+</pre></div>
+</div>
+<p>無論你是使用命令列還是 playbooks 所有模組都會返回以 JSON 格式組織的資料.一般來說,對此你
+無需知道太多.但如果你在編寫你自己的模組,那你需要在意,這意味著你不需要以特定的語言來編寫
+你的模組 &#8211; 你可以自行選擇.</p>
+<p>模組努力使自身冪等,這意味著它們會盡可能避免對系統做出改動除非那是必須的.當使用 Ansible
+playbooks 時,這些模組能夠觸發 &#8216;change events&#8217;,以這種形式通知 &#8216;handlers&#8217; 去執行附加任務.</p>
+<p>每個模組的文件能夠通過命令列的 ansible-doc 工具來獲取:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-doc yum
+</pre></div>
+</div>
+<p>列出所有已安裝的模組文件:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ansible</span><span class="o">-</span><span class="n">doc</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a></dt>
+<dd>Examples of using modules in /usr/bin/ansible</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Examples of using modules with /usr/bin/ansible-playbook</dd>
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>How to write your own modules</dd>
+<dt><a class="reference internal" href="developing_api.html"><em>Python API</em></a></dt>
+<dd>Examples of using modules with the Python API</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules_core.html" class="btn btn-neutral float-right" title="核心模組" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="模組相關" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

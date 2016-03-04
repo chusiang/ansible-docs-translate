@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>常見問題 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="next" title="術語表" href="glossary.html"/>
+        <link rel="prev" title="測試策略" href="test_strategies.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">常見問題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#task-playbook-path">我可以為一個任務(task)或劇本(playbook)設定 PATH 或者其它環境變數嗎？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">如何處理需要不同賬戶與埠登入的不同機器？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ansible-kerberized-ssh-ansible-ssh-config">如何讓 ansible 重用連線，啟用 Kerberized SSH，或者讓Ansible 注意本地的 SSH config 檔案。</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ec2">如何在EC2內加速管理？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usr-bin-python">如何處理遠端機器上沒有 /usr/bin/python 路徑？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-roles">讓內容重用和重新分發的最好方式是什麼？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">配置檔案在那個地方，我如何配置它？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cowsay">如何禁止 cowsay?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host-loops">如何遍歷某一組內的所有主機，在模板中？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programatic-access-to-a-variable">如何以程式設計方式訪問變數名</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-host-in-a-group">如何訪問組內第一個主機的變數？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-recursion">如何遞迴的寶貝檔案到目標主機上?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shell">如何檢視 shell 環境變數？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-passwords">如何為使用者模組生成加密密碼？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ansible">如何獲得Ansible培訓到商業支援？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rest-api-etc">有網路介面  / REST API / etc?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docs-contributions">如何提交文件改變資訊？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#keep-secret-data">如何加密我的劇本資料？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">在這裡我沒看到我的問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>常見問題</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/faq.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>常見問題<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>這是一些常見問題和回答</p>
+<div class="section" id="task-playbook-path">
+<span id="set-environment"></span><h2>我可以為一個任務(task)或劇本(playbook)設定 PATH 或者其它環境變數嗎？<a class="headerlink" href="#task-playbook-path" title="Permalink to this headline">¶</a></h2>
+<p>可以通過 <cite>environment</cite> 關鍵字設定環境變數，可以用在 task 或者 play 上</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>environment:</dt>
+<dd>PATH: &#8220;{{ ansible_env.PATH }}:/thingy/bin&#8221;
+SOME: value</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>如何處理需要不同賬戶與埠登入的不同機器？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>設定清單(inventory)檔案是最簡單的方式</p>
+<p>例如，假設這些主機有不同的使用者名稱和埠</p>
+<blockquote>
+<div>[webservers]
+asdf.example.com  ansible_ssh_port=5000   ansible_ssh_user=alice
+jkl.example.com   ansible_ssh_port=5001   ansible_ssh_user=bob</div></blockquote>
+<p>你也可以指定什麼類型的連線。</p>
+<blockquote>
+<div>[testcluster]
+localhost           ansible_connection=local
+/path/to/chroot1    ansible_connection=chroot
+foo.example.com
+bar.example.com</div></blockquote>
+<p>你可能想儲存這些組變數，或者一些變數檔案。 看剩餘的文件獲取更多有關如何組織變數的資訊</p>
+</div>
+<div class="section" id="ansible-kerberized-ssh-ansible-ssh-config">
+<span id="use-ssh"></span><h2>如何讓 ansible 重用連線，啟用 Kerberized SSH，或者讓Ansible 注意本地的 SSH config 檔案。<a class="headerlink" href="#ansible-kerberized-ssh-ansible-ssh-config" title="Permalink to this headline">¶</a></h2>
+<p>轉換預設連線類型，在配置檔案裡面設定為,&#8217;ssh&#8217;，或者使用 &#8216;-c ssh&#8217;選項使用OpenSSH連線，而不是python的paramiko庫。在 Ansible 1.2.1之後，&#8217;ssh&#8217;會預設使用。</p>
+<p>paramiko在剛開始的時候是不錯的，但是OpenSSH提供更多的高階選項。如果你正在使用這種連線類型的話，你可能會想在一個支援 ControlPersist 的新機器上執行 Ansible。你同樣可以管理老的客戶端。如果你正在用 RHEL6，CentOS6，SLES 10或 SLES 11，OpenSSH的版本仍然有些過時，因此考慮使用Fedora或OpenSUSE客戶端來管理節點，或者使用paramiko。</p>
+<p>我們預設讓paramiko作為預設選項，如果你第一次安裝Ansible在一個EL box上，它提供了更好的使用者體驗。</p>
+</div>
+<div class="section" id="ec2">
+<span id="ec2-cloud-performance"></span><h2>如何在EC2內加速管理？<a class="headerlink" href="#ec2" title="Permalink to this headline">¶</a></h2>
+<p>不要試著用你的膝上型電腦管理一群 EC2 機器。連線到EC2內的管理節點然後在裡面執行Ansible</p>
+</div>
+<div class="section" id="usr-bin-python">
+<span id="python-interpreters"></span><h2>如何處理遠端機器上沒有 /usr/bin/python 路徑？<a class="headerlink" href="#usr-bin-python" title="Permalink to this headline">¶</a></h2>
+<p>儘管你可以使用其他語言編寫 Ansible 模組，但大部分 Ansible 模組是用 Python 寫的 ，而且一些事非常重要的核心模組</p>
+<p>預設情況下， Ansible 假定它可以在遠端機器上找到 2.x版本以上的 /usr/bin/python ，指定為2.4或者更高的版本。</p>
+<p>設定 inventory 變數 &#8216;ansible_python_interpreter&#8217; ，允許 Ansible自動替換掉預設的 python直譯器。因此你可以指向任何版本的 python ，儘管/usr/bin/python不存在</p>
+<p>一些 Linux 作業系統，例如 Arch 可能預設安裝的是 Python 3. 這會讓你在執行模組的時候出現語法錯誤資訊。 Python 3和 Python 2 在本質上還是有些區別的。Ansible 當前需要支援哪些更老版本的 Python 使用者，因此還沒有支援 Python 3.0。這不是一個問題，只需要安裝 Python2 就可以解決問題。</p>
+<p>當 Ansible 或 Python3.0 後來變得更加主流的時候，會支援Python 3.0</p>
+<p>不要替換 python 模組的 shebang 行，Ansible 在部署的時候會自動處理。</p>
+</div>
+<div class="section" id="use-roles">
+<span id="id3"></span><h2>讓內容重用和重新分發的最好方式是什麼？<a class="headerlink" href="#use-roles" title="Permalink to this headline">¶</a></h2>
+<p>如果你還沒有做好， 請閱讀 playbooks 文件的 &#8220;Roles&#8221; 部分。 這會讓你更好的理解 playbook 的內容。(This helps you make playbook content self-contained, and works well with things like git submodules for sharing content with others.)</p>
+<p>如果你對這些外掛很陌生，檢視 API 文件獲取更多的有關擴充套件 Ansible 的細節資訊
+.. _configuration_file:</p>
+</div>
+<div class="section" id="id4">
+<h2>配置檔案在那個地方，我如何配置它？<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>看 <a class="reference internal" href="intro_configuration.html"><em>Ansible的配置檔案</em></a>.</p>
+</div>
+<div class="section" id="cowsay">
+<span id="who-would-ever-want-to-disable-cowsay-but-ok-here-is-how"></span><h2>如何禁止 cowsay?<a class="headerlink" href="#cowsay" title="Permalink to this headline">¶</a></h2>
+<p>如果你確定你想執行在沒有cowsay的環境下，你可以解除安裝 cowsay，或者設定環境變數</p>
+<blockquote>
+<div>export ANSIBLE_NOCOWS=1</div></blockquote>
+<p id="browse-facts">How do I see a list of all of the ansible_ variables?
+如何檢視所有的 ansible_variables?
+++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+<p>預設情況下，Ansible 收集 有關機器的 &#8220;facts&#8221; ，這些 facts 可以被Playbook或templates訪問。想要檢視相關機器的所有的facts，執行 &#8220;setup&#8221; 模組。</p>
+<blockquote>
+<div>ansible -m setup hostname</div></blockquote>
+<p>這會列印指定主機上的所有的字典形式的facts。</p>
+</div>
+<div class="section" id="host-loops">
+<span id="id5"></span><h2>如何遍歷某一組內的所有主機，在模板中？<a class="headerlink" href="#host-loops" title="Permalink to this headline">¶</a></h2>
+<p>一個通用的做法是遍歷組內的所有主機，你可以訪問 &#8220;$groups&#8221; 字典在模板中，就像這樣</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{% for host in groups[&#8216;db_servers&#8217;] %}</dt>
+<dd>{{ host }}</dd>
+</dl>
+<p>{% endfor %}</p>
+</div></blockquote>
+<p>如果你需要訪問有關這些主機的 facts ，例如每個主機的IP地址，你需要確保 facts 已經被 populated 了。例如</p>
+<blockquote>
+<div><ul>
+<li><p class="first">hosts:  db_servers
+tasks:</p>
+<blockquote>
+<div><ul class="simple">
+<li># doesn&#8217;t matter what you do, just that they were talked to previously.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>然後你可以使用 facts 在模板裡面，就像這樣</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{% for host in groups[&#8216;db_servers&#8217;] %}</dt>
+<dd>{{ hostvars[host][&#8216;ansible_eth0&#8217;][&#8216;ipv4&#8217;][&#8216;address&#8217;] }}</dd>
+</dl>
+<p>{% endfor %}</p>
+</div></blockquote>
+</div>
+<div class="section" id="programatic-access-to-a-variable">
+<span id="id6"></span><h2>如何以程式設計方式訪問變數名<a class="headerlink" href="#programatic-access-to-a-variable" title="Permalink to this headline">¶</a></h2>
+<p>可能出現這種情況,我們需要一個任意的ipv4地址介面,同時這個介面是通過角色提供參數或其他輸入提供的。變數名可以通過組合字元串來構建，就像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">hostvars</span><span class="p">[</span><span class="n">inventory_hostname</span><span class="p">][</span><span class="s">&#39;ansible_&#39;</span> <span class="o">+</span> <span class="n">which_interface</span><span class="p">][</span><span class="s">&#39;ipv4&#39;</span><span class="p">][</span><span class="s">&#39;address&#39;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>這個遍歷主機變數的技巧是必要的，因為它是一變數名稱扣減的字典。&#8217;inventory_hostname&#8217; 是一個神奇的變數，因為它告訴你你在主機組迴圈中當前的主機是誰。</p>
+</div>
+<div class="section" id="first-host-in-a-group">
+<span id="id7"></span><h2>如何訪問組內第一個主機的變數？<a class="headerlink" href="#first-host-in-a-group" title="Permalink to this headline">¶</a></h2>
+<p>如果我們想要在 webservers 組內的第一個 webserver 的 ip 地址怎麼辦？我們可以這麼做。注意如果再使用動態 inventory ， &#8216;first&#8217; 的主機可能不會一致 ，因此你不希望這樣，除非你耳朵 inventory 是靜態。(如果你在用 <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a>,它會使用資料庫指令，因此這不是個問題儘管你正在使用基於雲環境的 inventory 指令碼)</p>
+<p>這裡是技巧：</p>
+<blockquote>
+<div>{{ hostvars[groups[&#8216;webservers&#8217;][0]][&#8216;ansible_eth0&#8217;][&#8216;ipv4&#8217;][&#8216;address&#8217;] }}</div></blockquote>
+<p>注意我們如何獲得 webserver 組內的第一臺機器的主機名的。如果你也在在模板中這麼做，你可以用 Jinja2 &#8220;#set&#8221; 指令來簡化這，或者在一個基本中，你也可以設定 fact</p>
+<blockquote>
+<div><ul class="simple">
+<li>set_fact: headnode={{ groups[[&#8216;webservers&#8217;][0]] }}</li>
+<li>debug: msg={{ hostvars[headnode].ansible_eth0.ipv4.address }}</li>
+</ul>
+</div></blockquote>
+<p>注意我們如何交換花括號的語法點(Notice how we interchanged the bracket syntax for dots)。</p>
+</div>
+<div class="section" id="file-recursion">
+<span id="id8"></span><h2>如何遞迴的寶貝檔案到目標主機上?<a class="headerlink" href="#file-recursion" title="Permalink to this headline">¶</a></h2>
+<p>&#8220;copy&#8221; 模組有遞迴的參數，如果你想更加高徐璈的處理大量的檔案，看一下 &#8220;synchronize&#8221;模組，封裝了rsync。自行看一些模組索引獲取一些他們的資訊。</p>
+</div>
+<div class="section" id="shell">
+<span id="shell-env"></span><h2>如何檢視 shell 環境變數？<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>如果是隻是想看看，使用 <cite>env</cite> 檢視。例如，如果想檢視在管理機器上 HOME 環境變數的值。</dt>
+<dd><p class="first">&#8212;
+# ...</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>vars:</dt>
+<dd>local_home: &#8220;{{ lookup(&#8216;env&#8217;,&#8217;HOME&#8217;) }}&#8221;</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<p>如果你是想設定環境變數，檢視高階的有關環境的 Playbook 部分。</p>
+<p>Ansible 1.4 will also make remote environment variables available via facts in the &#8216;ansible_env&#8217; variable::
+Ansible1.4也會讓遠端的環境變數可用通過 facts 在 &#8216;ansible_env&#8217; 變數。</p>
+<blockquote>
+<div>{{ ansible_env.SOME_VARIABLE }}</div></blockquote>
+</div>
+<div class="section" id="user-passwords">
+<span id="id9"></span><h2>如何為使用者模組生成加密密碼？<a class="headerlink" href="#user-passwords" title="Permalink to this headline">¶</a></h2>
+<p>mkpasswd工具在大多數linux系統上都可以使用，是一個不錯的選項</p>
+<blockquote>
+<div>mkpasswd &#8211;method=SHA-512</div></blockquote>
+<p>如果這個工具在你係統上面沒安裝，你可以簡單的通過 Python 生成密碼。首先確保 <a class="reference external" href="https://code.google.com/p/passlib/">Passlib</a> 密碼哈西庫已經安裝了。</p>
+<blockquote>
+<div>pip install passlib</div></blockquote>
+<p>一旦庫準備好了，SHA512密碼值可以被生成通過下面命令生成。</p>
+<blockquote>
+<div>python -c &#8220;from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())&#8221;</div></blockquote>
+</div>
+<div class="section" id="ansible">
+<span id="commercial-support"></span><h2>如何獲得Ansible培訓到商業支援？<a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h2>
+<p>Yes！ 看我們的 <a class="reference external" href="http://www.ansible.com/services">services page</a>  獲得更多的資訊關於我們的服務和培訓服務。支援也包含在 <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> 。發郵件到`info&#64;ansible.com &lt;<a class="reference external" href="mailto:info&#37;&#52;&#48;ansible&#46;com">mailto:info<span>&#64;</span>ansible<span>&#46;</span>com</a>&gt;`_ 獲取更深的細節。</p>
+<p>我們也會提供免費的培訓課程在基礎上。 看  <a class="reference external" href="http://www.ansible.com/webinars-training">webinar page</a> 獲得更多資訊在下面的研討會上。</p>
+</div>
+<div class="section" id="rest-api-etc">
+<span id="web-interface"></span><h2>有網路介面  / REST API / etc?<a class="headerlink" href="#rest-api-etc" title="Permalink to this headline">¶</a></h2>
+<p>Yes！Ansible 做了很好的產品讓 Ansible 更加的強大容器使用，看 <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a></p>
+</div>
+<div class="section" id="docs-contributions">
+<span id="id10"></span><h2>如何提交文件改變資訊？<a class="headerlink" href="#docs-contributions" title="Permalink to this headline">¶</a></h2>
+<p>不錯的問題！ Ansible 文件儲存在主項目git 源下面，指導貢獻可以在 docs README <a href="#id11"><span class="problematic" id="id12">`</span></a>viewable on GitHub &lt;<a class="reference external" href="https://github.com/ansible/ansible/blob/devel/docsite/README.md">https://github.com/ansible/ansible/blob/devel/docsite/README.md</a>&gt;`_找到。謝謝！</p>
+</div>
+<div class="section" id="keep-secret-data">
+<span id="id13"></span><h2>如何加密我的劇本資料？<a class="headerlink" href="#keep-secret-data" title="Permalink to this headline">¶</a></h2>
+<p>如果你想加密資料，仍然想要在源碼控制上分享給大家。看 <a class="reference internal" href="playbooks_vault.html"><em>Vault</em></a>.</p>
+<p id="i-dont-see-my-question">在 Ansible 1.8後，如果你有一個任務，你不想顯示結果，或者給了命令 -v 選項，下面的例子很有用</p>
+<blockquote>
+<div><ul class="simple">
+<li>name: secret task
+shell: /usr/bin/do_something &#8211;value={{ secret_value }}
+no_log: True</li>
+</ul>
+</div></blockquote>
+<p>這個對保持詳細的輸出，但是從其他人那裡隱藏了敏感的資訊。</p>
+<p>no_log屬性也可以應用在整個 play 裡面。</p>
+<blockquote>
+<div><ul class="simple">
+<li>hosts: all
+no_log: True</li>
+</ul>
+</div></blockquote>
+<p>儘管這回讓play很難偵錯。推薦使用這個應用到單一任務上。</p>
+</div>
+<div class="section" id="id14">
+<h2>在這裡我沒看到我的問題<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>請看下面的部分連結到 IRC 和 Google Group，你可以在那裡提問你的問題。</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="index.html"><em>Ansible 文件</em></a></dt>
+<dd>The documentation index</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Best practices advice</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="glossary.html" class="btn btn-neutral float-right" title="術語表" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="test_strategies.html" class="btn btn-neutral" title="測試策略" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

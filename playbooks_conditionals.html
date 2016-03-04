@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>條件選擇 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks" href="playbooks.html"/>
+        <link rel="next" title="迴圈" href="playbooks_loops.html"/>
+        <link rel="prev" title="Variables" href="playbooks_variables.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks.html">Playbooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html">Variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">條件選擇</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#when">When 語句</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">載入客戶事件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roles-includes-when">在roles 和 includes 上面應用&#8217;when&#8217;語句</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">條件匯入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">基於變數選擇檔案和模版</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">註冊變數</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html">迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks.html">Playbooks</a> &raquo;</li>
+      
+    <li>條件選擇</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_conditionals.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id6">條件選擇</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">條件選擇</a><ul>
+<li><a class="reference internal" href="#when" id="id7">When 語句</a></li>
+<li><a class="reference internal" href="#id2" id="id8">載入客戶事件</a></li>
+<li><a class="reference internal" href="#roles-includes-when" id="id9">在roles 和 includes 上面應用&#8217;when&#8217;語句</a></li>
+<li><a class="reference internal" href="#id3" id="id10">條件匯入</a></li>
+<li><a class="reference internal" href="#id4" id="id11">基於變數選擇檔案和模版</a></li>
+<li><a class="reference internal" href="#id5" id="id12">註冊變數</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>常常來說,一個play的結果經常取決於一個變數的值,事件（從遠端系統得到事件）,
+或者之前任務的結果.在有些情況下,這些變數的值也會取決於其他變數.
+進而,可以建立多餘的組基於這些主機是否符合某些條件來操控主機,
+Ansible 提供了很多不同選項,來控制執行流.
+讓我們詳細看看這些都是啥.</p>
+<div class="section" id="when">
+<h2><a class="toc-backref" href="#id7">When 語句</a><a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
+<p>有時候使用者有可能需要某一個主機越過某一個特定的步驟.這個過程就可以簡單的像在某一個特定版本的系統上
+少裝了一個包一樣或者像在一個滿了的檔案系統上執行清理操作一樣.
+這些操作在Ansible上,若使用`when`語句都異常簡單.When語句包含Jinja2表示式(參見:doc:<cite>playbooks_variables</cite>).
+實際上真的很簡單:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: &quot;shutdown Debian flavored systems&quot;
+    command: /sbin/shutdown -t now
+    when: ansible_os_family == &quot;Debian&quot;
+</pre></div>
+</div>
+<p>一系列的Jinja2 &#8220;過濾器&#8221; 也可以在when語句中使用, 但有些是Ansible中獨有的.
+比如我們想忽略某一錯誤,通過執行成功與否來做決定,我們可以像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - command: /bin/false
+    register: result
+    ignore_errors: True
+  - command: /bin/something
+    when: result|failed
+  - command: /bin/something_else
+    when: result|success
+  - command: /bin/still/something_else
+    when: result|skipped
+</pre></div>
+</div>
+<p>我知道,在這裡討論&#8217;register&#8217;語句命令,有點過於超前,我們將會在這議長靠後一點的地方接觸這個.</p>
+<p>友情提示,如果想檢視哪些事件在某個特定系統中時允許的,可以執行以下命令:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible hostname.example.com -m setup
+</pre></div>
+</div>
+<p>提示: 有些時候你得到一個返回參數的值是一個字元串,並且你還想使用數學操作來比較它,那麼你可以執行一下操作:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - shell: echo &quot;only on Red Hat 6, derivatives, and later&quot;
+    when: ansible_os_family == &quot;RedHat&quot; and ansible_lsb.major_release|int &gt;= 6
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">以上事例需要目標主機上安裝lsb_release軟體包,來返回ansible_lsb.major_release 事件.</p>
+</div>
+<p>在playbooks 和 inventory中定義的變數都可以使用. 下面一個例子,就是基於布爾值來決定一個任務是否被執行:</p>
+<div class="highlight-python"><div class="highlight"><pre>vars:
+  epic: true
+</pre></div>
+</div>
+<p>一個條件選擇執行也許看起來像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - shell: echo &quot;This certainly is epic!&quot;
+      when: epic
+</pre></div>
+</div>
+<p>或者像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - shell: echo &quot;This certainly isn&#39;t epic!&quot;
+      when: not epic
+</pre></div>
+</div>
+<p>如果一個變數不存在,你可以使用Jinja2的`defined`命令跳過或略過.例如:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - shell: echo &quot;I&#39;ve got &#39;{{ foo }}&#39; and am not afraid to use it!&quot;
+      when: foo is defined
+
+    - fail: msg=&quot;Bailing out. this play requires &#39;bar&#39;&quot;
+      when: bar is not defined
+</pre></div>
+</div>
+<p>這個機制在選擇引入變數檔案時有時候特別有用,詳情如下.</p>
+<p>note當同時使用`when`he`with_items` (詳見:doc:<cite>playbooks_loops</cite>), note`when`語句對於不同項目將會單獨處理.這個源於原初設計:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - command: echo {{ item }}
+      with_items: [ 0, 2, 4, 6, 8, 10 ]
+      when: item &gt; 5
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">載入客戶事件</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>載入客戶自己的事件,事實上也很簡單,將在:doc:<cite>developing_modules</cite> 詳細介紹.只要呼叫客戶自己的事件,進而把所有的模組放在任務列表頂端,
+變數的返回值今後就可以訪問了:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - name: gather site specific fact data
+      action: site_facts
+    - command: /usr/bin/thingy
+      when: my_custom_fact_just_retrieved_from_the_remote_system == &#39;1234&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="roles-includes-when">
+<h2><a class="toc-backref" href="#id9">在roles 和 includes 上面應用&#8217;when&#8217;語句</a><a class="headerlink" href="#roles-includes-when" title="Permalink to this headline">¶</a></h2>
+<p>note,如果你的很多工都共享同樣的條件語句的話,可以在選擇語句後面新增inlcudes語句,參見下面事例.
+這個特性並不適用於playbook的inclues,只有task 的 includes適用.所有的task都會被檢驗,
+選擇會應用到所有的task上面:</p>
+<div class="highlight-python"><div class="highlight"><pre>- include: tasks/sometasks.yml
+  when: &quot;&#39;reticulating splines&#39; in output&quot;
+</pre></div>
+</div>
+<p>或者應用於role:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  roles:
+     - { role: debian_stock_config, when: ansible_os_family == &#39;Debian&#39; }
+</pre></div>
+</div>
+<p>在系統中使用這個方法但是並不能匹配某些標準時,你會發現在Ansible中,有很多預設&#8217;skipped&#8217;的結果.
+詳情參見:doc:<cite>modules</cite> 文件中的 &#8216;group_by&#8217; 模組, 你會找到更加賞心悅目的方法來解決這個問題.</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">條件匯入</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個很高階但是卻被經常使用的話題.當然你也可以跳過這一節.</p>
+</div>
+<p>基於某個特定標準,又是你也許在一個playbook中你想以不同的方式做同一件事.
+在不同平臺或作業系統上使用痛一個playbook就是一個很好的例子.</p>
+<p>舉個例子,名字叫做Apache的包,在CentOS 和 Debian系統中也許不同,
+但是這個問題可以一些簡單的語法就可以被Ansible Playbook解決:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - &quot;vars/common.yml&quot;
+    - [ &quot;vars/{{ ansible_os_family }}.yml&quot;, &quot;vars/os_defaults.yml&quot; ]
+  tasks:
+  - name: make sure apache is running
+    service: name={{ apache }} state=running
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">&#8216;ansible_os_family&#8217; 已經被匯入到為vars_files定義的檔名列表中了.</p>
+</div>
+<p>提醒一下,很多的不同的YAML檔案只是包含鍵和值:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# for vars/CentOS.yml
+apache: httpd
+somethingelse: 42
+</pre></div>
+</div>
+<p>這個具體事怎麼工作的呢？ 如果作業系統是&#8217;CentOS&#8217;, Ansible匯入的第一個檔案將是&#8217;vars/CentOS.yml&#8217;,緊接著
+是&#8217;/var/os_defaults.yml&#8217;,如果這個檔案不存在.而且在列表中沒有找到,就會報錯.
+在Debian,最先檢視的將是&#8217;vars/Debian.yml&#8217;而不是&#8217;vars/CentOS.yml&#8217;, 如果沒找到,則尋找預設檔案&#8217;vars/os_defaults.yml&#8217;
+很簡單.如果使用這個條件性匯入特性,你需要在執行playbook之前安裝facter 或者 ohai.當然如果你喜歡,
+你也可以把這個事情推給Ansible來做:</p>
+<div class="highlight-python"><div class="highlight"><pre># for facter
+ansible -m yum -a &quot;pkg=facter state=present&quot;
+ansible -m yum -a &quot;pkg=ruby-json state=present&quot;
+
+# for ohai
+ansible -m yum -a &quot;pkg=ohai state=present&quot;
+</pre></div>
+</div>
+<p>Ansible 中的設定方式———— 從任務中把參數分開,這樣可避免程式碼中有太多醜陋巢狀if等複雜語句.
+這樣可以使得配置條目更加的流暢的賞心悅目———— 特別是因為這樣可以儘量減少決定點</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">基於變數選擇檔案和模版</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個經常用到的高階話題.也可以跳過這章.</p>
+</div>
+<p>有時候,你想要複製一個配置檔案,或者一個基於參數的模版.
+下面的結構選載選第一個宿主給予的變數檔案,這些可以比把很多if選擇放在模版裡要簡單的多.
+下面的例子展示怎樣根據不同的系統,例如CentOS,Debian製作一個配置檔案的模版:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: template a file
+   template: src={{ item }} dest=/etc/myapp/foo.conf
+   with_first_found:
+     - files:
+        - {{ ansible_distribution }}.conf
+        - default.conf
+       paths:
+        - search_location_one/somedir/
+        - /opt/other_location/somedir/
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id12">註冊變數</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>經常在playbook中,儲存某個命令的結果在變數中,以備日後訪問是很有用的.
+這樣使用命令模組可以在許多方面除去寫站（site）特異事件,據哥例子
+你可以檢測某一個特定程式是否存在</p>
+<p>這個 &#8216;register&#8217; 關鍵詞決定了把結果儲存在哪個變數中.結果參數可以用在模版中,動作條目,或者 <em>when</em> 語句. 像這樣（這是一個淺顯的例子）:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: test play
+  hosts: all
+
+  tasks:
+
+      - shell: cat /etc/motd
+        register: motd_contents
+
+      - shell: echo &quot;motd contains the word hi&quot;
+        when: motd_contents.stdout.find(&#39;hi&#39;) != -1
+</pre></div>
+</div>
+<p>就像上面展示的那樣,這個註冊後的參數的內容為字元串&#8217;stdout&#8217;是可以訪問.
+這個註冊了以後的結果,如果像上面展示的,可以轉化為一個list（或者已經是一個list）,就可以在任務中的&#8221;with_items&#8221;中使用.
+&#8220;stdout_lines&#8221;在物件中已經可以訪問了,當然如果你喜歡也可以呼叫 &#8220;home_dirs.stdout.split()&#8221; , 也可以用其它欄位切割:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: registered variable usage as a with_items list
+  hosts: all
+
+  tasks:
+
+      - name: retrieve the list of home directories
+        command: ls /home
+        register: home_dirs
+
+      - name: add home dirs to the backup spooler
+        file: path=/mnt/bkspool/{{ item }} src=/home/{{ item }} state=link
+        with_items: home_dirs.stdout_lines
+        # same as with_items: home_dirs.stdout.split()
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a></dt>
+<dd>Playbook organization by roles</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Best practices in playbooks</dd>
+<dt><a class="reference internal" href=""><em>條件選擇</em></a></dt>
+<dd>Conditional statements in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a></dt>
+<dd>All about variables</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_loops.html" class="btn btn-neutral float-right" title="迴圈" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_variables.html" class="btn btn-neutral" title="Variables" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

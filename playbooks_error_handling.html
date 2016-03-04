@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playbooks 中的錯誤處理 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/>
+        <link rel="next" title="標籤" href="playbooks_tags.html"/>
+        <link rel="prev" title="配置環境 (在代理環境中)" href="playbooks_environment.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_acceleration.html">Accelerated Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_async.html">非同步操作和輪詢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_checkmode.html">Check Mode (&#8220;Dry Run&#8221;)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_delegation.html">委託,滾動更新,本地動作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_environment.html">配置環境 (在代理環境中)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Playbooks 中的錯誤處理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ignoring-failed-commands">忽略錯誤的命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#controlling-what-defines-failure">控制對失敗的定義</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#override-the-changed-result">覆寫更改結果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_tags.html">標籤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_vault.html">Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_startnstep.html">從指定任務開始執行palybook以及分步執行playbook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks_special_topics.html">Playbooks: Special Topics</a> &raquo;</li>
+      
+    <li>Playbooks 中的錯誤處理</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_error_handling.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playbooks">
+<h1><a class="toc-backref" href="#id4">Playbooks 中的錯誤處理</a><a class="headerlink" href="#playbooks" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#playbooks" id="id4">Playbooks 中的錯誤處理</a><ul>
+<li><a class="reference internal" href="#ignoring-failed-commands" id="id5">忽略錯誤的命令</a></li>
+<li><a class="reference internal" href="#controlling-what-defines-failure" id="id6">控制對失敗的定義</a></li>
+<li><a class="reference internal" href="#override-the-changed-result" id="id7">覆寫更改結果</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Ansible 通常預設會確保檢測模組和命令的返回碼並且會快速失敗 &#8211; 專注於一個錯誤除非你另作打算.</p>
+<p>有時一條命令會返回 0 但那不是報錯.有時命令不會總是報告它 &#8216;改變&#8217; 了遠端系統.本章節描述了
+如何將 Ansible 處理輸出結果和錯誤處理的預設行為改變成你想要的.</p>
+<div class="section" id="ignoring-failed-commands">
+<span id="id1"></span><h2><a class="toc-backref" href="#id5">忽略錯誤的命令</a><a class="headerlink" href="#ignoring-failed-commands" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.6.</span></p>
+</div>
+<p>通常情況下, 當出現失敗時 Ansible 會停止在宿主機上執行.有時候,你會想要繼續執行下去.為此
+你需要像這樣編寫任務:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: this will not be counted as a failure
+  command: /bin/false
+  ignore_errors: yes
+</pre></div>
+</div>
+<p>注意上面的系統僅僅處理那個特定的任務,所以當你在使用一個未定義的變數時, Ansible 仍然會報
+錯,需要使用者進行處理.</p>
+</div>
+<div class="section" id="controlling-what-defines-failure">
+<span id="id2"></span><h2><a class="toc-backref" href="#id6">控制對失敗的定義</a><a class="headerlink" href="#controlling-what-defines-failure" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.4.</span></p>
+</div>
+<p>假設一條命令的錯誤碼毫無意義只有它的輸出結果能告訴你什麼出了問題,比如說字元串 &#8220;FAILED&#8221; 出
+現在輸出結果中.</p>
+<p>在 Ansible 1.4及之後的版本中提供瞭如下的方式來指定這樣的特殊行為:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: this command prints FAILED when it fails
+  command: /usr/bin/example-command -x -y -z
+  register: command_result
+  failed_when: &quot;&#39;FAILED&#39; in command_result.stderr&quot;
+</pre></div>
+</div>
+<p>在 Ansible 1.4 之前的版本能通過如下方式完成:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: this command prints FAILED when it fails
+  command: /usr/bin/example-command -x -y -z
+  register: command_result
+  ignore_errors: True
+
+- name: fail the play if the previous command did not succeed
+  fail: msg=&quot;the command failed&quot;
+  when: &quot;&#39;FAILED&#39; in command_result.stderr&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="override-the-changed-result">
+<span id="id3"></span><h2><a class="toc-backref" href="#id7">覆寫更改結果</a><a class="headerlink" href="#override-the-changed-result" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>When a shell/command or other module runs it will typically report
+&#8220;changed&#8221; status based on whether it thinks it affected machine state.
+當一個 shell或命令或其他模組執行時,它們往往都會在它們認為其影響機器狀態時報告 &#8220;changed&#8221;
+狀態</p>
+<dl class="docutils">
+<dt>有時你可以通過返回碼或是輸出結果來知道它們其實並沒有做出任何更改.你希望覆寫結果的</dt>
+<dd><p class="first">&#8220;changed&#8221; 狀態使它不會出現在輸出的報告或不會觸發其他處理程式:</p>
+<div class="last highlight-python"><div class="highlight"><pre>tasks:
+
+  - shell: /usr/bin/billybass --mode=&quot;take me to the river&quot;
+    register: bass_result
+    changed_when: &quot;bass_result.rc != 2&quot;
+
+  # this will never report &#39;changed&#39; status
+  - shell: wall &#39;beep&#39;
+    changed_when: False
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Best practices in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a></dt>
+<dd>Conditional statements in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a></dt>
+<dd>All about variables</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_tags.html" class="btn btn-neutral float-right" title="標籤" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_environment.html" class="btn btn-neutral" title="配置環境 (在代理環境中)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

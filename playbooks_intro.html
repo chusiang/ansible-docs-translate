@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playbooks 介紹 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks" href="playbooks.html"/>
+        <link rel="next" title="Playbook Roles and Include Statements" href="playbooks_roles.html"/>
+        <link rel="prev" title="Playbooks" href="playbooks.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks.html">Playbooks</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Playbooks 介紹</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#about-playbooks">Playbooks 簡介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">Playbook 語言的示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#playbook-basics">playbook基礎</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#playbook-hosts-and-users">主機與使用者</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tasks">Tasks 列表</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#action-shorthand">Action Shorthand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handlers">Handlers: 在發生改變時執行的操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executing-a-playbook">執行一個 playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible-pull">Ansible-Pull（拉取配置而非推送配置）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tips-and-tricks">提示與技巧</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html">迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks.html">Playbooks</a> &raquo;</li>
+      
+    <li>Playbooks 介紹</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_intro.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playbooks">
+<h1>Playbooks 介紹<a class="headerlink" href="#playbooks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-playbooks">
+<span id="id1"></span><h2>Playbooks 簡介<a class="headerlink" href="#about-playbooks" title="Permalink to this headline">¶</a></h2>
+<p>Playbooks 與 adhoc 相比,是一種完全不同的運用 ansible 的方式,是非常之強大的.</p>
+<p>簡單來說,playbooks 是一種簡單的配置管理系統與多機器部署系統的基礎.與現有的其他系統有不同之處,且非常適合於複雜應用的部署.</p>
+<p>Playbooks 可用於聲明配置,更強大的地方在於,在 playbooks 中可以編排有序的執行過程,甚至於做到在多組機器間,來回有序的執行特別指定的步驟.並且可以同步或非同步的發起任務.</p>
+<p>我們使用 adhoc 時,主要是使用 /usr/bin/ansible 程式執行任務.而使用 playbooks 時,更多是將之放入源碼控制之中,用之推送你的配置或是用於確認你的遠端系統的配置是否符合配置規範.</p>
+<p>在如右的連線中: <a class="reference external" href="https://github.com/ansible/ansible-examples">ansible-examples repository</a> ,有一些整套的playbooks,它們闡明瞭上述的這些技巧.我們建議你在另一個標籤頁中開啟它看看,配合本章節一起看.</p>
+<p>即便學完 playbooks 這個章節,仍有許多知識點只是入門的級別,完成本章的學習後,可回到文件索引繼續學習.</p>
+</div>
+<div class="section" id="playbook">
+<span id="playbook-language-example"></span><h2>Playbook 語言的示例<a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<p>Playbooks 的格式是YAML（詳見:<a class="reference internal" href="YAMLSyntax.html"><em>YAML 語法</em></a>）,語法做到最小化,意在避免 playbooks 成為一種程式語言或是指令碼,但它也並不是一個配置模型或過程的模型.</p>
+<p>playbook 由一個或多個 &#8216;plays&#8217; 組成.它的內容是一個以 &#8216;plays&#8217; 為元素的列表.</p>
+<p>在 play 之中,一組機器被對映為定義好的角色.在 ansible 中,play 的內容,被稱為 tasks,即任務.在基本層次的應用中,一個任務是一個對 ansible 模組的呼叫,這在前面章節學習過.</p>
+<p>&#8216;plays&#8217; 好似音符,playbook 好似由 &#8216;plays&#8217; 構成的曲譜,通過 playbook,可以編排步驟進行多機器的部署,比如在 webservers 組的所有機器上執行一定的步驟,
+然後在 database server 組執行一些步驟,最後回到 webservers 組,再執行一些步驟,諸如此類.</p>
+<p>&#8220;plays&#8221; 算是一個體育方面的類比,你可以通過多個 plays 告訴你的系統做不同的事情,不僅是定義一種特定的狀態或模型.你可以在不同時間執行不同的 plays.</p>
+<p>對初學者,這裡有一個 playbook,其中僅包含一個 play:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: pkg=httpd state=latest
+  - name: write the apache config file
+    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running
+    service: name=httpd state=started
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+</pre></div>
+</div>
+<p>在下面,我們將分別講解 playbook 語言的多個特性.</p>
+</div>
+<div class="section" id="playbook-basics">
+<span id="id2"></span><h2>playbook基礎<a class="headerlink" href="#playbook-basics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="playbook-hosts-and-users">
+<span id="id3"></span><h3>主機與使用者<a class="headerlink" href="#playbook-hosts-and-users" title="Permalink to this headline">¶</a></h3>
+<p>你可以為 playbook 中的每一個 play,個別地選擇操作的目標機器是哪些,以哪個使用者身份去完成要執行的步驟（called tasks）.</p>
+<dl class="docutils">
+<dt><cite>hosts</cite> 行的內容是一個或多個組或主機的 patterns,以逗號為分隔符,詳見 <a class="reference internal" href="intro_patterns.html"><em>Patterns</em></a> 章節.</dt>
+<dd><p class="first"><cite>remote_user</cite> 就是賬戶名:</p>
+<div class="last highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  remote_user: root
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">參數 <cite>remote_user</cite> 以前寫做 <cite>user</cite>,在 Ansible 1.4 以後才改為 remote_user.主要為了不跟 <cite>user</cite> 模組混淆（user 模組用於在遠端系統上建立使用者）.</p>
+</div>
+<p>再者,在每一個 task 中,可以定義自己的遠端使用者:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  remote_user: root
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: yourname
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">task 中的 <cite>remote_user</cite> 參數在 1.4 版本以後新增.</p>
+</div>
+<p>也支援從 sudo 執行命令:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  remote_user: yourname
+  sudo: yes
+</pre></div>
+</div>
+<p>同樣的,你可以僅在一個 task 中,使用 sudo 執行命令,而不是在整個 play 中使用 sudo:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  remote_user: yourname
+  tasks:
+    - service: name=nginx state=started
+      sudo: yes
+</pre></div>
+</div>
+<p>你也可以登陸後,sudo 到不同的使用者身份,而不是使用 root:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  remote_user: yourname
+  sudo: yes
+  sudo_user: postgres
+</pre></div>
+</div>
+<p>如果你需要在使用 sudo 時指定密碼,可在執行 <cite>ansible-playbook</cite> 命令時加上選項 <code class="docutils literal"><span class="pre">--ask-sudo-pass</span></code> (<cite>-K</cite>).
+如果使用 sudo 時,playbook 疑似被掛起,可能是在 sudo prompt 處被卡住,這時可執行 <cite>Control-C</cite> 殺死卡住的任務,再重新執行一次.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">當使用 <cite>sudo_user</cite> 切換到 非root 使用者時,模組的參數會暫時寫入 /tmp 目錄下的一個隨機臨時檔案.
+當命令執行結束後,臨時檔案立即刪除.這種情況發生在普通使用者的切換時,比如從 &#8216;bob&#8217; 切換到 &#8216;timmy&#8217;,
+切換到 root 賬戶時,不會發生,如從 &#8216;bob&#8217; 切換到 &#8216;root&#8217;,直接以普通使用者或root身份登入也不會發生.
+如果你不希望這些資料在短暫的時間內可以被讀取（不可寫）,請避免在 <cite>sudo_user</cite> 中傳遞未加密的密碼.
+其他情況下,&#8217;/tmp&#8217; 目錄不被使用,這種情況不會發生.Ansible 也有意識的在日誌中不記錄密碼參數.</p>
+</div>
+</div>
+<div class="section" id="tasks">
+<span id="tasks-list"></span><h3>Tasks 列表<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<p>每一個 play 包含了一個 task 列表（任務列表）.一個 task 在其所對應的所有主機上（通過 host pattern 匹配的所有主機）執行完畢之後,下一個 task 才會執行.有一點需要明白的是（很重要）,在一個 play 之中,所有 hosts 會獲取相同的任務指令,這是 play 的一個目的所在,也就是將一組選出的 hosts 對映到 task.（注:此處翻譯未必準確,暫時保留原文）</p>
+<p>在執行 playbook 時（從上到下執行）,如果一個 host 執行 task 失敗,這個 host 將會從整個 playbook 的 rotation 中移除.
+如果發生執行失敗的情況,請修正 playbook 中的錯誤,然後重新執行即可.</p>
+<p>每個 task 的目標在於執行一個 moudle, 通常是帶有特定的參數來執行.在參數中可以使用變數（variables）.</p>
+<p>modules 具有&#8221;冪等&#8221;性,意思是如果你再一次地執行 moudle（譯者注:比如遇到遠端系統被意外改動,需要恢復原狀）,moudle
+只會執行必要的改動,只會改變需要改變的地方.所以重複多次執行 playbook 也很安全.</p>
+<p>對於 <cite>command</cite> module 和 <cite>shell</cite> module,重複執行 playbook,實際上是重複運行同樣的命令.如果執行的命令類似於 &#8216;chmod&#8217; 或者 &#8216;setsebool&#8217; 這種命令,這沒有任何問題.也可以使用一個叫做 &#8216;creates&#8217; 的 flag 使得這兩個 module 變得具有&#8221;冪等&#8221;特性
+（不是必要的）.</p>
+<p>每一個 task 必須有一個名稱 <cite>name</cite>,這樣在執行 playbook 時,從其輸出的任務執行資訊中可以很好的辨別出是屬於哪一個 task 的.
+如果沒有定義 <cite>name</cite>,‘action’ 的值將會用作輸出資訊中標記特定的 task.</p>
+<p>如果要聲明一個 task,以前有一種格式: &#8220;action: module options&#8221; （可能在一些老的 playbooks 中還能見到）.現在推薦使用更常見的格式:&#8221;module: options&#8221; ,本文件使用的就是這種格式.</p>
+<p>下面是一種基本的 task 的定義,service moudle 使用 key=value 格式的參數,這也是大多數 module 使用的參數格式:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: make sure apache is running
+    service: name=httpd state=running
+</pre></div>
+</div>
+<p>比較特別的兩個 modudle 是  <cite>command</cite> 和 <cite>shell</cite> ,它們不使用 key=value 格式的參數,而是這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: disable selinux
+    command: /sbin/setenforce 0
+</pre></div>
+</div>
+<p>使用 command module 和 shell module 時,我們需要關心返回碼資訊,如果有一條命令,它的成功執行的返回碼不是0,
+你或許希望這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: run this command and ignore the result
+    shell: /usr/bin/somecommand || /bin/true
+</pre></div>
+</div>
+<p>或者是這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: run this command and ignore the result
+    shell: /usr/bin/somecommand
+    ignore_errors: True
+</pre></div>
+</div>
+<p>如果 action 行看起來太長,你可以使用 space（空格） 或者 indent（縮排） 隔開連續的一行:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: Copy ansible inventory file to client
+    copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
+            owner=root group=root mode=0644
+</pre></div>
+</div>
+<p>在 action 行中可以使用變數.假設在 &#8216;vars&#8217; 那裡定義了一個變數 &#8216;vhost&#8217; ,可以這樣使用它:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: create a virtual host file for {{ vhost }}
+    template: src=somefile.j2 dest=/etc/httpd/conf.d/{{ vhost }}
+</pre></div>
+</div>
+<p>這些變數在 tempates 中也是可用的,稍後會講到.</p>
+<p>在一個基礎的 playbook 中,所有的 task 都是在一個 play 中列出,稍後將介紹一種更合理的安排 task 的方式:使用 &#8216;include:&#8217;
+指令.</p>
+</div>
+</div>
+<div class="section" id="action-shorthand">
+<span id="id4"></span><h2>Action Shorthand<a class="headerlink" href="#action-shorthand" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.8.</span></p>
+</div>
+<p>在 0.8 及以後的版本中,ansible 更喜歡使用如下的格式列出 modules:</p>
+<div class="highlight-python"><div class="highlight"><pre>template: src=templates/foo.j2 dest=/etc/foo.conf
+</pre></div>
+</div>
+<p>在早期的版本中,使用以下的格式:</p>
+<div class="highlight-python"><div class="highlight"><pre>action: template src=templates/foo.j2 dest=/etc/foo.conf
+</pre></div>
+</div>
+<p>早期的格式在新版本中仍然可用,並且沒有計劃將這種舊的格式棄用.</p>
+</div>
+<div class="section" id="handlers">
+<span id="id5"></span><h2>Handlers: 在發生改變時執行的操作<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<p>上面我們曾提到過,module 具有&#8221;冪等&#8221;性,所以當遠端系統被人改動時,可以重放 playbooks 達到恢復的目的.
+playbooks 本身可以識別這種改動,並且有一個基本的 event system（事件系統）,可以響應這種改動.</p>
+<p>（當發生改動時）&#8217;notify&#8217; actions 會在 playbook 的每一個 task 結束時被觸發,而且即使有多個不同的 task 通知改動的發生,
+&#8216;notify&#8217; actions 只會被觸發一次.</p>
+<p>舉例來說,比如多個 resources 指出因為一個配置檔案被改動,所以 apache 需要重新啟動,但是重新啟動的操作只會被執行一次.</p>
+<p>這裡有一個例子,當一個檔案的內容被改動時,重啟兩個 services:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: template configuration file
+  template: src=template.j2 dest=/etc/foo.conf
+  notify:
+     - restart memcached
+     - restart apache
+</pre></div>
+</div>
+<p>&#8216;notify&#8217; 下列出的即是 handlers.</p>
+<p>Handlers 也是一些 task 的列表,通過名字來引用,它們和一般的 task 並沒有什麼區別.Handlers 是由通知者進行 notify,
+如果沒有被 notify,handlers 不會執行.不管有多少個通知者進行了 notify,等到 play 中的所有 task 執行完成之後,handlers  也只會被執行一次.</p>
+<p>這裡是一個 handlers 的示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>handlers:
+    - name: restart memcached
+      service:  name=memcached state=restarted
+    - name: restart apache
+      service: name=apache state=restarted
+</pre></div>
+</div>
+<p>Handlers 最佳的應用場景是用來重啟服務,或者觸發系統重啟操作.除此以外很少用到了.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">handlers 會按照聲明的順序執行</p>
+</div>
+<p>Roles 將在下一章節講述.值得指出的是,handlers 會在 &#8216;pre_tasks&#8217;, &#8216;roles&#8217;, &#8216;tasks&#8217;, 和 &#8216;post_tasks&#8217; 之間自動執行.
+如果你想立即執行所有的 handler 命令,在1.2及以後的版本,你可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+   - shell: some tasks go here
+   - meta: flush_handlers
+   - shell: some other tasks
+</pre></div>
+</div>
+<p>在以上的例子中,任何在排隊等候的 handlers 會在執行到 &#8216;meta&#8217; 部分時,優先執行.這個技巧在有些時候也能派上用場.</p>
+</div>
+<div class="section" id="executing-a-playbook">
+<span id="id6"></span><h2>執行一個 playbook<a class="headerlink" href="#executing-a-playbook" title="Permalink to this headline">¶</a></h2>
+<p>既然現在你已經學習了 playbook 的語法,那要如何執行一個 playbook 呢？這很簡單,這裡的示例是並行的執行 playbook,並行的級別
+是10（譯者注:是10個併發的程序？）:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook playbook.yml -f 10
+</pre></div>
+</div>
+</div>
+<div class="section" id="ansible-pull">
+<span id="id7"></span><h2>Ansible-Pull（拉取配置而非推送配置）<a class="headerlink" href="#ansible-pull" title="Permalink to this headline">¶</a></h2>
+<p>我們可不可以將 ansible 的體系架構顛倒過來,讓託管節點從一個 central location 做 check in 獲取配置資訊,而不是
+推送配置資訊到所有的託管節點？是可以的.</p>
+<p>Ansible-pull 是一個小指令碼,它從 git 上 checkout 一個關於配置指令的 repo,然後以這個配置指令來執行 ansible-playbook.</p>
+<p>假設你對你的 checkout location 做負載均衡,ansible-pull 基本上可以無限的提升規模.</p>
+<p>可執行 <code class="docutils literal"><span class="pre">ansible-pull</span> <span class="pre">--help</span></code> 獲取詳細的幫助資訊.</p>
+<p>也有一個叫做 clever playbook 的東西:  <a class="reference external" href="https://github.com/ansible/ansible-examples/blob/master/language_features/ansible_pull.yml">clever playbook</a> .
+這個可以通過 crontab 來配置 ansible-pull（from push mode）.</p>
+</div>
+<div class="section" id="tips-and-tricks">
+<span id="id8"></span><h2>提示與技巧<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+<p>在 playbook 執行輸出資訊的底部,可以找到關於託管節點的資訊.也可看到一般的失敗資訊,和嚴重的 &#8220;unreachable&#8221; 資訊.
+這兩個是分開計數的.</p>
+<p>如果你想看到執行成功的 modules 的輸出資訊,使用 <code class="docutils literal"><span class="pre">--verbose</span></code> flag（否則只有執行失敗的才會有輸出資訊）.這在 0.5 及以後的版本中可用.</p>
+<p>如果安裝了 cowsay 軟體包,ansible playbook 的輸出已經進行了廣泛的升級.可以嘗試一下！</p>
+<p>在執行一個 playbook 之前,想看看這個 playbook 的執行會影響到哪些 hosts,你可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook playbook.yml --list-hosts
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="YAMLSyntax.html"><em>YAML 語法</em></a></dt>
+<dd>Learn about YAML syntax</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Various tips about managing playbooks in the real world</dd>
+<dt><a class="reference internal" href="index.html"><em>Ansible 文件</em></a></dt>
+<dd>Hop back to the documentation index for a lot of special topics about playbooks</dd>
+<dt><a class="reference internal" href="modules.html"><em>模組相關</em></a></dt>
+<dd>Learn about available modules</dd>
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>Learn how to extend Ansible by writing your own modules</dd>
+<dt><a class="reference internal" href="intro_patterns.html"><em>Patterns</em></a></dt>
+<dd>Learn about how to select hosts</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Github examples directory</a></dt>
+<dd>Complete end-to-end playbook examples</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_roles.html" class="btn btn-neutral float-right" title="Playbook Roles and Include Statements" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks.html" class="btn btn-neutral" title="Playbooks" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

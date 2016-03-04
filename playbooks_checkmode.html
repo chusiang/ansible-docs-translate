@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Check Mode (“Dry Run”) &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks: Special Topics" href="playbooks_special_topics.html"/>
+        <link rel="next" title="委託,滾動更新,本地動作" href="playbooks_delegation.html"/>
+        <link rel="prev" title="非同步操作和輪詢" href="playbooks_async.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_acceleration.html">Accelerated Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_async.html">非同步操作和輪詢</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Check Mode (&#8220;Dry Run&#8221;)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#forcing-to-run-in-check-mode">在測試模式下執行一個任務.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#showing-differences-with-diff">Showing Differences with <code class="docutils literal"><span class="pre">--diff</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_delegation.html">委託,滾動更新,本地動作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_environment.html">配置環境 (在代理環境中)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_error_handling.html">Playbooks 中的錯誤處理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_tags.html">標籤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_vault.html">Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_startnstep.html">從指定任務開始執行palybook以及分步執行playbook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks_special_topics.html">Playbooks: Special Topics</a> &raquo;</li>
+      
+    <li>Check Mode (&#8220;Dry Run&#8221;)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_checkmode.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="check-mode-dry-run">
+<h1><a class="toc-backref" href="#id2">Check Mode (&#8220;Dry Run&#8221;)</a><a class="headerlink" href="#check-mode-dry-run" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.1.</span></p>
+</div>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#check-mode-dry-run" id="id2">Check Mode (&#8220;Dry Run&#8221;)</a><ul>
+<li><a class="reference internal" href="#forcing-to-run-in-check-mode" id="id3">在測試模式下執行一個任務.</a></li>
+<li><a class="reference internal" href="#showing-differences-with-diff" id="id4">Showing Differences with <code class="docutils literal"><span class="pre">--diff</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>當以 <code class="docutils literal"><span class="pre">--check</span></code> 參數來執行 ansible-playbook 時,將不會對遠端的系統作出任何更改.相對的,任何帶有檢測功能的模組(這幾乎包含了所有的主要核心模組,但這不要求所有的模組都需支援.)
+只要支援 &#8216;檢測模式&#8217; 將會報告它們會做出什麼改變而不是直接進行改變.其他不支援檢測模式的模組將既不響應也不提出相應的報告.</p>
+<p>檢測模式只是一種模擬.如果你的playbook是以先前命令的執行結果作為條件的話,那它可能對你就沒有什麼大用處了.
+但是對於基於一次一節點的基礎配置管理的使用情形來說是很有用.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook foo.yml --check
+</pre></div>
+</div>
+<div class="section" id="forcing-to-run-in-check-mode">
+<span id="id1"></span><h2><a class="toc-backref" href="#id3">在測試模式下執行一個任務.</a><a class="headerlink" href="#forcing-to-run-in-check-mode" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>有時候你甚至會想在檢測模式中執行一個任務.為了達到這樣的效果,
+你需要在相應的任務上使用 <cite>always_run</cite> 子句.跟 <cite>when</cite> 子句一樣,它的值是一個 Jinja2 表示式.
+在一個簡單的例子中,布爾值也會表達為一個適當的 YAML 值.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+
+  - name: this task is run even in check mode
+    command: /something/to/run --even-in-check-mode
+    always_run: yes
+</pre></div>
+</div>
+<p>友情提示,帶有 <cite>when</cite> 子句的任務會返回false,該任務將會被跳過,即使它還被添加了會返回true的 <cite>always_run</cite> 子句.</p>
+</div>
+<div class="section" id="showing-differences-with-diff">
+<span id="diff-mode"></span><h2><a class="toc-backref" href="#id4">Showing Differences with <code class="docutils literal"><span class="pre">--diff</span></code></a><a class="headerlink" href="#showing-differences-with-diff" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.1: </span>對 ansible-playbook 來說 <code class="docutils literal"><span class="pre">--diff</span></code> 選項與 <code class="docutils literal"><span class="pre">--check</span></code> (詳情參下)配合使用效果奇佳,不過它也可以單獨使用.當提供了相應的標識後,當遠端系統上任何模板檔案的變化時,ansible-playbook CLI 將會報告檔案上任何文字的變化
+(或者,如果使用了 <code class="docutils literal"><span class="pre">--check</span></code> 參數,將報告會發生的變化.).因為 diff 特性會產生大量的輸出結果,所以它在一次檢測一個主機時使用為佳,如:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook foo.yml --check --diff --limit foo.example.com
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_delegation.html" class="btn btn-neutral float-right" title="委託,滾動更新,本地動作" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_async.html" class="btn btn-neutral" title="非同步操作和輪詢" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

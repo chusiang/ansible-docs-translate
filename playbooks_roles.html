@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playbook Roles and Include Statements &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks" href="playbooks.html"/>
+        <link rel="next" title="Variables" href="playbooks_variables.html"/>
+        <link rel="prev" title="Playbooks 介紹" href="playbooks_intro.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks.html">Playbooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Playbook Roles and Include Statements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">介紹</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-include-files">Task Include Files 和鼓勵重用機制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roles">Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-default-variables">Role Default Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-dependencies">Role Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embedding-modules-in-roles">Embedding Modules In Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible-galaxy">Ansible Galaxy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_loops.html">迴圈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks.html">Playbooks</a> &raquo;</li>
+      
+    <li>Playbook Roles and Include Statements</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_roles.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playbook-roles-and-include-statements">
+<h1><a class="toc-backref" href="#id4">Playbook Roles and Include Statements</a><a class="headerlink" href="#playbook-roles-and-include-statements" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#playbook-roles-and-include-statements" id="id4">Playbook Roles and Include Statements</a><ul>
+<li><a class="reference internal" href="#id1" id="id5">介紹</a></li>
+<li><a class="reference internal" href="#task-include-files" id="id6">Task Include Files 和鼓勵重用機制</a></li>
+<li><a class="reference internal" href="#roles" id="id7">Roles</a></li>
+<li><a class="reference internal" href="#role-default-variables" id="id8">Role Default Variables</a></li>
+<li><a class="reference internal" href="#role-dependencies" id="id9">Role Dependencies</a></li>
+<li><a class="reference internal" href="#embedding-modules-in-roles" id="id10">Embedding Modules In Roles</a></li>
+<li><a class="reference internal" href="#ansible-galaxy" id="id11">Ansible Galaxy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id5">介紹</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>當 playbook 檔案越來越大的時候(你可以跳出來去學習 playbooks 了),最後一定會有檔案重用時候,此刻就需要我們來重新組織 playbooks 了.</p>
+<p>從最基本來講, task files 請允許我們拆分配置策略到多個小檔案. Task 可以從其它檔案中讀取 tasks. 因為 handler 也是tasks, 所以你也可以在在 &#8216;handlers:&#8217; 區域引用 handler 檔案.</p>
+<p>你可以查閱 <a class="reference internal" href="playbooks.html"><em>Playbooks</em></a> 來複習該章節內容.</p>
+<p>Playbooks 也可以引用其它 playbooks 檔案中的命令條目.當所有檔案均讀取完畢後, 所有的命令條目將被插入到一個 playbook 中組合成一條長的命令列表.</p>
+<p>當你開始思考 &#8211; tasks, handlers, variables等 &#8211; 開始形成大的想法概念,當你開始創造一些東西,而非模仿某些東西. It&#8217;s no longer &#8220;apply this handful of THINGS to these hosts&#8221; ,你決定 &#8220;這些 hosts 是 dbservers&#8221; 或者 這些 hosts 是 webservers&#8221;. 在程式語言中,我們稱之為&#8221;封裝&#8221;.舉個例子,你會開車但不需要知道發動機工作原理.</p>
+<p>Roles 在 Ansible中起到的宗旨是把配置檔案整合到一起並最大程度保證其乾淨整潔,可重用 &#8211; 他允許我們把重點放在大局上只有在需要的時候才再深入瞭解.</p>
+<p>瞭解 includes 的對深入 roles 有重要意義,但我們最終的目標是理解 roles &#8211; roles是非常偉大的產品,所以當我們寫 playbooks 時一定要使用 roles.</p>
+<p>閱讀 <cite>ansible-examples &lt;https://github.com/ansible/ansible-examples&gt;</cite> 獲取更多例項. 你可以開啟單獨的頁面進行深入學習.</p>
+</div>
+<div class="section" id="task-include-files">
+<h2><a class="toc-backref" href="#id6">Task Include Files 和鼓勵重用機制</a><a class="headerlink" href="#task-include-files" title="Permalink to this headline">¶</a></h2>
+<p>猜想你希望在不同 tasks 之間plays 和 playbooks 可以重複呼叫. include files可以達成目的. 系統通過使用 include task 來完美實現 role 定義. 記住, playbook 中的 play 最終目的是對映系統群到多 roles中. 我們來舉個例子吧...</p>
+<p>只簡單包括 tasks 的 task 檔案如下示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# possibly saved as tasks/foo.yml
+
+- name: placeholder foo
+  command: /bin/foo
+
+- name: placeholder bar
+  command: /bin/bar
+</pre></div>
+</div>
+<p>Include 指令類似如下,可以像普通 tasks 命令一樣在 playbook 中混合使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+
+  - include: tasks/foo.yml
+</pre></div>
+</div>
+<p>你也可以傳輸變數到 includes 指令, 我們稱之為 &#8216;parameterized include&#8217;.</p>
+<p>例如,如何分發多個 wordpress 例項,我可以包涵所有 wordpress 命令到一個 wordpress.yml 檔案,按如下方式使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - include: wordpress.yml wp_user=timmy
+  - include: wordpress.yml wp_user=alice
+  - include: wordpress.yml wp_user=bob
+</pre></div>
+</div>
+<p>如果你使用的是 Ansible 1.4以上版本(包括1.4), include 語法簡化了匹配 roles, 同時允許傳遞參數列表和字典:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+ - { include: wordpress.yml, wp_user: timmy, ssh_keys: [ &#39;keys/one.txt&#39;, &#39;keys/two.txt&#39; ] }
+</pre></div>
+</div>
+<p>使用任意一種語法, 變數傳遞均可以在 included 檔案中被使用. 我們將在 <a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a> 詳細討論. 你可以這樣引用他們:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">wp_user</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>(除了明確聲明定義參數,所有 vars 區塊定義的變數在這裡同樣適用.)</p>
+<p>從1.0開始, ansible 還支援另外一種變數傳參到 include files 的方式-結構化變數,方式如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+
+  - include: wordpress.yml
+    vars:
+        wp_user: timmy
+        ssh_keys:
+          - keys/one.txt
+          - keys/two.txt
+</pre></div>
+</div>
+<p>Playbooks 也同樣可以 include 引用其它 playbooks,但這部分內容將在另外章節介紹.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">截止1.0版本,task include 聲明可以在任意層級目錄使用.在這之前,變數只能同層級目錄引用,所以 task includes 不能引用其實包含有 task includes 引用的task檔案.</p>
+</div>
+<p>Includes 功能也可以被用在用 handlers 區域,例如,如果你希望定義如何重啟apache,你只需要定義一個playbook,只需要做一次.編輯類似如下樣例的 handers.yml:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# this might be in a file like handlers/handlers.yml
+- name: restart apache
+  service: name=apache state=restarted
+</pre></div>
+</div>
+<p>然後像如下方式在 main playbook 的詢問引用play即可:</p>
+<div class="highlight-python"><div class="highlight"><pre>handlers:
+  - include: handlers/handlers.yml
+</pre></div>
+</div>
+<p>Includes也可以在常規不包含 included 的tasks和handlers檔案中混合引用.
+Includes常被用作將一個playbook檔案中的命令匯入到另外一個playbook.這種方式允許我們定義由其它playbooks組成的頂層playbook(top-level playbook).</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: this is a play at the top level of a file
+  hosts: all
+  remote_user: root
+
+  tasks:
+
+  - name: say hi
+    tags: foo
+    shell: echo &quot;hi...&quot;
+
+- include: load_balancers.yml
+- include: webservers.yml
+- include: dbservers.yml
+</pre></div>
+</div>
+<p>注意: 引用playbook到其它playbook時,變數替換功能將失效不可用.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">你不能有條件的指定位置的 include 檔案,就像在你使用 &#8216;vars_files&#8217; 時一樣.
+如果你發展你必須這麼做,那請重新規劃調整 playbook 的class/role 編排.這樣
+說其實是想明確告訴你不要妄想 include 指定位置的file. 所有被包含在 play
+中的主機都將執行相同的tasks.(&#8216;<em>when</em>&#8216;提供了一些指定條件來跳過tasks)</p>
+</div>
+</div>
+<div class="section" id="roles">
+<span id="id2"></span><h2><a class="toc-backref" href="#id7">Roles</a><a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.2.</span></p>
+</div>
+<p>Now that you have learned about tasks and handlers, what is the best way to organize your playbooks?
+The short answer is to use roles!  Roles are ways of automatically loading certain vars_files, tasks, and
+handlers based on a known file structure.  Grouping content by roles also allows easy sharing of roles with other users.</p>
+<p>Roles are just automation around &#8216;include&#8217; directives as described above, and really don&#8217;t contain much
+additional magic beyond some improvements to search path handling for referenced files.  However, that can be a big thing!</p>
+<p>Example project structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+   webservers/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+</pre></div>
+</div>
+<p>In a playbook, it would look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  roles:
+     - common
+     - webservers
+</pre></div>
+</div>
+<p>This designates the following behaviors, for each role &#8216;x&#8217;:</p>
+<ul class="simple">
+<li>If roles/x/tasks/main.yml exists, tasks listed therein will be added to the play</li>
+<li>If roles/x/handlers/main.yml exists, handlers listed therein will be added to the play</li>
+<li>If roles/x/vars/main.yml exists, variables listed therein will be added to the play</li>
+<li>If roles/x/meta/main.yml exists, any role dependencies listed therein will be added to the list of roles (1.3 and later)</li>
+<li>Any copy tasks can reference files in roles/x/files/ without having to path them relatively or absolutely</li>
+<li>Any script tasks can reference scripts in roles/x/files/ without having to path them relatively or absolutely</li>
+<li>Any template tasks can reference files in roles/x/templates/ without having to path them relatively or absolutely</li>
+<li>Any include tasks can reference files in roles/x/tasks/ without having to path them relatively or absolutely</li>
+</ul>
+<p>In Ansible 1.4 and later you can configure a roles_path to search for roles.  Use this to check all of your common roles out to one location, and share
+them easily between multiple playbook projects.  See <a class="reference internal" href="intro_configuration.html"><em>Ansible的配置檔案</em></a> for details about how to set this up in ansible.cfg.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Role dependencies are discussed below.</p>
+</div>
+<p>If any files are not present, they are just ignored.  So it&#8217;s ok to not have a &#8216;vars/&#8217; subdirectory for the role,
+for instance.</p>
+<p>Note, you are still allowed to list tasks, vars_files, and handlers &#8220;loose&#8221; in playbooks without using roles,
+but roles are a good organizational feature and are highly recommended.  If there are loose things in the playbook,
+the roles are evaluated first.</p>
+<p>Also, should you wish to parameterize roles, by adding variables, you can do so, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: webservers
+  roles:
+    - common
+    - { role: foo_app_instance, dir: &#39;/opt/a&#39;,  port: 5000 }
+    - { role: foo_app_instance, dir: &#39;/opt/b&#39;,  port: 5001 }
+</pre></div>
+</div>
+<p>While it&#8217;s probably not something you should do often, you can also conditionally apply roles like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: webservers
+  roles:
+    - { role: some_role, when: &quot;ansible_os_family == &#39;RedHat&#39;&quot; }
+</pre></div>
+</div>
+<p>This works by applying the conditional to every task in the role.  Conditionals are covered later on in
+the documentation.</p>
+<p>Finally, you may wish to assign tags to the roles you specify. You can do so inline::</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: webservers
+  roles:
+    - { role: foo, tags: [&quot;bar&quot;, &quot;baz&quot;] }
+</pre></div>
+</div>
+<p>If the play still has a &#8216;tasks&#8217; section, those tasks are executed after roles are applied.</p>
+<p>If you want to define certain tasks to happen before AND after roles are applied, you can do this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+
+- hosts: webservers
+
+  pre_tasks:
+    - shell: echo &#39;hello&#39;
+
+  roles:
+    - { role: some_role }
+
+  tasks:
+    - shell: echo &#39;still busy&#39;
+
+  post_tasks:
+    - shell: echo &#39;goodbye&#39;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If using tags with tasks (described later as a means of only running part of a playbook),
+be sure to also tag your pre_tasks and post_tasks and pass those along as well, especially if the pre
+and post tasks are used for monitoring outage window control or load balancing.</p>
+</div>
+</div>
+<div class="section" id="role-default-variables">
+<h2><a class="toc-backref" href="#id8">Role Default Variables</a><a class="headerlink" href="#role-default-variables" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>Role default variables allow you to set default variables for included or dependent roles (see below). To create
+defaults, simply add a <cite>defaults/main.yml</cite> file in your role directory. These variables will have the lowest priority
+of any variables available, and can be easily overridden by any other variable, including inventory variables.</p>
+</div>
+<div class="section" id="role-dependencies">
+<h2><a class="toc-backref" href="#id9">Role Dependencies</a><a class="headerlink" href="#role-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>Role dependencies allow you to automatically pull in other roles when using a role. Role dependencies are stored in the
+<cite>meta/main.yml</cite> file contained within the role directory. This file should contain
+a list of roles and parameters to insert before the specified role, such as the following in an example
+<cite>roles/myapp/meta/main.yml</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+dependencies:
+  - { role: common, some_parameter: 3 }
+  - { role: apache, port: 80 }
+  - { role: postgres, dbname: blarg, other_parameter: 12 }
+</pre></div>
+</div>
+<p>Role dependencies can also be specified as a full path, just like top level roles:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+dependencies:
+   - { role: &#39;/path/to/common/roles/foo&#39;, x: 1 }
+</pre></div>
+</div>
+<p>Role dependencies can also be installed from source control repos or tar files (via <cite>galaxy</cite>) using comma separated format of path, an optional version (tag, commit, branch etc) and optional friendly role name (an attempt is made to derive a role name from the repo name or archive filename). Both through the command line or via a requirements.yml passed to ansible-galaxy.</p>
+<p>Roles dependencies are always executed before the role that includes them, and are recursive. By default,
+roles can also only be added as a dependency once - if another role also lists it as a dependency it will
+not be run again. This behavior can be overridden by adding <cite>allow_duplicates: yes</cite> to the <cite>meta/main.yml</cite> file.
+For example, a role named &#8216;car&#8217; could add a role named &#8216;wheel&#8217; to its dependencies as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+dependencies:
+- { role: wheel, n: 1 }
+- { role: wheel, n: 2 }
+- { role: wheel, n: 3 }
+- { role: wheel, n: 4 }
+</pre></div>
+</div>
+<p>And the <cite>meta/main.yml</cite> for wheel contained the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+allow_duplicates: yes
+dependencies:
+- { role: tire }
+- { role: brake }
+</pre></div>
+</div>
+<p>The resulting order of execution would be as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">tire</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">brake</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">wheel</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tire</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">brake</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">wheel</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">car</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Variable inheritance and scope are detailed in the <a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a>.</p>
+</div>
+</div>
+<div class="section" id="embedding-modules-in-roles">
+<h2><a class="toc-backref" href="#id10">Embedding Modules In Roles</a><a class="headerlink" href="#embedding-modules-in-roles" title="Permalink to this headline">¶</a></h2>
+<p>This is an advanced topic that should not be relevant for most users.</p>
+<p>If you write a custom module (see <a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a>) you may wish to distribute it as part of a role.  Generally speaking, Ansible as a project is very interested
+in taking high-quality modules into ansible core for inclusion, so this shouldn&#8217;t be the norm, but it&#8217;s quite easy to do.</p>
+<p>A good example for this is if you worked at a company called AcmeWidgets, and wrote an internal module that helped configure your internal software, and you wanted other
+people in your organization to easily use this module &#8211; but you didn&#8217;t want to tell everyone how to configure their Ansible library path.</p>
+<p>Alongside the &#8216;tasks&#8217; and &#8216;handlers&#8217; structure of a role, add a directory named &#8216;library&#8217;.  In this &#8216;library&#8217; directory, then include the module directly inside of it.</p>
+<p>Assuming you had this:</p>
+<div class="highlight-python"><div class="highlight"><pre>roles/
+   my_custom_modules/
+       library/
+          module1
+          module2
+</pre></div>
+</div>
+<p>The module will be usable in the role itself, as well as any roles that are called <em>after</em> this role, as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  roles:
+    - my_custom_modules
+    - some_other_role_using_my_custom_modules
+    - yet_another_role_using_my_custom_modules
+</pre></div>
+</div>
+<p>This can also be used, with some limitations, to modify modules in Ansible&#8217;s core distribution, such as to use development versions of modules before they are released
+in production releases.  This is not always advisable as API signatures may change in core components, however, and is not always guaranteed to work.  It can be a handy
+way of carrying a patch against a core module, however, should you have good reason for this.  Naturally the project prefers that contributions be directed back
+to github whenever possible via a pull request.</p>
+</div>
+<div class="section" id="ansible-galaxy">
+<h2><a class="toc-backref" href="#id11">Ansible Galaxy</a><a class="headerlink" href="#ansible-galaxy" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://galaxy.ansible.com">Ansible Galaxy</a> is a free site for finding, downloading, rating, and reviewing all kinds of community developed Ansible roles and can be a great way to get a jumpstart on your automation projects.</p>
+<p>You can sign up with social auth, and the download client &#8216;ansible-galaxy&#8217; is included in Ansible 1.4.2 and later.</p>
+<p>Read the &#8220;About&#8221; page on the Galaxy site for more information.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="galaxy.html"><em>Ansible Galaxy</em></a></dt>
+<dd>How to share roles on galaxy, role management</dd>
+<dt><a class="reference internal" href="YAMLSyntax.html"><em>YAML 語法</em></a></dt>
+<dd>Learn about YAML syntax</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Review the basic Playbook language features</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Various tips about managing playbooks in the real world</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a></dt>
+<dd>All about variables in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a></dt>
+<dd>Conditionals in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_loops.html"><em>迴圈</em></a></dt>
+<dd>Loops in playbooks</dd>
+<dt><a class="reference internal" href="modules.html"><em>模組相關</em></a></dt>
+<dd>Learn about available modules</dd>
+<dt><a class="reference internal" href="developing_modules.html"><em>Developing Modules</em></a></dt>
+<dd>Learn how to extend Ansible by writing your own modules</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt>
+<dd>Complete playbook files from the GitHub project source</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_variables.html" class="btn btn-neutral float-right" title="Variables" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_intro.html" class="btn btn-neutral" title="Playbooks 介紹" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

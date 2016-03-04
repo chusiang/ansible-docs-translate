@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>持續交付與滾動升級 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="詳細指南" href="guides.html"/>
+        <link rel="next" title="開發者須知" href="developing.html"/>
+        <link rel="prev" title="使用Vagrant和Ansible" href="guide_vagrant.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">詳細指南</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace 雲指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_gce.html">Google Cloud Platform Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vagrant.html">使用Vagrant和Ansible</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">持續交付與滾動升級</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lamp-introduction">介紹</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lamp-deployment">部署網站</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roles">可重用的: Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#group-variables">配置: Group Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lamp-rolling-upgrade">滾動升級</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lamp-end-notes">管理其他的負載均衡</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lamp-end-to-end">持續交付結束</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="guides.html">詳細指南</a> &raquo;</li>
+      
+    <li>持續交付與滾動升級</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/guide_rolling_upgrade.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>持續交付與滾動升級<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lamp-introduction">
+<span id="id2"></span><h2>介紹<a class="headerlink" href="#lamp-introduction" title="Permalink to this headline">¶</a></h2>
+<p>持續交付是頻繁對軟體應用程式持續更新的概念.</p>
+<p>這個想法使在大量頻繁的更新面前, 你不必等待在一個指定的特殊時間點, 並且使你的組織在響應過程中變得更好.</p>
+<p>一些 Ansible 使用者每小時都在部署更新給他們的終端使用者甚至更加頻繁 &#8211; 每時每刻都有程式碼修改的批准. 要實現這一點, 你需要工具能在零停機的時間內快速的應用這些更新.</p>
+<p>本文件詳細介紹瞭如何現實這一目標, 使用 Ansible playbooks 作為一個完整例子的模板: lamp_haproxy. 這個例子使用了大量的 Ansible 特性: roles, templates 和 group variables, 並且它還配備了一個業務流程的 playbook 可以做到零停機滾動升級 web 應用程式棧.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">點選這裡檢視最新版本的 playbook 例子</a>.</p>
+</div>
+<p>這個 playbooks 基於 CentOS 部署 Apache, PHP, MySQL, Nagios, 和 HAProxy 這些服務.</p>
+<p>在這裡我們不去討論如何執行這些 playbooks. 閱讀包含在 github 項目中關於這個例子的 README 資訊. 相反的, 我們將進一步觀察這些 playbook 並且去解釋它們.</p>
+</div>
+<div class="section" id="lamp-deployment">
+<span id="id3"></span><h2>部署網站<a class="headerlink" href="#lamp-deployment" title="Permalink to this headline">¶</a></h2>
+<p>讓我們首先使用 <code class="docutils literal"><span class="pre">site.yml</span></code>. 這是我們網站部署的 playbook. 它被用來部署我們最初的網站以及推送更新到所有的伺服器:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# 這個 playbook 在這個網站上部署整個應用程式.
+
+# 應用通用的配置到所有的主機上
+- hosts: all
+
+  roles:
+  - common
+
+# 配置和部署資料庫伺服器.
+- hosts: dbservers
+
+  roles:
+  - db
+
+# 配置和部署 web 伺服器. 注意這裡我們包含了兩個 roles, 這個 &#39;base-apache&#39; role 用來簡單設定 Apache, 而 &#39;web&#39; 則包含了我們的 web 應用程式.
+
+- hosts: webservers
+
+  roles:
+  - base-apache
+  - web
+
+# 配置和部署 load balancer(s).
+- hosts: lbservers
+
+  roles:
+  - haproxy
+
+# 配置和部署 Nagios 監控節點(s).
+- hosts: monitoring
+
+  roles:
+  - base-apache
+  - nagios
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">如果你不熟悉 playbooks 和 plays, 你應該回顧 <a class="reference internal" href="playbooks.html"><em>Playbooks</em></a>.</p>
+</div>
+<p>在這個 palybook 我們有 5 個 plays. 首先第一個目標 <code class="docutils literal"><span class="pre">all</span></code> (所有)主機和適用於所有主機的 <code class="docutils literal"><span class="pre">common</span></code> role. 這是整個網站要做的事像 yum 倉庫的配置, 防火牆的配置, 和其他任何需要適用於所有伺服器的配置.</p>
+<p>接下來的這四個 plays 將運行於指定的主機組並特定的角色應用於這些伺服器. 隨著對 Nagios monitoring, 資料庫角色, 和 web應用程式的應用, 我們可以通過 <code class="docutils literal"><span class="pre">base-apache</span></code> 角色安裝和配置一個基本的 Apache. 這是 Nagios 主機和 web 應用程式所需要的.</p>
+</div>
+<div class="section" id="roles">
+<span id="lamp-roles"></span><h2>可重用的: Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<p>關於 roles 你現在應該有一點了解以及它們是如何工作的. Roles 是組織: tasks, handlers, templates, 和 files, 到可重用的元件中的方法.</p>
+<p>這個例子有 6 個 roles: <code class="docutils literal"><span class="pre">common</span></code>, <code class="docutils literal"><span class="pre">base-apache</span></code>, <code class="docutils literal"><span class="pre">db</span></code>, <code class="docutils literal"><span class="pre">haproxy</span></code>, <code class="docutils literal"><span class="pre">nagios</span></code>, 和 <code class="docutils literal"><span class="pre">web</span></code>.
+你如何組織你的 roles 是由你和你的應用程式所決定, 但是大部分網站都將適用一個或多個共同的 roles, 和一些列關於應用程式特定的 roles 來安裝和配置這個網站的特定部分.</p>
+<p>Roles 可以用變數和依賴關係, 你可以通過參數來調整它們的行為.
+你可以在 <a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a> 章節中閱讀更多關於 roles</p>
+</div>
+<div class="section" id="group-variables">
+<span id="lamp-group-variables"></span><h2>配置: Group Variables<a class="headerlink" href="#group-variables" title="Permalink to this headline">¶</a></h2>
+<p>Group variables 是應用在伺服器組上的. 通過設定和修改參數將他們應用在 templates 中來定義 playbooks 的行為. 他們被儲存在和你的 inventory 相同目錄下名為 <code class="docutils literal"><span class="pre">group_vars</span></code> 的目錄中.
+下面是 lamp_haproxy 的 <code class="docutils literal"><span class="pre">group_vars/all</span></code> 檔案內容. 正如你所期望的, 這些變數將會應用到 inventory 中的所有伺服器上:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+httpd_port: 80
+ntpserver: 192.168.1.2
+</pre></div>
+</div>
+<p>這是一個 YAML 檔案, 並且你可以建立列表和字典等更加複雜的變數結構. 在這種情況下, 我們只設置了兩個變數, 一個做為 web server 的埠, 一個作為我們伺服器所使用的時間同步 NTP 服務的地址.</p>
+<p>這是另外一個 group variables 檔案. 這個 <code class="docutils literal"><span class="pre">group_vars/dbservers</span></code> 適用於在 <code class="docutils literal"><span class="pre">dbservers</span></code> 組中的主機:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+mysqlservice: mysqld
+mysql_port: 3306
+dbuser: root
+dbname: foodb
+upassword: usersecret
+</pre></div>
+</div>
+<p>如果你看了這個例子, 你會發現對於 <code class="docutils literal"><span class="pre">webservers</span></code> 組合 <code class="docutils literal"><span class="pre">lbservers</span></code> 組的 group variables 十分相似.</p>
+<p>這些變數可以用於任何地方. 你可以在 playbooks 中使用它們, 像這樣, 在 <code class="docutils literal"><span class="pre">roles/db/tasks/main.yml</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Create Application Database
+  mysql_db: name={{ dbname }} state=present
+
+- name: Create Application DB User
+  mysql_user: name={{ dbuser }} password={{ upassword }}
+              priv=*.*:ALL host=&#39;%&#39; state=present
+</pre></div>
+</div>
+<p>你也可以在 templates 中使用這些變數, 想這樣, 在 <code class="docutils literal"><span class="pre">roles/common/templates/ntp.conf.j2</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>driftfile /var/lib/ntp/drift
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+server {{ ntpserver }}
+
+includefile /etc/ntp/crypto/pw
+
+keys /etc/ntp/keys
+</pre></div>
+</div>
+<p>你可以看到這些變數替換的語法 {{ and }} 和 templates 中的變數是相同的. 這種花括號格式是採用的jinj2語法, 你在對於內部的資料做各種操作及應用不同的過濾器. 在 templates, 你也可以使用迴圈和 if 語句來處理更加複雜的情況, 想這樣, 在 <code class="docutils literal"><span class="pre">roles/common/templates/iptables.j2</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% if inventory_hostname in groups[&#39;dbservers&#39;] %}
+-A INPUT -p tcp  --dport 3306 -j  ACCEPT
+{% endif %}
+</pre></div>
+</div>
+<p>這是用來判斷, 名為 (<code class="docutils literal"><span class="pre">inventory_hostname</span></code>) 的機器是否存在於組 <code class="docutils literal"><span class="pre">dbservers</span></code>. 如果這樣的話, 該機器將會新增一條 目標埠為 3306 的 iptables 允許規則.</p>
+<p>這有一些其他的例子, 來自相同的模板:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% for host in groups[&#39;monitoring&#39;] %}
+-A INPUT -p tcp -s {{ hostvars[host].ansible_default_ipv4.address }} --dport 5666 -j ACCEPT
+{% endfor %}
+</pre></div>
+</div>
+<p>這裡迴圈了一個組名為 <code class="docutils literal"><span class="pre">monitoring</span></code> 中的所有主機, 並且配置了源地址為所有監控主機的 IPV4 地址目標埠為 5666 的 iptables 允許規則到當前主機上, 正因為如此 Nagios 才可以監控這些主機.</p>
+<p>你可以學到更多關於 Jinja2 的功能 <a class="reference external" href="http://jinja.pocoo.org/docs/">here</a>, 並且你可以讀到更多關於 Ansible 所有的變數在這個 <a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a> 章節</p>
+</div>
+<div class="section" id="lamp-rolling-upgrade">
+<span id="id4"></span><h2>滾動升級<a class="headerlink" href="#lamp-rolling-upgrade" title="Permalink to this headline">¶</a></h2>
+<p>現在你有了一個全面的網站包含 web servers, 一個 load balancer, 和 monitoring. 如何更新它? 這就是 Ansible 的特殊功能發揮作用. 儘管一些應用程式使用&#8217;業務流程&#8217;來編排命令執行的邏輯, Ansible將指揮編排這些機器, 並且擁有一個相當複雜的引擎.</p>
+<p>Ansible 有能力在一次操作中協調多種應用程式, 使在進行更新升級我們的 web 應用程式時更加實現零停機時間. 這是一個單獨的 playbook, 叫做 <code class="docutils literal"><span class="pre">roleing_upgrade.yml</span></code>.</p>
+<p>看這個 playbook, 你可以看到它是由兩個 plays 組成. 首先第一個看起來十分簡單像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: monitoring
+  tasks: []
+</pre></div>
+</div>
+<p>這裡要做什麼, 為什麼沒有 tasks? 你可能知道 Ansible 在執行之前會從服務上收集 &#8220;facts&#8221;. 這些 facts 是很多種有用的資訊: 網路資訊, OS/發行版本, 配置. 在我們的方案中, 在更新之前我們需要了解關於所有監控伺服器的環境資訊, 因此這個簡單的 paly 將會在我們的所監控的伺服器上強制收集 fact 資訊. 你有時會見到這種模式, 這是一個有用的技巧.</p>
+<p>接下來的部分是更新 play. 第一部分看起來是這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  user: root
+  serial: 1
+</pre></div>
+</div>
+<p>我們僅僅是像通常一樣在 <code class="docutils literal"><span class="pre">webservers</span></code> 組中定義了 play. 這個 <code class="docutils literal"><span class="pre">serial</span></code> 關鍵字告訴 Ansible 每次操作多少伺服器. 如果它沒有被指定, Ansible 預設根據配置檔案中 &#8220;forks&#8221; 限制指定的值進行併發操作. 但是對於零停機時間的更新, 你可能不希望一次操作多個主機. 如果你僅僅有少數的 web 伺服器, 你可能希望設定 <code class="docutils literal"><span class="pre">serial</span></code> 為 1, 在同一時間只執行一臺主機. 如果你有 100 臺, 你可以設定 <code class="docutils literal"><span class="pre">serial</span></code> 為 10, 同一時間執行 10 臺.</p>
+<p>下面是更新 play 接下來的部分:</p>
+<div class="highlight-python"><div class="highlight"><pre>pre_tasks:
+- name: disable nagios alerts for this host webserver service
+  nagios: action=disable_alerts host={{ inventory_hostname }} services=webserver
+  delegate_to: &quot;{{ item }}&quot;
+  with_items: groups.monitoring
+
+- name: disable the server in haproxy
+  shell: echo &quot;disable server myapplb/{{ inventory_hostname }}&quot; | socat stdio /var/lib/haproxy/stats
+  delegate_to: &quot;{{ item }}&quot;
+  with_items: groups.lbservers
+</pre></div>
+</div>
+<p>這個 <code class="docutils literal"><span class="pre">pre_tasks</span></code> 關鍵字僅僅是讓在 roles 呼叫前列出執行的 tasks. 這段時間將十分有用. 如果你看到這些 tasks 的名稱, 你會發現我們禁用了 Nagios 的報警並且將當前更新的伺服器從 HAProxy load balancing pool 中移除.</p>
+<p>參數``delegate_to`` 和 <code class="docutils literal"><span class="pre">with_items</span></code> 一起來使用, 因為 Ansible 迴圈每一個 monitoring 伺服器和 load balancer, 並且針對迴圈的值在 monitoring 或 load balancing 上操作(delegate 代表操作). 從程式設計方面來說, 外部的迴圈是 web 伺服器列表, 內部的迴圈是 monitoring 伺服器列表.</p>
+<p>請注意 HAProxy 的步驟看起來有點複雜. 我們使用它作為例子是因為它是免費的, 但如果你有(例如)一個 F5 或 Netscaler 在你的基礎設施上(或者你有一個 AWS 彈性 IP 的設定?), 你可以使用 Ansible 的模組而不是直接和他們進行互動. 你也可能希望使用其他的 monitoring 模組來代替 nagios, 但是這僅僅是展示了在任務開始前的部分 &#8211; 把服務從監控中移除並且輪換它們.</p>
+<p>下一步重新簡單的使正確的角色應用在 web 伺服器上. 這將導致一些名為 <code class="docutils literal"><span class="pre">web</span></code> 和 <code class="docutils literal"><span class="pre">base-apache</span></code> 的配置管理角色應用到 web 伺服器上, 包含一個更新 web 應用程式自身程式碼. 我們不需要這樣做 &#8211; 我們僅需要將其修改為純碎的更新 web 程式, 但是這是一個很好的例子關於如何通過 roles 來重用這些任務:</p>
+<div class="highlight-python"><div class="highlight"><pre>roles:
+- common
+- base-apache
+- web
+</pre></div>
+</div>
+<p>最後, 在 <code class="docutils literal"><span class="pre">post_tasks</span></code> 部分, 我們反向的改變 Nagios 的配置並且將 web 伺服器重新新增到 load balancing pool:</p>
+<div class="highlight-python"><div class="highlight"><pre>post_tasks:
+- name: Enable the server in haproxy
+  shell: echo &quot;enable server myapplb/{{ inventory_hostname }}&quot; | socat stdio /var/lib/haproxy/stats
+  delegate_to: &quot;{{ item }}&quot;
+  with_items: groups.lbservers
+
+- name: re-enable nagios alerts
+  nagios: action=enable_alerts host={{ inventory_hostname }} services=webserver
+  delegate_to: &quot;{{ item }}&quot;
+  with_items: groups.monitoring
+</pre></div>
+</div>
+<p>再一次說明, 如果你在使用一個 Netscaler 或 F5 或 Elastic 的負載均衡器, 你僅僅需要替換為適合的模組物件.</p>
+</div>
+<div class="section" id="lamp-end-notes">
+<span id="id5"></span><h2>管理其他的負載均衡<a class="headerlink" href="#lamp-end-notes" title="Permalink to this headline">¶</a></h2>
+<p>在這個例子中, 我們使用了簡單的 HAProxy 負載均衡到後端的 web 伺服器. 它是非常容易配置和管理的. 正如我們所提到的, Ansible 已經為其他的負載均衡器像 Citrix NetScaler, F5 BigIP, Amazon Elastic Load Balancers 等提供了內建的支援.閱讀更多資訊 <a class="reference internal" href="modules.html"><em>模組相關</em></a></p>
+<p>對於其他的負載均衡器, 如果公開一個負載均衡時, 你可能需要向它們傳送 shell 命令 (像上面我們對 HAProxy 一樣), 或者呼叫一些 API. 你可以越多更多關於 local actions 在這個 <a class="reference internal" href="playbooks_delegation.html"><em>委託,滾動更新,本地動作</em></a> 章節中. 對於一些硬體的開發將更加有趣, 他們沒有一個核心模組, 所以你可以使用更好的模組將他們封裝起來!</p>
+</div>
+<div class="section" id="lamp-end-to-end">
+<span id="id6"></span><h2>持續交付結束<a class="headerlink" href="#lamp-end-to-end" title="Permalink to this headline">¶</a></h2>
+<p>現在你有一個自動化的方式來部署更新你的應用程式, 你將如何將他們繫結在一起? 許多組織使用持續整合的工具像 <a class="reference external" href="http://jenkins-ci.org/">Jenkins</a> 或 <a class="reference external" href="https://www.atlassian.com/software/bamboo">Atlassian Bamboo</a> 來完成開發, 測試, 釋出, 和部署這樣的流程步驟. 你也可以使用這些工具像 <a class="reference external" href="https://code.google.com/p/gerrit/">Gerrit</a> 來新增一個 code review 的步驟來審查提交的應用程式的本身或者 Ansible playbooks.</p>
+<p>根據你的環境, 你可能會部署到一個測試環境, 在這個環境中執行一些整合測試, 然後自動部署到生產環境. 你可以保持他們的簡單性僅按需來進行滾動升級到測試或者指定的生產環境中. 這些你都隨你決定.</p>
+<p>與持續整合工具的結合, 你可以通過 <code class="docutils literal"><span class="pre">ansible-playbook</span></code> 命令列工具很容易的觸發 playbook 的執行, 或者, 如果你使用 <a class="reference internal" href="tower.html"><em>Ansible Tower</em></a>, <code class="docutils literal"><span class="pre">tower-cli</span></code> 或者內建的 REST API. (這個 tower-cli 命令的 &#8216;joblaunch&#8217; 將通過 REST API 遠端產生一個 job 這非常棒).</p>
+<p>Ansible 對於如何組合多層應用程式在任務編排和持續交付給客戶的最終目標上給了你很好的主意. 你可以使用滾動升級的思路來擴充套件一些應用程式之間的不同部分; 也許向前端 web 伺服器新增後端應用服務, 例如, 使用 MongoDB 或 Riak 來替換 SQL 資料庫. Ansible 可以給你在複雜的環境中輕鬆完成常見的自動化操作.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">lamp_haproxy example</a></dt>
+<dd>The lamp_haproxy example discussed here.</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a></dt>
+<dd>An introduction to playbook roles</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a></dt>
+<dd>An introduction to Ansible variables</dd>
+<dt><a class="reference external" href="http://www.ansible.com/ansible-continuous-delivery">Ansible.com: Continuous Delivery</a></dt>
+<dd>An introduction to Continuous Delivery with Ansible</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developing.html" class="btn btn-neutral float-right" title="開發者須知" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guide_vagrant.html" class="btn btn-neutral" title="使用Vagrant和Ansible" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

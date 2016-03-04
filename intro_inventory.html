@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Inventory檔案 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="動態 Inventory" href="intro_dynamic_inventory.html"/>
+        <link rel="prev" title="新手上路" href="intro_getting_started.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">新手上路</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Inventory檔案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inventoryformat">主機與組</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-variables">主機變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#group-variables">組的變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups">把一個組作為另一個組的子成員</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-group">分檔案定義 Host 和 Group 變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#behavioral-parameters">Inventory 參數的說明</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">動態 Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_configuration.html">Ansible的配置檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_windows.html">Windows Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>Inventory檔案</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_inventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inventory">
+<span id="id1"></span><h1><a class="toc-backref" href="#id7">Inventory檔案</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#inventory" id="id7">Inventory檔案</a><ul>
+<li><a class="reference internal" href="#inventoryformat" id="id8">主機與組</a></li>
+<li><a class="reference internal" href="#host-variables" id="id9">主機變數</a></li>
+<li><a class="reference internal" href="#group-variables" id="id10">組的變數</a></li>
+<li><a class="reference internal" href="#subgroups" id="id11">把一個組作為另一個組的子成員</a></li>
+<li><a class="reference internal" href="#host-group" id="id12">分檔案定義 Host 和 Group 變數</a></li>
+<li><a class="reference internal" href="#behavioral-parameters" id="id13">Inventory 參數的說明</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Ansible 可同時操作屬於一個組的多臺主機,組和主機之間的關係通過 inventory 檔案配置.
+預設的檔案路徑為 /etc/ansible/hosts</p>
+<p>除預設檔案外,你還可以同時使用多個 inventory 檔案(後面會講到),也可以從動態源,或雲上拉取 inventory 配置資訊.詳見 <a class="reference internal" href="intro_dynamic_inventory.html"><em>動態 Inventory</em></a>.</p>
+<div class="section" id="inventoryformat">
+<span id="id2"></span><h2><a class="toc-backref" href="#id8">主機與組</a><a class="headerlink" href="#inventoryformat" title="Permalink to this headline">¶</a></h2>
+<p>/etc/ansible/hosts 檔案的格式與windows的ini配置檔案類似:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mail</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+
+<span class="p">[</span><span class="n">webservers</span><span class="p">]</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+
+<span class="p">[</span><span class="n">dbservers</span><span class="p">]</span>
+<span class="n">one</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">two</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">three</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>方括號[]中是組名,用於對系統進行分類,便於對不同系統進行個別的管理.</p>
+<p>一個系統可以屬於不同的組,比如一臺伺服器可以同時屬於 webserver組 和 dbserver組.這時屬於兩個組的變數都可以為這臺主機所用,至於變數的優先順序關係將於以後的章節中討論.</p>
+<p>如果有主機的SSH埠不是標準的22埠,可在主機名之後加上埠號,用冒號分隔.SSH 配置檔案中列出的埠號不會在 paramiko 連線中使用,會在 openssh 連線中使用.</p>
+<p>埠號不是預設設定時,可明確的表示為:</p>
+<div class="highlight-python"><div class="highlight"><pre>badwolf.example.com:5309
+</pre></div>
+</div>
+<p>假設你有一些靜態IP地址,希望設定一些別名,但不是在系統的 host 檔案中設定,又或者你是通過隧道在連線,那麼可以設定如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>jumper ansible_ssh_port=5555 ansible_ssh_host=192.168.1.50
+</pre></div>
+</div>
+<p>在這個例子中,通過 &#8220;jumper&#8221; 別名,會連線 192.168.1.50:5555.記住,這是通過 inventory 檔案的特性功能設定的變數.
+一般而言,這不是設定變數(描述你的系統策略的變數)的最好方式.後面會說到這個問題.</p>
+<p>一組相似的 hostname , 可簡寫如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">webservers</span><span class="p">]</span>
+<span class="n">www</span><span class="p">[</span><span class="mo">01</span><span class="p">:</span><span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>數字的簡寫模式中,01:50 也可寫為 1:50,意義相同.你還可以定義字母範圍的簡寫模式:</p>
+<div class="highlight-python"><div class="highlight"><pre>[databases]
+db-[a:f].example.com
+</pre></div>
+</div>
+<p>對於每一個 host,你還可以選擇連線類型和連線使用者名稱:</p>
+<div class="highlight-python"><div class="highlight"><pre>[targets]
+
+localhost              ansible_connection=local
+other1.example.com     ansible_connection=ssh        ansible_ssh_user=mpdehaan
+other2.example.com     ansible_connection=ssh        ansible_ssh_user=mdehaan
+</pre></div>
+</div>
+<p>所有以上討論的對於 inventory 檔案的設定是一種速記法,後面我們會討論如何將這些設定儲存為 &#8216;host_vars&#8217; 目錄中的獨立的檔案.</p>
+</div>
+<div class="section" id="host-variables">
+<span id="id3"></span><h2><a class="toc-backref" href="#id9">主機變數</a><a class="headerlink" href="#host-variables" title="Permalink to this headline">¶</a></h2>
+<p>前面已經提到過,分配變數給主機很容易做到,這些變數定義後可在 playbooks 中使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>[atlanta]
+host1 http_port=80 maxRequestsPerChild=808
+host2 http_port=303 maxRequestsPerChild=909
+</pre></div>
+</div>
+</div>
+<div class="section" id="group-variables">
+<span id="id4"></span><h2><a class="toc-backref" href="#id10">組的變數</a><a class="headerlink" href="#group-variables" title="Permalink to this headline">¶</a></h2>
+<p>也可以定義屬於整個組的變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>[atlanta]
+host1
+host2
+
+[atlanta:vars]
+ntp_server=ntp.atlanta.example.com
+proxy=proxy.atlanta.example.com
+</pre></div>
+</div>
+</div>
+<div class="section" id="subgroups">
+<span id="id5"></span><h2><a class="toc-backref" href="#id11">把一個組作為另一個組的子成員</a><a class="headerlink" href="#subgroups" title="Permalink to this headline">¶</a></h2>
+<p>可以把一個組作為另一個組的子成員,以及分配變數給整個組使用.
+這些變數可以給 /usr/bin/ansible-playbook 使用,但不能給 /usr/bin/ansible 使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>[atlanta]
+host1
+host2
+
+[raleigh]
+host2
+host3
+
+[southeast:children]
+atlanta
+raleigh
+
+[southeast:vars]
+some_server=foo.southeast.example.com
+halon_system_timeout=30
+self_destruct_countdown=60
+escape_pods=2
+
+[usa:children]
+southeast
+northeast
+southwest
+northwest
+</pre></div>
+</div>
+<p>如果你需要儲存一個列表或hash值,或者更喜歡把 host 和 group 的變數分開配置,請看下一節的說明.</p>
+</div>
+<div class="section" id="host-group">
+<span id="splitting-out-vars"></span><h2><a class="toc-backref" href="#id12">分檔案定義 Host 和 Group 變數</a><a class="headerlink" href="#host-group" title="Permalink to this headline">¶</a></h2>
+<p>在 inventory 主檔案中儲存所有的變數並不是最佳的方式.還可以儲存在獨立的檔案中,這些獨立檔案與 inventory 檔案保持關聯.
+不同於 inventory 檔案(INI 格式),這些獨立檔案的格式為 YAML.詳見 <a class="reference internal" href="YAMLSyntax.html"><em>YAML 語法</em></a> .</p>
+<p>假設 inventory 檔案的路徑為:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/ansible/hosts
+</pre></div>
+</div>
+<p>假設有一個主機名為 &#8216;foosball&#8217;, 主機同時屬於兩個組,一個是 &#8216;raleigh&#8217;, 另一個是 &#8216;webservers&#8217;.
+那麼以下配置檔案(YAML 格式)中的變數可以為 &#8216;foosball&#8217; 主機所用.依次為 &#8216;raleigh&#8217; 的組變數,&#8217;webservers&#8217; 的組變數,&#8217;foosball&#8217; 的主機變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/ansible/group_vars/raleigh
+/etc/ansible/group_vars/webservers
+/etc/ansible/host_vars/foosball
+</pre></div>
+</div>
+<p>舉例來說,假設你有一些主機,屬於不同的資料中心,並依次進行劃分.每一個數據中心使用一些不同的伺服器.比如 ntp 伺服器, database 伺服器等等.
+那麼 &#8216;raleigh&#8217; 這個組的組變數定義在檔案 &#8216;/etc/ansible/group_vars/raleigh&#8217; 之中,可能類似這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+ntp_server: acme.example.org
+database_server: storage.example.org
+</pre></div>
+</div>
+<p>這些定義變數的檔案不是一定要存在,因為這是可選的特性.</p>
+<p>還有更進一步的運用,你可以為一個主機,或一個組,建立一個目錄,目錄名就是主機名或組名.目錄中的可以建立多個檔案,
+檔案中的變數都會被讀取為主機或組的變數.如下 &#8216;raleigh&#8217; 組對應於 /etc/ansible/group_vars/raleigh/ 目錄,其下有兩個檔案
+db_settings 和 cluster_settings, 其中分別設定不同的變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/ansible/group_vars/raleigh/db_settings
+/etc/ansible/group_vars/raleigh/cluster_settings
+</pre></div>
+</div>
+<p>&#8216;raleigh&#8217; 組下的所有主機,都可以使用 &#8216;raleigh&#8217; 組的變數.當變數變得太多時,分檔案定義變數更方便我們進行管理和組織.
+還有一個方式也可參考,詳見 <a class="reference internal" href="playbooks_vault.html"><em>Ansible Vault</em></a> 關於組變數的部分.
+注意,分檔案定義變數的方式只適用於 Ansible 1.4 及以上版本.</p>
+<p>Tip: Ansible 1.2 及以上的版本中,group_vars/ 和 host_vars/ 目錄可放在 inventory 目錄下,或是 playbook 目錄下.
+如果兩個目錄下都存在,那麼 playbook 目錄下的配置會覆蓋 inventory 目錄的配置.</p>
+<p>Tip: 把你的 inventory 檔案 和 變數 放入 git repo 中,以便跟蹤他們的更新,這是一種非常推薦的方式.</p>
+</div>
+<div class="section" id="behavioral-parameters">
+<span id="id6"></span><h2><a class="toc-backref" href="#id13">Inventory 參數的說明</a><a class="headerlink" href="#behavioral-parameters" title="Permalink to this headline">¶</a></h2>
+<p>如同前面提到的,通過設定下面的參數,可以控制 ansible 與遠端主機的互動方式,其中一些我們已經講到過:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible_ssh_host
+      將要連線的遠端主機名.與你想要設定的主機的別名不同的話,可通過此變數設定.
+
+ansible_ssh_port
+      ssh埠號.如果不是預設的埠號,通過此變數設定.
+
+ansible_ssh_user
+      預設的 ssh 使用者名稱
+
+ansible_ssh_pass
+      ssh 密碼(這種方式並不安全,我們強烈建議使用 --ask-pass 或 SSH 金鑰)
+
+ansible_sudo_pass
+      sudo 密碼(這種方式並不安全,我們強烈建議使用 --ask-sudo-pass)
+
+ansible_sudo_exe (new in version 1.8)
+      sudo 命令路徑(適用於1.8及以上版本)
+
+ansible_connection
+      與主機的連線類型.比如:local, ssh 或者 paramiko. Ansible 1.2 以前預設使用 paramiko.1.2 以後預設使用 &#39;smart&#39;,&#39;smart&#39; 方式會根據是否支援 ControlPersist, 來判斷&#39;ssh&#39; 方式是否可行.
+
+ansible_ssh_private_key_file
+      ssh 使用的私鑰檔案.適用於有多個金鑰,而你不想使用 SSH 代理的情況.
+
+ansible_shell_type
+      目標系統的shell類型.預設情況下,命令的執行使用 &#39;sh&#39; 語法,可設定為 &#39;csh&#39; 或 &#39;fish&#39;.
+
+ansible_python_interpreter
+      目標主機的 python 路徑.適用於的情況: 系統中有多個 Python, 或者命令路徑不是&quot;/usr/bin/python&quot;,比如  \*BSD, 或者 /usr/bin/python
+      不是 2.X 版本的 Python.我們不使用 &quot;/usr/bin/env&quot; 機制,因為這要求遠端使用者的路徑設定正確,且要求 &quot;python&quot; 可執行程式名不可為 python以外的名字(實際有可能名為python26).
+
+      與 ansible_python_interpreter 的工作方式相同,可設定如 ruby 或 perl 的路徑....
+</pre></div>
+</div>
+<p>一個主機檔案的例子:</p>
+<div class="highlight-python"><div class="highlight"><pre>some_host         ansible_ssh_port=2222     ansible_ssh_user=manager
+aws_host          ansible_ssh_private_key_file=/home/example/.ssh/aws.pem
+freebsd_host      ansible_python_interpreter=/usr/local/bin/python
+ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="intro_dynamic_inventory.html"><em>動態 Inventory</em></a></dt>
+<dd>Pulling inventory from dynamic sources, such as cloud providers</dd>
+<dt><a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a></dt>
+<dd>Examples of basic commands</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Learning ansible&#8217;s configuration management language</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro_dynamic_inventory.html" class="btn btn-neutral float-right" title="動態 Inventory" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_getting_started.html" class="btn btn-neutral" title="新手上路" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

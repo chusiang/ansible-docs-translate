@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Google Cloud Platform Guide &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="詳細指南" href="guides.html"/>
+        <link rel="next" title="使用Vagrant和Ansible" href="guide_vagrant.html"/>
+        <link rel="prev" title="Rackspace 雲指南" href="guide_rax.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">詳細指南</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace 雲指南</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Google Cloud Platform Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credentials">Credentials</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#calling-modules-by-passing-credentials">Calling Modules By Passing Credentials</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calling-modules-with-secrets-py">Calling Modules with secrets.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gce-dynamic-inventory">GCE Dynamic Inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-an-instance">Create an instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-instances-in-a-group">Configuring instances in a group</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vagrant.html">使用Vagrant和Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rolling_upgrade.html">持續交付與滾動升級</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="guides.html">詳細指南</a> &raquo;</li>
+      
+    <li>Google Cloud Platform Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/guide_gce.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="google-cloud-platform-guide">
+<h1>Google Cloud Platform Guide<a class="headerlink" href="#google-cloud-platform-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section of the documentation is under construction. We are in the process of adding more examples about all of the GCE modules and how they work together. Upgrades via github pull requests are welcomed!</p>
+</div>
+<p>Ansible contains modules for managing Google Compute Engine resources, including creating instances, controlling network access, working with persistent disks, and managing
+load balancers.  Additionally, there is an inventory plugin that can automatically suck down all of your GCE instances into Ansible dynamic inventory, and create groups by tag and other properties.</p>
+<p>The GCE modules all require the apache-libcloud module, which you can install from pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install apache-libcloud
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;re using Ansible on Mac OS X, libcloud also needs to access a CA cert chain. You&#8217;ll need to download one (you can get one for <a class="reference external" href="http://curl.haxx.se/docs/caextract.html">here</a>.)</p>
+</div>
+</div>
+<div class="section" id="credentials">
+<h2>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline">¶</a></h2>
+<p>To work with the GCE modules, you&#8217;ll first need to get some credentials. You can create new one from the <a class="reference external" href="https://console.developers.google.com/">console</a> by going to the &#8220;APIs and Auth&#8221; section and choosing to create a new client ID for a service account. Once you&#8217;ve created a new client ID and downloaded (you must click <strong>Generate new P12 Key</strong>) the generated private key (in the <a class="reference external" href="http://en.wikipedia.org/wiki/PKCS_12">pkcs12 format</a>), you&#8217;ll need to convert the key by running the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openssl pkcs12 -in pkey.pkcs12 -passin pass:notasecret -nodes -nocerts <span class="p">|</span> openssl rsa -out pkey.pem
+</pre></div>
+</div>
+<p>There are two different ways to provide credentials to Ansible so that it can talk with Google Cloud for provisioning and configuration actions:</p>
+<ul class="simple">
+<li>by providing to the modules directly</li>
+<li>by populating a <code class="docutils literal"><span class="pre">secrets.py</span></code> file</li>
+</ul>
+<div class="section" id="calling-modules-by-passing-credentials">
+<h3>Calling Modules By Passing Credentials<a class="headerlink" href="#calling-modules-by-passing-credentials" title="Permalink to this headline">¶</a></h3>
+<p>For the GCE modules you can specify the credentials as arguments:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">service_account_email</span></code>: email associated with the project</li>
+<li><code class="docutils literal"><span class="pre">pem_file</span></code>: path to the pem file</li>
+<li><code class="docutils literal"><span class="pre">project_id</span></code>: id of the project</li>
+</ul>
+<p>For example, to create a new instance using the cloud module, you can use the following configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create instance(s)</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">no</span>
+
+  <span class="l-Scalar-Plain">vars</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">service_account_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unique-id@developer.gserviceaccount.com</span>
+    <span class="l-Scalar-Plain">pem_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/project.pem</span>
+    <span class="l-Scalar-Plain">project_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">project-id</span>
+    <span class="l-Scalar-Plain">machine_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">n1-standard-1</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debian-7</span>
+
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+
+   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Launch instances</span>
+     <span class="l-Scalar-Plain">gce</span><span class="p-Indicator">:</span>
+         <span class="l-Scalar-Plain">instance_names</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dev</span>
+         <span class="l-Scalar-Plain">machine_type</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">machine_type</span><span class="nv"> </span><span class="s">}}&quot;</span>
+         <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">image</span><span class="nv"> </span><span class="s">}}&quot;</span>
+         <span class="l-Scalar-Plain">service_account_email</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">service_account_email</span><span class="nv"> </span><span class="s">}}&quot;</span>
+         <span class="l-Scalar-Plain">pem_file</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">pem_file</span><span class="nv"> </span><span class="s">}}&quot;</span>
+         <span class="l-Scalar-Plain">project_id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">project_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calling-modules-with-secrets-py">
+<h3>Calling Modules with secrets.py<a class="headerlink" href="#calling-modules-with-secrets-py" title="Permalink to this headline">¶</a></h3>
+<p>Create a file <code class="docutils literal"><span class="pre">secrets.py</span></code> looking like following, and put it in some folder which is in your <code class="docutils literal"><span class="pre">$PYTHONPATH</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">GCE_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;i...@project.googleusercontent.com&#39;</span><span class="p">,</span> <span class="s">&#39;/path/to/project.pem&#39;</span><span class="p">)</span>
+<span class="n">GCE_KEYWORD_PARAMS</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;project&#39;</span><span class="p">:</span> <span class="s">&#39;project_id&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Ensure to enter the email address from the created services account and not the one from your main account.</p>
+<p>Now the modules can be used as above, but the account information can be omitted.</p>
+</div>
+</div>
+<div class="section" id="gce-dynamic-inventory">
+<h2>GCE Dynamic Inventory<a class="headerlink" href="#gce-dynamic-inventory" title="Permalink to this headline">¶</a></h2>
+<p>The best way to interact with your hosts is to use the gce inventory plugin, which dynamically queries GCE and tells Ansible what nodes can be managed.</p>
+<p>Note that when using the inventory script <code class="docutils literal"><span class="pre">gce.py</span></code>, you also need to populate the <code class="docutils literal"><span class="pre">gce.ini</span></code> file that you can find in the contrib/inventory directory of the ansible checkout.</p>
+<p>To use the GCE dynamic inventory script, copy <code class="docutils literal"><span class="pre">gce.py</span></code> from <code class="docutils literal"><span class="pre">contrib/inventory</span></code> into your inventory directory and make it executable. You can specify credentials for <code class="docutils literal"><span class="pre">gce.py</span></code> using the <code class="docutils literal"><span class="pre">GCE_INI_PATH</span></code> environment variable &#8211; the default is to look for gce.ini in the same directory as the inventory script.</p>
+<p>Let&#8217;s see if inventory is working:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./gce.py --list
+</pre></div>
+</div>
+<p>You should see output describing the hosts you have, if any, running in Google Compute Engine.</p>
+<p>Now let&#8217;s see if we can use the inventory script to talk to Google.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ GCE_INI_PATH</span><span class="o">=</span>~/.gce.ini ansible all -i gce.py -m setup
+hostname <span class="p">|</span> success &gt;&gt; <span class="o">{</span>
+  <span class="s2">&quot;ansible_facts&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;ansible_all_ipv4_addresses&quot;</span>: <span class="o">[</span>
+      <span class="s2">&quot;x.x.x.x&quot;</span>
+    <span class="o">]</span>,
+</pre></div>
+</div>
+<p>As with all dynamic inventory scripts in Ansible, you can configure the inventory path in ansible.cfg.  The recommended way to use the inventory is to create an <code class="docutils literal"><span class="pre">inventory</span></code> directory, and place both the <code class="docutils literal"><span class="pre">gce.py</span></code> script and a file containing <code class="docutils literal"><span class="pre">localhost</span></code> in it.  This can allow for cloud inventory to be used alongside local inventory (such as a physical datacenter) or machines running in different providers.</p>
+<p>Executing <code class="docutils literal"><span class="pre">ansible</span></code> or <code class="docutils literal"><span class="pre">ansible-playbook</span></code> and specifying the <code class="docutils literal"><span class="pre">inventory</span></code> directory instead of an individual file will cause ansible to evaluate each file in that directory for inventory.</p>
+<p>Let&#8217;s once again use our inventory script to see if it can talk to Google Cloud:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ansible all -i inventory/ -m setup
+hostname <span class="p">|</span> success &gt;&gt; <span class="o">{</span>
+  <span class="s2">&quot;ansible_facts&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;ansible_all_ipv4_addresses&quot;</span>: <span class="o">[</span>
+        <span class="s2">&quot;x.x.x.x&quot;</span>
+    <span class="o">]</span>,
+</pre></div>
+</div>
+<p>The output should be similar to the previous command.  If you&#8217;re wanting less output and just want to check for SSH connectivity, use &#8220;-m&#8221; ping instead.</p>
+</div>
+<div class="section" id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h2>
+<p>For the following use case, let&#8217;s use this small shell script as a wrapper.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/usr/bin/env bash</span>
+<span class="nv">PLAYBOOK</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$PLAYBOOK</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;You need to pass a playbook as argument to this script.&quot;</span>
+  <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="nb">export </span><span class="nv">SSL_CERT_FILE</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/cacert.cer
+<span class="nb">export </span><span class="nv">ANSIBLE_HOST_KEY_CHECKING</span><span class="o">=</span>False
+
+<span class="k">if</span> <span class="o">[[</span> ! -f <span class="s2">&quot;</span><span class="nv">$SSL_CERT_FILE</span><span class="s2">&quot;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+  curl -O http://curl.haxx.se/ca/cacert.pem
+<span class="k">fi</span>
+
+ansible-playbook -v -i inventory/ <span class="s2">&quot;</span><span class="nv">$PLAYBOOK</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="create-an-instance">
+<h3>Create an instance<a class="headerlink" href="#create-an-instance" title="Permalink to this headline">¶</a></h3>
+<p>The GCE module provides the ability to provision instances within Google Compute Engine. The provisioning task is typically performed from your Ansible control server against Google Cloud&#8217;s API.</p>
+<p>A playbook would looks like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Create instance(s)</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">no</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+
+  <span class="l-Scalar-Plain">vars</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">machine_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">n1-standard-1</span> <span class="c1"># default</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debian-7</span>
+    <span class="l-Scalar-Plain">service_account_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unique-id@developer.gserviceaccount.com</span>
+    <span class="l-Scalar-Plain">pem_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/project.pem</span>
+    <span class="l-Scalar-Plain">project_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">project-id</span>
+
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Launch instances</span>
+      <span class="l-Scalar-Plain">gce</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">instance_names</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dev</span>
+          <span class="l-Scalar-Plain">machine_type</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">machine_type</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">image</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="l-Scalar-Plain">service_account_email</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">service_account_email</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="l-Scalar-Plain">pem_file</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">pem_file</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="l-Scalar-Plain">project_id</span><span class="p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">project_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">webserver</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gce</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Wait for SSH to come up</span>
+      <span class="l-Scalar-Plain">wait_for</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">host={{ item.public_ip }} port=22 delay=10 timeout=60</span>
+      <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gce.instance_data</span>
+
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Add host to groupname</span>
+      <span class="l-Scalar-Plain">add_host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hostname={{ item.public_ip }} groupname=new_instances</span>
+      <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gce.instance_data</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Manage new instances</span>
+  <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">new_instances</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssh</span>
+  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base_configuration</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">production_server</span>
+</pre></div>
+</div>
+<p>Note that use of the &#8220;add_host&#8221; module above creates a temporary, in-memory group.  This means that a play in the same playbook can then manage machines
+in the &#8216;new_instances&#8217; group, if so desired.  Any sort of arbitrary configuration is possible at this point.</p>
+</div>
+<div class="section" id="configuring-instances-in-a-group">
+<h3>Configuring instances in a group<a class="headerlink" href="#configuring-instances-in-a-group" title="Permalink to this headline">¶</a></h3>
+<p>All of the created instances in GCE are grouped by tag.  Since this is a cloud, it&#8217;s probably best to ignore hostnames and just focus on group management.</p>
+<p>Normally we&#8217;d also use roles here, but the following example is a simple one.  Here we will also use the &#8220;gce_net&#8221; module to open up access to port 80 on
+these nodes.</p>
+<p>The variables in the &#8216;vars&#8217; section could also be kept in a &#8216;vars_files&#8217; file or something encrypted with Ansible-vault, if you so choose.  This is just
+a basic example of what is possible:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Setup web servers
+  hosts: tag_webserver
+  gather_facts: no
+
+  vars:
+    machine_type: n1-standard-1 # default
+    image: debian-7
+    service_account_email: unique-id@developer.gserviceaccount.com
+    pem_file: /path/to/project.pem
+    project_id: project-id
+
+  roles:
+
+    - name: Install lighttpd
+      apt: pkg=lighttpd state=installed
+      sudo: True
+
+    - name: Allow HTTP
+      local_action: gce_net
+      args:
+        fwname: &quot;all-http&quot;
+        name: &quot;default&quot;
+        allowed: &quot;tcp:80&quot;
+        state: &quot;present&quot;
+        service_account_email: &quot;{{ service_account_email }}&quot;
+        pem_file: &quot;{{ pem_file }}&quot;
+        project_id: &quot;{{ project_id }}&quot;
+</pre></div>
+</div>
+<p>By pointing your browser to the IP of the server, you should see a page welcoming you.</p>
+<p>Upgrades to this documentation are welcome, hit the github link at the top right of this page if you would like to make additions!</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guide_vagrant.html" class="btn btn-neutral float-right" title="使用Vagrant和Ansible" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guide_rax.html" class="btn btn-neutral" title="Rackspace 雲指南" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

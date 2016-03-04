@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible特權提升 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Ansible特權提升</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/become.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ansible">
+<h1><a class="toc-backref" href="#id4">Ansible特權提升</a><a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h1>
+<p>Ansible可以通過一個已存在的特權加強系統使一個使用者以另外一個使用者的身份去執行任務</p>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ansible" id="id4">Ansible特權提升</a><ul>
+<li><a class="reference internal" href="#become" id="id5">Become</a><ul>
+<li><a class="reference internal" href="#id1" id="id6">新指令</a></li>
+<li><a class="reference internal" href="#id2" id="id7">新的ansible_ 變數</a></li>
+<li><a class="reference internal" href="#id3" id="id8">新的命令列參數</a></li>
+<li><a class="reference internal" href="#sudosu" id="id9">sudo和su依舊可以工作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="become">
+<h2><a class="toc-backref" href="#id5">Become</a><a class="headerlink" href="#become" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 1.9之前主要允許使用者使用sudo和有限的su命令來以不同使用者的身份/許可權遠端登陸執行task,及建立資源. 在1.9版本中&#8217;become&#8217;取代了之前的sudo/su, 但是sudo/su依舊向後相容. 這個新系統使得我們更加容易的增加其他的特權提升工具, 例如pbrun(Powerbroker), pfexec等.</p>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id6">新指令</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>become</dt>
+<dd>等同於新增 &#8216;sudo:&#8217; 或 &#8216;su:&#8217; (指令)去執行task/playbook, 將其設定為 &#8216;true&#8217;/&#8217;yes&#8217; 來啟用特權提升</dd>
+<dt>become_user</dt>
+<dd>等同於新增 &#8216;sudo_user:&#8217; 或 &#8216;su_user:&#8217; (指令)去執行task/playbook, 設定為擁有所渴望許可權的使用者</dd>
+<dt>become_method</dt>
+<dd>執行task/playbook時的特權提升method, 覆蓋ansible.cfg中的預設配置, 可以設定為&#8217;sudo&#8217;/&#8217;su&#8217;/&#8217;pbrun&#8217;/&#8217;pfexec&#8217;/&#8217;doas&#8217;</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id7">新的ansible_ 變數</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>在每一個組或host中都允許你作為一項來設定</p>
+<dl class="docutils">
+<dt>ansible_become</dt>
+<dd>等同於ansible_sudo或ansible_su, 設定為強制進行特權提升操作</dd>
+<dt>ansible_become_method</dt>
+<dd>用來設定特權提升所使用的方法</dd>
+<dt>ansible_become_user</dt>
+<dd>等同於ansible_sudo或ansible_su_user, 設定通過特權提升後的使用者身份</dd>
+<dt>ansible_become_pass</dt>
+<dd>等同於ansible_sudo_pass或ansible_su_pass, 設定通過特權提升的密碼</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id8">新的命令列參數</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--ask-become-pass</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>詢問特權提升方法的密碼</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>&#8211;become,-b</dt>
+<dd>指定執行的become(預設沒有密碼)</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--become-method=<var>BECOME_METHOD</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>使用的特權提升方式(預設=sudo),
+可選的合法值: [ sudo | su | pbrun | pfexec | doas ]</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--become-user=<var>BECOME_USER</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>指定執行的使用者(預設=root)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sudosu">
+<h3><a class="toc-backref" href="#id9">sudo和su依舊可以工作</a><a class="headerlink" href="#sudosu" title="Permalink to this headline">¶</a></h3>
+<p>舊的playbooks不需要修改, 儘管我們不建議在使用之前的語法, sudo和su之類依然可以工作可是我們還是建議使用become將他們一次性替換. 因為你不能在同一個物件中混合使用這兩種指令, 否則ansible將會引發異常.</p>
+<p>如果sudo/su的配置或變數存在become將預設使用這些設定, 但是如果你指定任何一個配置都會將他們覆蓋.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">許可權加固方法必須支援連線外掛使用, 如果不支援將會引發警告, 大部分會時候會忽略它,因為這些操作會一直以root使用者的身份去執行(jail, chroot, etc).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">特權提升方法不能被重組, 你不能使用&#8217;sudo /bin/su -&#8216;來成為一個使用者, 你需要執行的命令必須在能通過sudo或su指令來獲得執行許可權(這同樣使用於pbrun, pfexec或其他方法)</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Privilege escalation permissions have to be general, Ansible does not always use a specific command to do something but runs modules (code) from a temporary file name which changes every time. So if you have &#8216;/sbin/sevice&#8217; or &#8216;/bin/chmod&#8217; as the allowed commands this will fail with ansible.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">許可權加固策略必須通用, Ansible並不是使用一個明確的命令去執行task, 它將通過一個臨時的檔案來執行模組(程式碼), 每執行一次命令這個臨時檔案的檔名就會發生一次變化. 所以如果你有 &#8216;/sbin/service&#8217; 或 &#8216;/bin/chmod&#8217; 作為允許的命令, 在ansible中可能會失敗.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

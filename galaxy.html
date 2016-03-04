@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible Galaxy &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="next" title="測試策略" href="test_strategies.html"/>
+        <link rel="prev" title="Ansible使用者" href="community.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Ansible Galaxy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">ansible-galaxy命令列工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">安裝角色</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">構建角色架構</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">從一個檔案安裝多個角色</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements 檔案高階用法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Ansible Galaxy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/galaxy.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ansible-galaxy">
+<h1>Ansible Galaxy<a class="headerlink" href="#ansible-galaxy" title="Permalink to this headline">¶</a></h1>
+<p>&#8220;Ansible Galaxy&#8221; 指的是一個網站共享和下載 Ansible 角色,也可以是者是幫助 roles 更好的工作的命令列工具。</p>
+<p>The Website
+網站
+<code class="docutils literal"><span class="pre">```````</span></code></p>
+<p>這個網站 <a class="reference external" href="https://galaxy.ansible.com">Ansible Galaxy</a>，是一個免費的用於查詢，下載，評論各種社群開發的 Ansible 角色，在你的自動化項目中引入一些角色也是不錯的。</p>
+<p>你可以使用 social auth 註冊和使用 &#8220;ansible-galaxy&#8221; 下載客戶端，&#8221;ansible-galaxy&#8221;在 Ansible 1.4.2 就已經被包含了。</p>
+<p>閱讀 Galaxy 網站的 &#8220;About&#8221; 頁面獲取更多資訊。</p>
+<div class="section" id="id2">
+<h2>ansible-galaxy命令列工具<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>ansible-galaxy 有許多不同的子命令</p>
+<div class="section" id="id3">
+<h3>安裝角色<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>很明顯從 Ansible Galaxy 網站下載角色</p>
+<blockquote>
+<div>ansible-galaxy install username.rolename</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h3>構建角色架構<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>也可以用於初始化一個新角色的基本檔案結構，節省建立不同的目錄和main.yml的時間了。</p>
+<blockquote>
+<div>ansible-galaxy init rolename</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h3>從一個檔案安裝多個角色<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>想安裝多個角色，ansible-galaxy 命令列可以通過一個 requirements 檔案實現。各種版本的ansible 都允許使用下面的語法從 Ansible galaxy 網站安裝角色。</p>
+<blockquote>
+<div>ansible-galaxy install -r requirements.txt</div></blockquote>
+<p>requirements.txt 檔案看起來就像這樣</p>
+<blockquote>
+<div>username1.foo_role
+username2.bar_role</div></blockquote>
+<p>想得到指定版本(tag)的role，使用下面的語法</p>
+<blockquote>
+<div>username1.foo_role,version
+username2.bar_role,version</div></blockquote>
+<p>可用的版本在 Ansible Galaxy 網頁上都有列出來。</p>
+</div>
+<div class="section" id="requirements">
+<h3>Requirements 檔案高階用法<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<p>一些控制從哪裡下載角色，支援遠端源的用法，在 Ansible 1.8 之後支援通過 YMAL 語法的 requirements 檔案實現，但是必須以 yml為副檔名。就像這樣</p>
+<blockquote>
+<div>ansible-galaxy install -r requirements.yml</div></blockquote>
+<p>副檔名是很重要的，如果 .yml 擴充套件忘記寫了， ansible-galaxy 命令列會假設這個檔案是普通格式的，而且會失敗，</p>
+<p>這裡有個例子展示通過多個源下載一些指定版本。 其中也實現了覆蓋下載角色的名字到其它名字。</p>
+<blockquote>
+<div><p># from galaxy
+- src: yatesr.timezone</p>
+<p># from github
+- src: <a class="reference external" href="https://github.com/bennojoy/nginx">https://github.com/bennojoy/nginx</a></p>
+<p># from github installing to a relative path
+- src: <a class="reference external" href="https://github.com/bennojoy/nginx">https://github.com/bennojoy/nginx</a></p>
+<blockquote>
+<div>path: vagrant/roles/</div></blockquote>
+<p># from github, overriding the name and specifying a specific tag
+- src: <a class="reference external" href="https://github.com/bennojoy/nginx">https://github.com/bennojoy/nginx</a></p>
+<blockquote>
+<div>version: master
+name: nginx_role</div></blockquote>
+<p># from a webserver, where the role is packaged in a tar.gz
+- src: <a class="reference external" href="https://some.webserver.example.com/files/master.tar.gz">https://some.webserver.example.com/files/master.tar.gz</a></p>
+<blockquote>
+<div>name: http-role</div></blockquote>
+<p># from bitbucket, if bitbucket happens to be operational right now :)
+- src: git+http://bitbucket.org/willthames/git-ansible-galaxy</p>
+<blockquote>
+<div>version: v1.4</div></blockquote>
+<p># from bitbucket, alternative syntax and caveats
+- src: <a class="reference external" href="http://bitbucket.org/willthames/hg-ansible-galaxy">http://bitbucket.org/willthames/hg-ansible-galaxy</a></p>
+<blockquote>
+<div>scm: hg</div></blockquote>
+</div></blockquote>
+<p>從上面你可以看到，有許多控制命令可以使用去自定義那些角色從哪裡獲得，儲存為什麼角色名稱。</p>
+<p>Roles pulled from galaxy work as with other SCM sourced roles above. To download a role with dependencies, and automatically install those dependencies, the role must be uploaded to the Ansible Galaxy website.
+有些角色之間會有依賴關係，想要從依賴關係中自動安裝，這個角色需要被上傳到 Ansible Galaxy 網站上。</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a></dt>
+<dd>關於 Ansible role 的內容</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="test_strategies.html" class="btn btn-neutral float-right" title="測試策略" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="community.html" class="btn btn-neutral" title="Ansible使用者" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

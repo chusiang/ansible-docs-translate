@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patterns &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="Introduction To Ad-Hoc Commands" href="intro_adhoc.html"/>
+        <link rel="prev" title="動態 Inventory" href="intro_dynamic_inventory.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">新手上路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Inventory檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">動態 Inventory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_configuration.html">Ansible的配置檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_windows.html">Windows Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>Patterns</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_patterns.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="patterns">
+<h1><a class="toc-backref" href="#id1">Patterns</a><a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#patterns" id="id1">Patterns</a></li>
+</ul>
+</div>
+<p>在Ansible中,Patterns 是指我們怎樣確定由哪一臺主機來管理. 意思就是與哪臺主機進行互動. 但是在:doc:<cite>playbooks</cite> 中它指的是對應主機應用特定的配置或執行特定程序.</p>
+<p>我們再來複習下:doc:<cite>intro_adhoc</cite> 章節中介紹的命令用法,命令格式如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible &lt;pattern_goes_here&gt; -m &lt;module_name&gt; -a &lt;arguments&gt;
+</pre></div>
+</div>
+<p>示例如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible webservers -m service -a &quot;name=httpd state=restarted&quot;
+</pre></div>
+</div>
+<p>一個pattern通常關聯到一系列組(主機的集合) &#8211;如上示例中,所有的主機均在 &#8220;webservers&#8221; 組中.</p>
+<p>不管怎麼樣,在使用Ansible前,我們需事先告訴Ansible哪臺機器將被執行.
+能這樣做的前提是需要預先定義唯一的 host names 或者 主機組.</p>
+<p>如下的patterns等同於目標為倉庫(inventory)中的所有機器:</p>
+<div class="highlight-python"><div class="highlight"><pre>all
+*
+</pre></div>
+</div>
+<p>也可以寫IP地址或系列主機名:</p>
+<div class="highlight-python"><div class="highlight"><pre>one.example.com
+one.example.com:two.example.com
+192.168.1.50
+192.168.1.*
+</pre></div>
+</div>
+<p>如下patterns分別表示一個或多個groups.多組之間以冒號分隔表示或的關係.這意味著一個主機可以同時存在多個組:</p>
+<div class="highlight-python"><div class="highlight"><pre>webservers
+webservers:dbservers
+</pre></div>
+</div>
+<p>你也可以排隊一個特定組,如下例項中,所有執行命令的機器必須隸屬 webservers 組但同時不在 phoenix組:</p>
+<div class="highlight-python"><div class="highlight"><pre>webservers:!phoenix
+</pre></div>
+</div>
+<p>你也可以指定兩個組的交集,如下例項表示,執行命令有機器需要同時隸屬於 webservers 和 staging 組.</p>
+<blockquote>
+<div>webservers:&amp;staging</div></blockquote>
+<p>你也可以組合更復雜的條件:</p>
+<div class="highlight-python"><div class="highlight"><pre>webservers:dbservers:&amp;staging:!phoenix
+</pre></div>
+</div>
+<p>上面這個例子表示&#8220;&#8216;webservers&#8217; 和 &#8216;dbservers&#8217; 兩個組中隸屬於 &#8216;staging&#8217; 組並且不屬於 &#8216;phoenix&#8217; 組的機器才執行命令&#8221; ... 喲！唷! 好燒腦的說！</p>
+<p>你也可以使用變數如果你希望通過傳參指定group,ansible-playbook通過 &#8220;-e&#8221; 參數可以實現,但這種用法不常用:</p>
+<div class="highlight-python"><div class="highlight"><pre>webservers:!{{excluded}}:&amp;{{required}}
+</pre></div>
+</div>
+<p>你也可以不必嚴格定義groups,單個的host names, IPs , groups都支援通配符:</p>
+<div class="highlight-python"><div class="highlight"><pre>*.example.com
+*.com
+</pre></div>
+</div>
+<p>Ansible同時也支援通配和groups的混合使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>one*.com:dbservers
+</pre></div>
+</div>
+<p>在高階語法中,你也可以在group中選擇對應編號的server:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">webservers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>或者一個group中的一部分servers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">webservers</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">25</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>大部分人都在patterns應用正則表示式,但你可以.只需要以 &#8216;~&#8217; 開頭即可:</p>
+<div class="highlight-python"><div class="highlight"><pre>~(web|db).*\.example\.com
+</pre></div>
+</div>
+<p>同時讓我們提前瞭解一些技能,除了如上,你也可以通過 <code class="docutils literal"><span class="pre">--limit</span></code> 標記來新增排除條件,/usr/bin/ansible or /usr/bin/ansible-playbook都支援:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook site.yml --limit datacenter2
+</pre></div>
+</div>
+<p>如果你想從檔案讀取hosts,檔名以&#64;為字首即可.從Ansible 1.2開始支援該功能:</p>
+<div class="highlight-python"><div class="highlight"><pre>ansible-playbook site.yml --limit @retry_hosts.txt
+</pre></div>
+</div>
+<p>夠簡單吧. 為了更好的掌握該章節內容,可以先了解 <a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a> 再 <a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="intro_adhoc.html"><em>Introduction To Ad-Hoc Commands</em></a></dt>
+<dd>Examples of basic commands</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>Learning ansible&#8217;s configuration management language</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-project">Mailing List</a></dt>
+<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro_adhoc.html" class="btn btn-neutral float-right" title="Introduction To Ad-Hoc Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_dynamic_inventory.html" class="btn btn-neutral" title="動態 Inventory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

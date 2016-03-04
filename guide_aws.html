@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Amazon Web Services Guide &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="詳細指南" href="guides.html"/>
+        <link rel="next" title="Rackspace 雲指南" href="guide_rax.html"/>
+        <link rel="prev" title="詳細指南" href="guides.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">詳細指南</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Amazon Web Services Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aws-intro">簡介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-authentication">認證</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#provisioning">供給(Provisioning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-host-inventory">主機清單</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-tags-and-groups">標籤,組和變數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible-pull">使用Ansible Pull自動伸縮</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asnible-tower">使用Asnible Tower自動伸縮</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible">Ansible雲構造</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible-aws">使用Ansible 構造AWS映象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-next-steps">下一步:探索模組</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace 雲指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_gce.html">Google Cloud Platform Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vagrant.html">使用Vagrant和Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rolling_upgrade.html">持續交付與滾動升級</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="guides.html">詳細指南</a> &raquo;</li>
+      
+    <li>Amazon Web Services Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/guide_aws.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="amazon-web-services-guide">
+<h1>Amazon Web Services Guide<a class="headerlink" href="#amazon-web-services-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="aws-intro">
+<span id="id1"></span><h2>簡介<a class="headerlink" href="#aws-intro" title="Permalink to this headline">¶</a></h2>
+<p>Ansible包含了大量的控制Amazon web service(AWS)模組.這個章節的目的是為了說明如何在AWS環境下組合ansible的模組使用ansible(The purpose of this
+section is to explain how to put Ansible modules together (and use inventory scripts) to use Ansible in AWS context)</p>
+<p>AWS模組的需求(requiement)是很少的</p>
+<p>所有需要的模組以及被最近的 boto 版本測試過了.你需要這個模組安裝在你的控制機器上面.boto 可以從linux發行版或者使用python的pip安裝</p>
+<p>然而典型的ansible執行任務,對多個主機進行迴圈(Whereas classically ansible will execute tasks in its host loop against multiple remote machines),大部分的雲控制步驟發生在你的本地機器所關聯的區域</p>
+<p>在你的 playbook 步驟裡,我們會使用下面的樣式演示步驟:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="aws-authentication">
+<span id="id2"></span><h2>認證<a class="headerlink" href="#aws-authentication" title="Permalink to this headline">¶</a></h2>
+<p>AWS 認證相關的模組通過指定訪問金鑰作為 ENV 的變數或者模組參數.</p>
+<p>對於環境變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>export AWS_ACCESS_KEY_ID=&#39;AK123&#39;
+export AWS_SECRET_ACCESS_KEY=&#39;abc123&#39;
+</pre></div>
+</div>
+<p>儲存變數在一個 vars_file ,最好使用ansible-vault:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+ec2_access_key: &quot;--REMOVED--&quot;
+ec2_secret_key: &quot;--REMOVED--&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="provisioning">
+<span id="aws-provisioning"></span><h2>供給(Provisioning)<a class="headerlink" href="#provisioning" title="Permalink to this headline">¶</a></h2>
+<p>在EC2中提供和取消例項的ec2模組</p>
+<p>一個確保只有5個例項標籤為“Demo”的例子</p>
+<p>在下面的例子裡,&#8221;exact_count&#8221;例項被設定為了5,這意味著如果0個例項存在,將會建立5個.如果兩個例項建立,將會建立三個,如果8個例項存在,將會終止3個.</p>
+<p>指定&#8221;count_tag&#8221;參數的將被計數, &#8220;instance_tags&#8221; 參數用於給新建立的例項應用標籤:</p>
+<div class="highlight-python"><div class="highlight"><pre># demo_setup.yml
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision a set of instances
+      ec2:
+         key_name: my_key
+         group: test
+         instance_type: t2.micro
+         image: &quot;{{ ami_id }}&quot;
+         wait: true
+         exact_count: 5
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+      register: ec2
+</pre></div>
+</div>
+<p>有關例項被常見的資料被儲存在通過 &#8220;register&#8221; 關鍵字設定的&#8221;ec2&#8221;變數</p>
+<p>我們將會使用 add_host 模組動態的建立主機組組成新的例項.這將會在後來的任務裡面立即執行這些配置檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre># demo_setup.yml
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision a set of instances
+      ec2:
+         key_name: my_key
+         group: test
+         instance_type: t2.micro
+         image: &quot;{{ ami_id }}&quot;
+         wait: true
+         exact_count: 5
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+      register: ec2
+
+   - name: Add all instance public IPs to host group
+     add_host: hostname={{ item.public_ip }} groups=ec2hosts
+     with_items: ec2.instances
+</pre></div>
+</div>
+<p>在主機組新增之後,規則劇本底部的第二個演出將會開始一些配置步驟:</p>
+<div class="highlight-python"><div class="highlight"><pre># demo_setup.yml
+
+- name: Provision a set of instances
+  hosts: localhost
+  # ... AS ABOVE ...
+
+- hosts: ec2hosts
+  name: configuration play
+  user: ec2-user
+  gather_facts: true
+
+  tasks:
+
+     - name: Check NTP service
+       service: name=ntpd state=started
+</pre></div>
+</div>
+</div>
+<div class="section" id="aws-host-inventory">
+<span id="id3"></span><h2>主機清單<a class="headerlink" href="#aws-host-inventory" title="Permalink to this headline">¶</a></h2>
+<p>一旦你的節點開始運轉起來了,你可能想去和它們通訊.在雲的配置下,最好不要維護靜態的雲主機名.最好的方式是使用ec2動態清單指令碼來處理.</p>
+<p>這將會動態的挑選節點甚至不是由Ansible建立的,同樣允許Ansible管理它們.</p>
+<p>閱讀  doc:<cite>aws_example</cite> 檢視如何使用,然後繼續回到這個章節.</p>
+</div>
+<div class="section" id="aws-tags-and-groups">
+<span id="id4"></span><h2>標籤,組和變數<a class="headerlink" href="#aws-tags-and-groups" title="Permalink to this headline">¶</a></h2>
+<p>當使用ec2清單指令碼的時候,主機基於它們如何在EC2裡面的標籤動態的出現在組裡面</p>
+<p>例如,如果一個主機給了 &#8220;class&#8221; 標籤,同時給它&#8221;webserver&#8221;作為值,它會自動被動態組發現,就像這樣:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: tag_class_webserver
+  tasks:
+    - ping
+</pre></div>
+</div>
+<p>這是很好的根據他們的效能劃分系統的方式.</p>
+<p>在這個例子裡,如果我們想去定義自動應用每臺機器上面的變數,同時 &#8220;webserver&#8221; 帶有標籤 &#8220;class&#8221; , 在ansible裡面可以使用的&#8221;group_vars&#8221;, 閱讀:ref:<cite>splitting_out_vars</cite>.</p>
+<p>對於區域和其它分類,相似的組是可用的,可以使用同一種機制分配相似的變數.(Similar groups are available for regions and other classifications, and can be similarly assigned variables using the same mechanism.)</p>
+</div>
+<div class="section" id="ansible-pull">
+<span id="aws-pull"></span><h2>使用Ansible Pull自動伸縮<a class="headerlink" href="#ansible-pull" title="Permalink to this headline">¶</a></h2>
+<p>Amazon有基於負載自動的增加和減少容量的特性. 在 cloud 文件裡,也有一些 Ansible 模組可以配置自動伸縮策略.</p>
+<p>當節點線上的時候,可能沒有足夠的時間等待下一個週期來臨,讓ansible命令配置那個節點.</p>
+<p>為了這麼做,(To do this, pre-bake machine images which contain the necessary ansible-pull invocation.).Ansible-pull 是從git伺服器上面抓取playbook在本地執行的一個命令列工具.</p>
+<p>這種方式的一個挑戰在於在自動伸縮的環境裡面需要一箇中心化的方式存取 pull 命令的資料.因為這個原因,下面提供自動伸縮解決方案更好一些.</p>
+<p>閱讀 <a class="reference internal" href="playbooks_intro.html#ansible-pull"><span>Ansible-Pull（拉取配置而非推送配置）</span></a> 在pull-node playbook 獲取更多的資訊</p>
+</div>
+<div class="section" id="asnible-tower">
+<span id="aws-autoscale"></span><h2>使用Asnible Tower自動伸縮<a class="headerlink" href="#asnible-tower" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="tower.html"><em>Ansible Tower</em></a> 同樣包含了一個非常好的特性來自動伸縮.在這種方式下,簡單的curl指令碼可以呼叫定義的URL,伺服器也會對請求&#8221;dial out&#8221;和配置正在執行的例項.這是一個很好的方式重新配置生存週期短暫的節點.閱讀Tower安裝和產品文件獲取更多的資訊.</p>
+<p>在Tower使用回收機制有個好處是,任務結果仍然是中心化的,但是和遠端主機分享更少的資訊(A benefit of using the callback in Tower over pull mode is that job results are still centrally recorded and less information has to be shared
+with remote hosts.)</p>
+</div>
+<div class="section" id="ansible">
+<span id="aws-cloudformation-example"></span><h2>Ansible雲構造<a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h2>
+<p>雲構造是一個Amazon的技術,讓雲棧作為JSON文件</p>
+<p>Ansible摸塊提供了一個比雲構造更容易的介面,不需要定義複雜的JSON文件.這是推薦使用者使用的.</p>
+<p>然而,當用戶決定使用雲構造,也有 Ansible 模組可以應用於雲構造模板.</p>
+<p>當使用Ansible配合雲構造的時候,Ansible通常使用一個工具像 Packer 來構建映象,CloudFormation 執行這些映象, 或者通過使用者資料,一旦映象上線,ansible會被激發.(When using Ansible with CloudFormation, typically Ansible will be used with a tool like Packer to build images, and CloudFormation will launch
+those images, or ansible will be invoked through user data once the image comes online, or a combination of the two.)</p>
+<p>請閱讀ansible雲構造的例子獲取更多的細節.</p>
+</div>
+<div class="section" id="ansible-aws">
+<span id="aws-image-build"></span><h2>使用Ansible 構造AWS映象<a class="headerlink" href="#ansible-aws" title="Permalink to this headline">¶</a></h2>
+<p>Many users may want to have images boot to a more complete configuration rather than configuring them entirely after instantiation.  To do this,
+one of many programs can be used with Ansible playbooks to define and upload a base image, which will then get its own AMI ID for usage with
+the ec2 module or other Ansible AWS modules such as ec2_asg or the cloudformation module.   Possible tools include Packer, aminator, and Ansible&#8217;s
+ec2_ami module.</p>
+<p>許多使用者想去開機啟動更完整的配置而不是安裝之後配置.為了這樣做,許多程式可以用於ansible playbook定義和上傳基本的映象,這讓他們使用 ec2 模組後得到自己的AMI ID,或者其它的Ansible AWS模組例如ec2_asg 或者cloudformation 模組.可能的工具包含 Packer,aminator,和Ansible&#8217;s ec2_ami 模組</p>
+<p>總的來說,我們發現許多使用者使用Packer</p>
+<p>Ansible Packer的文件可以在這裡找到 <a class="reference external" href="https://www.packer.io/docs/provisioners/ansible-local.html">https://www.packer.io/docs/provisioners/ansible-local.html</a>.</p>
+<p>如果你想採用Packer這時,配置一個基本的映象使用Ansible在規則之後是可以接受的.</p>
+</div>
+<div class="section" id="aws-next-steps">
+<span id="id5"></span><h2>下一步:探索模組<a class="headerlink" href="#aws-next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Ansible附帶許多模組來配置許多EC2服務.瀏覽 模組的 &#8220;Cloud&#8221; 目錄檢視完整的列表</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="modules.html"><em>模組相關</em></a></dt>
+<dd>All the documentation for Ansible modules</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_delegation.html"><em>委託,滾動更新,本地動作</em></a></dt>
+<dd>Delegation, useful for working with loud balancers, clouds, and locally executed steps.</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guide_rax.html" class="btn btn-neutral float-right" title="Rackspace 雲指南" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guides.html" class="btn btn-neutral" title="詳細指南" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

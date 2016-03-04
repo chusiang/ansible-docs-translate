@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>迴圈 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Playbooks" href="playbooks.html"/>
+        <link rel="next" title="最佳實踐" href="playbooks_best_practices.html"/>
+        <link rel="prev" title="條件選擇" href="playbooks_conditionals.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="playbooks.html">Playbooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="playbooks_intro.html">Playbooks 介紹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_roles.html">Playbook Roles and Include Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_conditionals.html">條件選擇</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">迴圈</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#standard-loops">標準迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nested-loops">巢狀迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looping-over-hashes">對雜湊表使用迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looping-over-fileglobs">對檔案列表使用迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">對並行資料集使用迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">對子元素使用迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looping-over-integer-sequences">對整數序列使用迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#random-choice">隨機選擇</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#do-until">Do-Until迴圈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-first-found">查詢第一個匹配的檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looping-over-the-results-of-a-program-execution">迭代程式的執行結果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexed-lists">使用索引迴圈列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-ini-with-a-loop">迴圈配置檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flattening-a-list">扁平化列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-register-with-a-loop">迴圈中使用註冊器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-your-own-iterators">自定義迭代</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks_best_practices.html">最佳實踐</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="playbooks.html">Playbooks</a> &raquo;</li>
+      
+    <li>迴圈</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/playbooks_loops.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id17">迴圈</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>通常你想在一個任務中幹很多事,比如建立一群使用者,安裝很多包,或者重複一個輪詢步驟直到收到某個特定結果.</p>
+<p>本章將對在playbook中如何使用迴圈做全面的介紹.</p>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id17">迴圈</a><ul>
+<li><a class="reference internal" href="#standard-loops" id="id18">標準迴圈</a></li>
+<li><a class="reference internal" href="#nested-loops" id="id19">巢狀迴圈</a></li>
+<li><a class="reference internal" href="#looping-over-hashes" id="id20">對雜湊表使用迴圈</a></li>
+<li><a class="reference internal" href="#looping-over-fileglobs" id="id21">對檔案列表使用迴圈</a></li>
+<li><a class="reference internal" href="#id6" id="id22">對並行資料集使用迴圈</a></li>
+<li><a class="reference internal" href="#id7" id="id23">對子元素使用迴圈</a></li>
+<li><a class="reference internal" href="#looping-over-integer-sequences" id="id24">對整數序列使用迴圈</a></li>
+<li><a class="reference internal" href="#random-choice" id="id25">隨機選擇</a></li>
+<li><a class="reference internal" href="#do-until" id="id26">Do-Until迴圈</a></li>
+<li><a class="reference internal" href="#with-first-found" id="id27">查詢第一個匹配的檔案</a></li>
+<li><a class="reference internal" href="#looping-over-the-results-of-a-program-execution" id="id28">迭代程式的執行結果</a></li>
+<li><a class="reference internal" href="#indexed-lists" id="id29">使用索引迴圈列表</a></li>
+<li><a class="reference internal" href="#using-ini-with-a-loop" id="id30">迴圈配置檔案</a></li>
+<li><a class="reference internal" href="#flattening-a-list" id="id31">扁平化列表</a></li>
+<li><a class="reference internal" href="#using-register-with-a-loop" id="id32">迴圈中使用註冊器</a></li>
+<li><a class="reference internal" href="#writing-your-own-iterators" id="id33">自定義迭代</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="standard-loops">
+<span id="id2"></span><h2><a class="toc-backref" href="#id18">標準迴圈</a><a class="headerlink" href="#standard-loops" title="Permalink to this headline">¶</a></h2>
+<p>為了保持簡潔,重複的任務可以用以下簡寫的方式:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: add several users
+  user: name={{ item }} state=present groups=wheel
+  with_items:
+     - testuser1
+     - testuser2
+</pre></div>
+</div>
+<p>如果你在變數檔案中或者 &#8216;vars&#8217; 區域定義了一組YAML列表,你也可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>with_items: &quot;{{somelist}}&quot;
+</pre></div>
+</div>
+<p>以上寫法與下面是完全等同的:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: add user testuser1
+  user: name=testuser1 state=present groups=wheel
+- name: add user testuser2
+  user: name=testuser2 state=present groups=wheel
+</pre></div>
+</div>
+<p>yum和apt模組中使用with_items執行時會有較少的包管理事務.</p>
+<p>請note使用 &#8216;with_items&#8217; 用於迭代的條目類型不僅僅支援簡單的字元串列表.如果你有一個雜湊列表,那麼你可以用以下方式來引用子項:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: add several users
+  user: name={{ item.name }} state=present groups={{ item.groups }}
+  with_items:
+    - { name: &#39;testuser1&#39;, groups: &#39;wheel&#39; }
+    - { name: &#39;testuser2&#39;, groups: &#39;root&#39; }
+</pre></div>
+</div>
+<p>請note如果同時使用 <cite>when</cite> 和 <cite>with_items</cite> （或其它迴圈聲明）,`when`聲明會為每個條目單獨執行.請參見 <span class="xref std std-ref">the_when_statement</span> 示例.</p>
+</div>
+<div class="section" id="nested-loops">
+<span id="id3"></span><h2><a class="toc-backref" href="#id19">巢狀迴圈</a><a class="headerlink" href="#nested-loops" title="Permalink to this headline">¶</a></h2>
+<p>迴圈也可以巢狀:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: give users access to multiple databases
+  mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+  with_nested:
+    - [ &#39;alice&#39;, &#39;bob&#39; ]
+    - [ &#39;clientdb&#39;, &#39;employeedb&#39;, &#39;providerdb&#39; ]
+</pre></div>
+</div>
+<p>和以上介紹的&#8217;with_items&#8217;一樣,你也可以使用預定義變數.:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: here, &#39;users&#39; contains the above list of employees
+  mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+  with_nested:
+    - &quot;{{users}}&quot;
+    - [ &#39;clientdb&#39;, &#39;employeedb&#39;, &#39;providerdb&#39; ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="looping-over-hashes">
+<span id="id4"></span><h2><a class="toc-backref" href="#id20">對雜湊表使用迴圈</a><a class="headerlink" href="#looping-over-hashes" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.5.</span></p>
+</div>
+<p>假如你有以下變數:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+users:
+  alice:
+    name: Alice Appleworth
+    telephone: 123-456-7890
+  bob:
+    name: Bob Bananarama
+    telephone: 987-654-3210
+</pre></div>
+</div>
+<p>你想打印出每個使用者的名稱和電話號碼.你可以使用 <code class="docutils literal"><span class="pre">with_dict</span></code> 來迴圈雜湊表中的元素:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: Print phone records
+    debug: msg=&quot;User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})&quot;
+    with_dict: &quot;{{users}}&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="looping-over-fileglobs">
+<span id="id5"></span><h2><a class="toc-backref" href="#id21">對檔案列表使用迴圈</a><a class="headerlink" href="#looping-over-fileglobs" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">with_fileglob</span></code> 可以以非遞迴的方式來模式匹配單個目錄中的檔案.如下面所示:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+
+  tasks:
+
+    # first ensure our target directory exists
+    - file: dest=/etc/fooapp state=directory
+
+    # copy each file over that matches the given pattern
+    - copy: src={{ item }} dest=/etc/fooapp/ owner=root mode=600
+      with_fileglob:
+        - /playbooks/files/fooapp/*
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">當在role中對 <code class="docutils literal"><span class="pre">with_fileglob</span></code> 使用相對路徑時, Ansible會把路徑對映到`roles/&lt;rolename&gt;/files`目錄.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id22">對並行資料集使用迴圈</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個不常見的使用方式,但為了文件完整性我們還是把它寫出來.你可能不會經常使用這種方式.</p>
+</div>
+<p>假設你通過某種方式載入了以下變數資料:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+alpha: [ &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39; ]
+numbers:  [ 1, 2, 3, 4 ]
+</pre></div>
+</div>
+<p>如果你想得到&#8217;(a, 1)&#8217;和&#8217;(b, 2)&#8217;之類的集合.可以使用&#8217;with_together&#8217;:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+    - debug: msg=&quot;{{ item.0 }} and {{ item.1 }}&quot;
+      with_together:
+        - &quot;{{alpha}}&quot;
+        - &quot;{{numbers}}&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id23">對子元素使用迴圈</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>假設你想對一組使用者做一些動作,比如建立這些使用者,並且允許它們使用一組SSH key來登入.</p>
+<p>如何實現那? 先假設你有按以下方式定義的資料,可以通過&#8221;vars_files&#8221;或&#8221;group_vars/all&#8221;檔案載入:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+users:
+  - name: alice
+    authorized:
+      - /tmp/alice/onekey.pub
+      - /tmp/alice/twokey.pub
+    mysql:
+        password: mysql-password
+        hosts:
+          - &quot;%&quot;
+          - &quot;127.0.0.1&quot;
+          - &quot;::1&quot;
+          - &quot;localhost&quot;
+        privs:
+          - &quot;*.*:SELECT&quot;
+          - &quot;DB1.*:ALL&quot;
+  - name: bob
+    authorized:
+      - /tmp/bob/id_rsa.pub
+    mysql:
+        password: other-mysql-password
+        hosts:
+          - &quot;db1&quot;
+        privs:
+          - &quot;*.*:SELECT&quot;
+          - &quot;DB2.*:ALL&quot;
+</pre></div>
+</div>
+<p>那麼可以這樣實現:</p>
+<div class="highlight-python"><div class="highlight"><pre>- user: name={{ item.name }} state=present generate_ssh_key=yes
+  with_items: &quot;{{users}}&quot;
+
+- authorized_key: &quot;user={{ item.0.name }} key=&#39;{{ lookup(&#39;file&#39;, item.1) }}&#39;&quot;
+  with_subelements:
+     - users
+     - authorized
+</pre></div>
+</div>
+<p>根據mysql hosts以及預先給定的privs subkey列表,我們也可以在巢狀的subkey中迭代列表:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Setup MySQL users
+  mysql_user: name={{ item.0.user }} password={{ item.0.mysql.password }} host={{ item.1 }} priv={{ item.0.mysql.privs | join(&#39;/&#39;) }}
+  with_subelements:
+    - users
+    - mysql.hosts
+</pre></div>
+</div>
+<p>Subelements walks a list of hashes (aka dictionaries) and then traverses a list with a given key inside of those
+records.</p>
+<p>你也可以為字元素列表新增第三個元素,該元素可以放置標誌位字典.現在你可以加入&#8217;skip_missing&#8217;標誌位.如果設定為True,那麼查詢外掛會跳過不包含指定子鍵的列表條目.如果沒有該標誌位,或者標誌位值為False,外掛會產生錯誤並指出缺少該子鍵.</p>
+<p>這就是authorized_key模式中key的獲取方式.</p>
+</div>
+<div class="section" id="looping-over-integer-sequences">
+<span id="id8"></span><h2><a class="toc-backref" href="#id24">對整數序列使用迴圈</a><a class="headerlink" href="#looping-over-integer-sequences" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">with_sequence</span></code> 可以以升序數字順序生成一組序列.你可以指定起始值、終止值,以及一個可選的步長值.</p>
+<p>指定參數時也可以使用key=value這種鍵值對的方式.如果採用這種方式,&#8217;format&#8217;是一個可列印的字元串.</p>
+<p>數字值可以被指定為10進位制,16進位制(0x3f8)或者八進位制(0600).負數則不受支援.請看以下示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+
+  tasks:
+
+    # create groups
+    - group: name=evens state=present
+    - group: name=odds state=present
+
+    # create some test users
+    - user: name={{ item }} state=present groups=evens
+      with_sequence: start=0 end=32 format=testuser%02x
+
+    # create a series of directories with even numbers for some reason
+    - file: dest=/var/stuff/{{ item }} state=directory
+      with_sequence: start=4 end=16 stride=2
+
+    # a simpler way to use the sequence plugin
+    # create 4 groups
+    - group: name=group{{ item }} state=present
+      with_sequence: count=4
+</pre></div>
+</div>
+</div>
+<div class="section" id="random-choice">
+<span id="id9"></span><h2><a class="toc-backref" href="#id25">隨機選擇</a><a class="headerlink" href="#random-choice" title="Permalink to this headline">¶</a></h2>
+<p>&#8216;random_choice&#8217;功能可以用來隨機獲取一些值.它並不是負載均衡器(已經有相關的模組了).它有時可以用作一個簡化版的負載均衡器,比如作為條件判斷:</p>
+<div class="highlight-python"><div class="highlight"><pre>- debug: msg={{ item }}
+  with_random_choice:
+     - &quot;go through the door&quot;
+     - &quot;drink from the goblet&quot;
+     - &quot;press the red button&quot;
+     - &quot;do nothing&quot;
+</pre></div>
+</div>
+<p>提供的字元串中的其中一個會被隨機選中.</p>
+<p>還有一個基本的場景,該功能可用於在一個可預測的自動化環境中新增混亂和興奮點.</p>
+</div>
+<div class="section" id="do-until">
+<span id="do-until-loops"></span><h2><a class="toc-backref" href="#id26">Do-Until迴圈</a><a class="headerlink" href="#do-until" title="Permalink to this headline">¶</a></h2>
+<p>有時你想重試一個任務直到達到某個條件.比如下面這個例子:</p>
+<div class="highlight-python"><div class="highlight"><pre>- action: shell /usr/bin/foo
+  register: result
+  until: result.stdout.find(&quot;all systems go&quot;) != -1
+  retries: 5
+  delay: 10
+</pre></div>
+</div>
+<p>上面的例子遞迴執行shell模組,直到模組結果中的stdout輸出中包含&#8221;all systems go&#8221;字元串,或者該任務按照10秒的延遲重試超過5次.&#8221;retries&#8221;和&#8221;delay&#8221;的預設值分別是3和5.</p>
+<p>該任務返回最後一個任務返回的結果.單次重試的結果可以使用-vv選項來檢視.
+被註冊的變數會有一個新的屬性&#8217;attempts&#8217;,值為該任務重試的次數.</p>
+</div>
+<div class="section" id="with-first-found">
+<span id="id10"></span><h2><a class="toc-backref" href="#id27">查詢第一個匹配的檔案</a><a class="headerlink" href="#with-first-found" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個不常見的使用方式,但為了文件完整性我們還是把它寫出來.你可能不會經常使用這種方式.</p>
+</div>
+<p>這其實不是一個迴圈,但和迴圈很相似.如果你想引用一個檔案,而該檔案是從一組檔案中根據給定條件匹配出來的.這組檔案中部分檔名由變數拼接而成.針對該場景你可以這樣做:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: INTERFACES | Create Ansible header for /etc/network/interfaces
+  template: src={{ item }} dest=/etc/foo.conf
+  with_first_found:
+    - &quot;{{ansible_virtualization_type}}_foo.conf&quot;
+    - &quot;default_foo.conf&quot;
+</pre></div>
+</div>
+<p>該功能還有一個更完整的版本,可以配置搜尋路徑.請看以下示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: some configuration template
+  template: src={{ item }} dest=/etc/file.cfg mode=0444 owner=root group=root
+  with_first_found:
+    - files:
+       - &quot;{{inventory_hostname}}/etc/file.cfg&quot;
+      paths:
+       - ../../../templates.overwrites
+       - ../../../templates
+    - files:
+        - etc/file.cfg
+      paths:
+        - templates
+</pre></div>
+</div>
+</div>
+<div class="section" id="looping-over-the-results-of-a-program-execution">
+<span id="id11"></span><h2><a class="toc-backref" href="#id28">迭代程式的執行結果</a><a class="headerlink" href="#looping-over-the-results-of-a-program-execution" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個不常見的使用方式,但為了文件完整性我們還是把它寫出來.你可能不會經常使用這種方式.</p>
+</div>
+<p>有時你想執行一個程式,而且按行迴圈該程式的輸出.Ansible提供了一個優雅的方式來實現這一點.但請記住,該功能始終在控制機上執行,而不是本地機器:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Example of looping over a command result
+  shell: /usr/bin/frobnicate {{ item }}
+  with_lines: /usr/bin/frobnications_per_host --param {{ inventory_hostname }}
+</pre></div>
+</div>
+<p>好吧,這好像有點隨意.事實上,如果你在做一些與inventory有關的事情,比如你想編寫一個動態的inventory源(參見 <a class="reference internal" href="intro_dynamic_inventory.html"><em>動態 Inventory</em></a>),那麼藉助該功能能夠快速實現.</p>
+<p>如果你想遠端執行命令,那麼以上方法則不行.但你可以這樣寫:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Example of looping over a REMOTE command result
+  shell: /usr/bin/something
+  register: command_result
+
+- name: Do something with each result
+  shell: /usr/bin/something_else --param {{ item }}
+  with_items: &quot;{{command_result.stdout_lines}}&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="indexed-lists">
+<span id="id12"></span><h2><a class="toc-backref" href="#id29">使用索引迴圈列表</a><a class="headerlink" href="#indexed-lists" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個不常見的使用方式,但為了文件完整性我們還是把它寫出來.你可能不會經常使用這種方式.</p>
+</div>
+<p>如果你想迴圈一個列表,同時得到一個數字索引來標明你當前處於列表什麼位置,那麼你可以這樣做.雖然該方法不太常用:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: indexed loop demo
+  debug: msg=&quot;at array position {{ item.0 }} there is a value {{ item.1 }}&quot;
+  with_indexed_items: &quot;{{some_list}}&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-ini-with-a-loop">
+<span id="id13"></span><h2><a class="toc-backref" href="#id30">迴圈配置檔案</a><a class="headerlink" href="#using-ini-with-a-loop" title="Permalink to this headline">¶</a></h2>
+<p>ini外掛可以使用正則表示式來獲取一組鍵值對.因此,我們可以遍歷該集合.以下是我們使用的ini檔案:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">section1</span><span class="p">]</span>
+<span class="n">value1</span><span class="o">=</span><span class="n">section1</span><span class="o">/</span><span class="n">value1</span>
+<span class="n">value2</span><span class="o">=</span><span class="n">section1</span><span class="o">/</span><span class="n">value2</span>
+
+<span class="p">[</span><span class="n">section2</span><span class="p">]</span>
+<span class="n">value1</span><span class="o">=</span><span class="n">section2</span><span class="o">/</span><span class="n">value1</span>
+<span class="n">value2</span><span class="o">=</span><span class="n">section2</span><span class="o">/</span><span class="n">value2</span>
+</pre></div>
+</div>
+<p>以下是使用 <code class="docutils literal"><span class="pre">with_ini</span></code> 的例子:</p>
+<div class="highlight-python"><div class="highlight"><pre>- debug: msg=&quot;{{item}}&quot;
+  with_ini: value[1-2] section=section1 file=lookup.ini re=true
+</pre></div>
+</div>
+<p>以下是返回的值:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+      <span class="s">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+      <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="s">&quot;All items completed&quot;</span><span class="p">,</span>
+      <span class="s">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+              <span class="s">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s">&quot;module_args&quot;</span><span class="p">:</span> <span class="s">&quot;msg=</span><span class="se">\&quot;</span><span class="s">section1/value1</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;module_name&quot;</span><span class="p">:</span> <span class="s">&quot;debug&quot;</span>
+              <span class="p">},</span>
+              <span class="s">&quot;item&quot;</span><span class="p">:</span> <span class="s">&quot;section1/value1&quot;</span><span class="p">,</span>
+              <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="s">&quot;section1/value1&quot;</span><span class="p">,</span>
+              <span class="s">&quot;verbose_always&quot;</span><span class="p">:</span> <span class="n">true</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+              <span class="s">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s">&quot;module_args&quot;</span><span class="p">:</span> <span class="s">&quot;msg=</span><span class="se">\&quot;</span><span class="s">section1/value2</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;module_name&quot;</span><span class="p">:</span> <span class="s">&quot;debug&quot;</span>
+              <span class="p">},</span>
+              <span class="s">&quot;item&quot;</span><span class="p">:</span> <span class="s">&quot;section1/value2&quot;</span><span class="p">,</span>
+              <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="s">&quot;section1/value2&quot;</span><span class="p">,</span>
+              <span class="s">&quot;verbose_always&quot;</span><span class="p">:</span> <span class="n">true</span>
+          <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flattening-a-list">
+<span id="id14"></span><h2><a class="toc-backref" href="#id31">扁平化列表</a><a class="headerlink" href="#flattening-a-list" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">這是一個不常見的使用方式,但為了文件完整性我們還是把它寫出來.你可能不會經常使用這種方式.</p>
+</div>
+<p>在罕見的情況下,你可能有幾組列表,列表中會巢狀列表.而你只是想迭代所有列表中的每個元素.比如有一個非常瘋狂的假定的資料結構:</p>
+<div class="highlight-python"><div class="highlight"><pre>----
+# file: roles/foo/vars/main.yml
+packages_base:
+  - [ &#39;foo-package&#39;, &#39;bar-package&#39; ]
+packages_apps:
+  - [ [&#39;one-package&#39;, &#39;two-package&#39; ]]
+  - [ [&#39;red-package&#39;], [&#39;blue-package&#39;]]
+</pre></div>
+</div>
+<p>你可以看到列表中的包到處都是.那麼如果想安裝兩個列表中的所有包那?:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: flattened loop demo
+  yum: name={{ item }} state=installed
+  with_flattened:
+     - packages_base
+     - packages_apps
+</pre></div>
+</div>
+<p>這就行了！</p>
+</div>
+<div class="section" id="using-register-with-a-loop">
+<span id="id15"></span><h2><a class="toc-backref" href="#id32">迴圈中使用註冊器</a><a class="headerlink" href="#using-register-with-a-loop" title="Permalink to this headline">¶</a></h2>
+<p>當對處於迴圈中的某個資料結構使用 <code class="docutils literal"><span class="pre">register</span></code> 來註冊變數時,結果包含一個 <code class="docutils literal"><span class="pre">results</span></code> 屬性,這是從模組中得到的所有響應的一個列表.</p>
+<p>以下是在 <code class="docutils literal"><span class="pre">with_items</span></code> 中使用 <code class="docutils literal"><span class="pre">register</span></code> 的示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>- shell: echo &quot;{{ item }}&quot;
+  with_items:
+    - one
+    - two
+  register: echo
+</pre></div>
+</div>
+<p>返回的資料結構如下,與非迴圈結構中使用 <code class="docutils literal"><span class="pre">register</span></code> 的返回結果是不同的:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;changed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">&quot;msg&quot;</span><span class="p">:</span> <span class="s">&quot;All items completed&quot;</span><span class="p">,</span>
+    <span class="s">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">&quot;changed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s">&quot;cmd&quot;</span><span class="p">:</span> <span class="s">&quot;echo </span><span class="se">\&quot;</span><span class="s">one</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">,</span>
+            <span class="s">&quot;delta&quot;</span><span class="p">:</span> <span class="s">&quot;0:00:00.003110&quot;</span><span class="p">,</span>
+            <span class="s">&quot;end&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-19 12:00:05.187153&quot;</span><span class="p">,</span>
+            <span class="s">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;module_args&quot;</span><span class="p">:</span> <span class="s">&quot;echo </span><span class="se">\&quot;</span><span class="s">one</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="s">&quot;module_name&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span>
+            <span class="p">},</span>
+            <span class="s">&quot;item&quot;</span><span class="p">:</span> <span class="s">&quot;one&quot;</span><span class="p">,</span>
+            <span class="s">&quot;rc&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;start&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-19 12:00:05.184043&quot;</span><span class="p">,</span>
+            <span class="s">&quot;stderr&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+            <span class="s">&quot;stdout&quot;</span><span class="p">:</span> <span class="s">&quot;one&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">&quot;changed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s">&quot;cmd&quot;</span><span class="p">:</span> <span class="s">&quot;echo </span><span class="se">\&quot;</span><span class="s">two</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">,</span>
+            <span class="s">&quot;delta&quot;</span><span class="p">:</span> <span class="s">&quot;0:00:00.002920&quot;</span><span class="p">,</span>
+            <span class="s">&quot;end&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-19 12:00:05.245502&quot;</span><span class="p">,</span>
+            <span class="s">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;module_args&quot;</span><span class="p">:</span> <span class="s">&quot;echo </span><span class="se">\&quot;</span><span class="s">two</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="s">&quot;module_name&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span>
+            <span class="p">},</span>
+            <span class="s">&quot;item&quot;</span><span class="p">:</span> <span class="s">&quot;two&quot;</span><span class="p">,</span>
+            <span class="s">&quot;rc&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;start&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-19 12:00:05.242582&quot;</span><span class="p">,</span>
+            <span class="s">&quot;stderr&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+            <span class="s">&quot;stdout&quot;</span><span class="p">:</span> <span class="s">&quot;two&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>隨後的任務可以用以下方式來迴圈註冊變數,用來檢查結果值:</p>
+<div class="highlight-python"><div class="highlight"><pre>- name: Fail if return code is not 0
+  fail:
+    msg: &quot;The command ({{ item.cmd }}) did not have a 0 return code&quot;
+  when: item.rc != 0
+  with_items: &quot;{{echo.results}}&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-your-own-iterators">
+<span id="id16"></span><h2><a class="toc-backref" href="#id33">自定義迭代</a><a class="headerlink" href="#writing-your-own-iterators" title="Permalink to this headline">¶</a></h2>
+<p>雖然你通常無需自定義實現自己的迭代,但如果你想按你自己的方式來迴圈任意資料結構,你可以閱讀:doc:<cite>developing_plugins</cite> 來作為開始.以上的每個功能都以外掛的方式來實現,所以有很多的實現可供引用.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+<dt><a class="reference internal" href="playbooks_roles.html"><em>Playbook Roles and Include Statements</em></a></dt>
+<dd>Playbook organization by roles</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><em>最佳實踐</em></a></dt>
+<dd>Best practices in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><em>條件選擇</em></a></dt>
+<dd>Conditional statements in playbooks</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><em>Variables</em></a></dt>
+<dd>All about variables</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
+<dd>Have a question?  Stop by the google group!</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
+<dd>#ansible IRC chat channel</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="playbooks_best_practices.html" class="btn btn-neutral float-right" title="最佳實踐" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="playbooks_conditionals.html" class="btn btn-neutral" title="條件選擇" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

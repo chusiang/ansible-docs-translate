@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>使用Vagrant和Ansible &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="詳細指南" href="guides.html"/>
+        <link rel="next" title="持續交付與滾動升級" href="guide_rolling_upgrade.html"/>
+        <link rel="prev" title="Google Cloud Platform Guide" href="guide_gce.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">總體介紹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">詳細指南</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace 雲指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_gce.html">Google Cloud Platform Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">使用Vagrant和Ansible</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vagrant-intro">簡介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vagrant">配置Vagrant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ansible">手動執行Ansible</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rolling_upgrade.html">持續交付與滾動升級</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="guides.html">詳細指南</a> &raquo;</li>
+      
+    <li>使用Vagrant和Ansible</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/guide_vagrant.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vagrantansible">
+<h1>使用Vagrant和Ansible<a class="headerlink" href="#vagrantansible" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vagrant-intro">
+<span id="id1"></span><h2>簡介<a class="headerlink" href="#vagrant-intro" title="Permalink to this headline">¶</a></h2>
+<p>Vargrant是一個管理虛擬機器環境的工具,允許你在不同的虛擬化和雲平臺 配置和使用可再生的工作環境.它也集成了Ansible作為對虛擬機器的服務提供者,而且這兩個工具配合的很好.</p>
+<p>這個指南會敘述如何同時配合使用Vagrant和Ansible.</p>
+<p>如果你對Vagrant還不瞭解,你應該看看這個文件 <a class="reference external" href="http://docs.vagrantup.com/v2/">the documentation</a>.</p>
+<p>假設你已經安裝了Ansible,在Git上檢測,執行的也很好,檢視下面的:doc:<cite>intro_installation</cite> 獲取更多的資訊.</p>
+</div>
+<div class="section" id="vagrant">
+<span id="vagrant-setup"></span><h2>配置Vagrant<a class="headerlink" href="#vagrant" title="Permalink to this headline">¶</a></h2>
+<p>第一步安裝了Vagrant之後,建立一個 <code class="docutils literal"><span class="pre">Vagrantfile</span></code> ,修改它來適應你的需要.Vagrant文件裡面已經包含了很多細節了,這裡僅僅給出一個快速的參考例項</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir vagrant-test
+<span class="nv">$ </span><span class="nb">cd </span>vagrant-test
+<span class="nv">$ </span>vagrant init precise32 http://files.vagrantup.com/precise32.box
+</pre></div>
+</div>
+<p>這會建立名稱為 Vagrantfile 的檔案,你可以編輯它適應你的需要.預設的Vagrantfile有很多註釋.這裡是一個簡化的例子包括了一個使用ansible提供服務的部分.</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="c1">#Vagrant API/syntax 版本.不要修改它除非你知道你自己在做什麼.</span>
+
+<span class="no">VAGRANTFILE_API_VERSION</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+
+<span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="no">VAGRANTFILE_API_VERSION</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;precise32&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box_url</span> <span class="o">=</span> <span class="s2">&quot;http://files.vagrantup.com/precise32.box&quot;</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:public_network</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;ansible&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">ansible</span><span class="o">|</span>
+        <span class="n">ansible</span><span class="o">.</span><span class="n">playbook</span> <span class="o">=</span> <span class="s2">&quot;playbook.yml&quot;</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Vagrantfile 有很多選項,但這些是最重要的.注意 <code class="docutils literal"><span class="pre">config.vm.provision``部分,引用了叫做``playbook.yml</span></code> 的 Ansible playbook,它與Vagrantfile的在同樣的目錄裡面.Vagrant 一旦虛擬機器啟動和已經準備好了ssh訪問的時候.執行這個提供的服務(prvisoner)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>vagrant up
+</pre></div>
+</div>
+<p>這將會啟動VM和執行提供的playbook檔案.</p>
+<p>在你的Vagrantfile裡面,有許多Ansible選項可以配置.有用的選項有 <code class="docutils literal"><span class="pre">ansible.extra_vars</span></code>, <code class="docutils literal"><span class="pre">ansible.sudo</span></code> 和 <code class="docutils literal"><span class="pre">ansible.sudo_user</span></code> , 和可以避免SSH對新的虛擬機器的連線問題的 <code class="docutils literal"><span class="pre">ansible.host_key_checking</span></code></p>
+<p>檢視 <a class="reference external" href="http://docs.vagrantup.com/v2/provisioning/ansible.html">Ansible Provisioner documentation</a> 獲取更多資訊</p>
+<p>重新執行一個在已存在的VM上的playbook,執行</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>vagrant provision
+</pre></div>
+</div>
+<p>這將會重新執行playbook</p>
+</div>
+<div class="section" id="ansible">
+<span id="running-ansible"></span><h2>手動執行Ansible<a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h2>
+<p>有時你想手動執行Ansible,而不是機器.這相對來說很簡單.</p>
+<p>Vargrant自動的為Vagrant機器建立清單檔案,存在相同的目錄下面 <code class="docutils literal"><span class="pre">.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory</span></code>.它根據Vagrant自動建立的SSH管道配置清單檔案,執行``ansible-playbook`` 使用正確的使用者名稱和SSH金鑰選項來訪問.一個典型的自動建立清單檔案的例子看起來就像下面這樣.</p>
+<div class="highlight-none"><div class="highlight"><pre># Generated by Vagrant
+
+machine ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+</pre></div>
+</div>
+<p>如果你想執行Ansible手動的,你會想確保是否傳遞給``ansible`` 或者 <code class="docutils literal"><span class="pre">ansible-playbook</span></code> 命令正確的參數,和自動生成了清單檔案.</p>
+<p>這是一個例子</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key<span class="o">=</span>.vagrant/machines/default/virtualbox/private_key -u vagrant playbook.yml
+</pre></div>
+</div>
+<p>注意:Vagrant地域1.7.0的版本會使用私鑰位於``~/.vagrant.d/insecure_private_key.``</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="http://www.vagrantup.com/">Vagrant Home</a></dt>
+<dd>The Vagrant homepage with downloads</dd>
+<dt><a class="reference external" href="http://docs.vagrantup.com/v2/">Vagrant Documentation</a></dt>
+<dd>Vagrant Documentation</dd>
+<dt><a class="reference external" href="http://docs.vagrantup.com/v2/provisioning/ansible.html">Ansible Provisioner</a></dt>
+<dd>The Vagrant documentation for the Ansible provisioner</dd>
+<dt><a class="reference internal" href="playbooks.html"><em>Playbooks</em></a></dt>
+<dd>An introduction to playbooks</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guide_rolling_upgrade.html" class="btn btn-neutral float-right" title="持續交付與滾動升級" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guide_gce.html" class="btn btn-neutral" title="Google Cloud Platform Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

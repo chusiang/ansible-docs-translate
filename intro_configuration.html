@@ -1,0 +1,851 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible的配置檔案 &mdash; ansible中文權威指南 1.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ansible中文權威指南 1.0.1 documentation" href="index.html"/>
+        <link rel="up" title="總體介紹" href="intro.html"/>
+        <link rel="next" title="Windows Support" href="intro_windows.html"/>
+        <link rel="prev" title="Introduction To Ad-Hoc Commands" href="intro_adhoc.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ansible中文權威指南
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="intro.html">總體介紹</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">新手上路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Inventory檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">動態 Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Ansible的配置檔案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-latest-configuration">獲取最新配置檔案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environmental-configuration">環境配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-values-by-section">配置檔案不同段詳解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-defaults">通用預設段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#paramiko-specific-settings">Paramiko Specific Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#openssh-specific-settings">OpenSSH Specific Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accelerated-mode-settings">Accelerated Mode Settings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="intro_windows.html">Windows Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速學習視訊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks.html">Playbooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_special_topics.html">Playbooks: Special Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">模組相關</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">詳細指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">開發者須知</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Ansible使用者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id6">對當前和未來的開發人員</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html#id9">其它主題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="galaxy.html">Ansible Galaxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">測試策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常見問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">術語表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML 語法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ansible中文權威指南</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="intro.html">總體介紹</a> &raquo;</li>
+      
+    <li>Ansible的配置檔案</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro_configuration.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ansible">
+<h1><a class="toc-backref" href="#id56">Ansible的配置檔案</a><a class="headerlink" href="#ansible" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ansible" id="id56">Ansible的配置檔案</a><ul>
+<li><a class="reference internal" href="#getting-the-latest-configuration" id="id57">獲取最新配置檔案</a></li>
+<li><a class="reference internal" href="#environmental-configuration" id="id58">環境配置</a></li>
+<li><a class="reference internal" href="#config-values-by-section" id="id59">配置檔案不同段詳解</a><ul>
+<li><a class="reference internal" href="#general-defaults" id="id60">通用預設段</a><ul>
+<li><a class="reference internal" href="#action-plugins" id="id61">action_plugins</a></li>
+<li><a class="reference internal" href="#ansible-managed" id="id62">ansible_managed</a></li>
+<li><a class="reference internal" href="#ask-pass" id="id63">ask_pass</a></li>
+<li><a class="reference internal" href="#ask-sudo-pass" id="id64">ask_sudo_pass</a></li>
+<li><a class="reference internal" href="#bin-ansible-callbacks" id="id65">bin_ansible_callbacks</a></li>
+<li><a class="reference internal" href="#callback-plugins" id="id66">callback_plugins</a></li>
+<li><a class="reference internal" href="#command-warnings" id="id67">command_warnings</a></li>
+<li><a class="reference internal" href="#connection-plugins" id="id68">connection_plugins</a></li>
+<li><a class="reference internal" href="#deprecation-warnings" id="id69">deprecation_warnings</a></li>
+<li><a class="reference internal" href="#display-skipped-hosts" id="id70">display_skipped_hosts</a></li>
+<li><a class="reference internal" href="#error-on-undefined-vars" id="id71">error_on_undefined_vars</a></li>
+<li><a class="reference internal" href="#executable" id="id72">executable</a></li>
+<li><a class="reference internal" href="#filter-plugins" id="id73">filter_plugins</a></li>
+<li><a class="reference internal" href="#force-color" id="id74">force_color</a></li>
+<li><a class="reference internal" href="#force-handlers" id="id75">force_handlers</a></li>
+<li><a class="reference internal" href="#forks" id="id76">forks</a></li>
+<li><a class="reference internal" href="#gathering" id="id77">gathering</a></li>
+<li><a class="reference internal" href="#hash-behaviour" id="id78">hash_behaviour</a></li>
+<li><a class="reference internal" href="#hostfile" id="id79">hostfile</a></li>
+<li><a class="reference internal" href="#host-key-checking" id="id80">host_key_checking</a></li>
+<li><a class="reference internal" href="#inventory" id="id81">inventory</a></li>
+<li><a class="reference internal" href="#jinja2-extensions" id="id82">jinja2_extensions</a></li>
+<li><a class="reference internal" href="#library" id="id83">library</a></li>
+<li><a class="reference internal" href="#log-path" id="id84">log_path</a></li>
+<li><a class="reference internal" href="#lookup-plugins" id="id85">lookup_plugins</a></li>
+<li><a class="reference internal" href="#module-lang" id="id86">module_lang</a></li>
+<li><a class="reference internal" href="#module-name" id="id87">module_name</a></li>
+<li><a class="reference internal" href="#nocolor" id="id88">nocolor</a></li>
+<li><a class="reference internal" href="#nocows" id="id89">nocows</a></li>
+<li><a class="reference internal" href="#pattern" id="id90">pattern</a></li>
+<li><a class="reference internal" href="#poll-interval" id="id91">poll_interval</a></li>
+<li><a class="reference internal" href="#private-key-file" id="id92">private_key_file</a></li>
+<li><a class="reference internal" href="#remote-port" id="id93">remote_port</a></li>
+<li><a class="reference internal" href="#remote-tmp" id="id94">remote_tmp</a></li>
+<li><a class="reference internal" href="#remote-user" id="id95">remote_user</a></li>
+<li><a class="reference internal" href="#roles-path" id="id96">roles_path</a></li>
+<li><a class="reference internal" href="#sudo-exe" id="id97">sudo_exe</a></li>
+<li><a class="reference internal" href="#sudo-flags" id="id98">sudo_flags</a></li>
+<li><a class="reference internal" href="#sudo-user" id="id99">sudo_user</a></li>
+<li><a class="reference internal" href="#system-warnings" id="id100">system_warnings</a></li>
+<li><a class="reference internal" href="#timeout" id="id101">timeout</a></li>
+<li><a class="reference internal" href="#transport" id="id102">transport</a></li>
+<li><a class="reference internal" href="#vars-plugins" id="id103">vars_plugins</a></li>
+<li><a class="reference internal" href="#vault-password-file" id="id104">vault_password_file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#paramiko-specific-settings" id="id105">Paramiko Specific Settings</a><ul>
+<li><a class="reference internal" href="#record-host-keys" id="id106">record_host_keys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openssh-specific-settings" id="id107">OpenSSH Specific Settings</a><ul>
+<li><a class="reference internal" href="#ssh-args" id="id108">ssh_args</a></li>
+<li><a class="reference internal" href="#control-path" id="id109">control_path</a></li>
+<li><a class="reference internal" href="#scp-if-ssh" id="id110">scp_if_ssh</a></li>
+<li><a class="reference internal" href="#pipelining" id="id111">pipelining</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accelerated-mode-settings" id="id112">Accelerated Mode Settings</a><ul>
+<li><a class="reference internal" href="#accelerate-port" id="id113">accelerate_port</a></li>
+<li><a class="reference internal" href="#accelerate-timeout" id="id114">accelerate_timeout</a></li>
+<li><a class="reference internal" href="#accelerate-connect-timeout" id="id115">accelerate_connect_timeout</a></li>
+<li><a class="reference internal" href="#accelerate-daemon-timeout" id="id116">accelerate_daemon_timeout</a></li>
+<li><a class="reference internal" href="#accelerate-multi-key" id="id117">accelerate_multi_key</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Ansible的一些的設定可以通過配置檔案完成.在大多數場景下預設的配置就能滿足大多數使用者的需求,在一些特殊場景下,使用者還是需要自行修改這些配置檔案</p>
+<p>使用者可以修改一下配置檔案來修改設定,他們的被讀取的順序如下:</p>
+<div class="highlight-bash"><div class="highlight"><pre>* ANSIBLE_CONFIG <span class="o">(</span>一個環境變數<span class="o">)</span>
+* ansible.cfg <span class="o">(</span>位於當前目錄中<span class="o">)</span>
+* .ansible.cfg <span class="o">(</span>位於家目錄中<span class="o">)</span>
+* /etc/ansible/ansible.cfg
+</pre></div>
+</div>
+<p>版本1.5之前的讀取順序如下:</p>
+<div class="highlight-bash"><div class="highlight"><pre>* ansible.cfg <span class="o">(</span>位於當前目錄<span class="o">)</span>
+* ANSIBLE_CONFIG <span class="o">(</span>一個環境變數<span class="o">)</span>
+* .ansible.cfg <span class="o">(</span>位於家目錄下<span class="o">)</span>
+* /etc/ansible/ansible.cfg
+</pre></div>
+</div>
+<p>Ansible 將會按以上順序逐個查詢這些檔案,直到找到一個為止,並且使用第一個尋找到個配置檔案的配置,這些配置將不會被疊加.</p>
+<div class="section" id="getting-the-latest-configuration">
+<span id="id1"></span><h2><a class="toc-backref" href="#id57">獲取最新配置檔案</a><a class="headerlink" href="#getting-the-latest-configuration" title="Permalink to this headline">¶</a></h2>
+<p>如果使用程式包管理器安裝ansible,最新的 ansible.cfg 配置檔案有可能出現在 /etc/ansible 下並且命名為 &#8221;.rpmnew&#8221;, 也可能根據不同的更新命名為其它名稱</p>
+<p>如果你是通過 pip 或者其他方式安裝,則可能需要自行建立這個檔案,以免原配置檔案被覆蓋.Ansible 的預設設定將會將其覆蓋</p>
+<p>配置檔案的詳細參數以及取值範圍請檢視`ansible.cfg  &lt;<a class="reference external" href="https://raw.github.com/ansible/ansible/devel/examples/ansible.cfg">https://raw.github.com/ansible/ansible/devel/examples/ansible.cfg</a>&gt;`_</p>
+</div>
+<div class="section" id="environmental-configuration">
+<span id="id2"></span><h2><a class="toc-backref" href="#id58">環境配置</a><a class="headerlink" href="#environmental-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Ansible 通過環境變數的形式來進行配置.這些設定後的環境變數將會覆蓋掉所有配置檔案讀取的配置.為了節省篇幅,這些變數沒有被列在這裡,詳情請見原始碼目錄中的 ‘constants.py’. 相對於配置檔案它門會比當作遺產系統（legacy system) 來被使用,但是仍然有效</p>
+</div>
+<div class="section" id="config-values-by-section">
+<span id="id3"></span><h2><a class="toc-backref" href="#id59">配置檔案不同段詳解</a><a class="headerlink" href="#config-values-by-section" title="Permalink to this headline">¶</a></h2>
+<p>配置檔案被切割成了不同段.多數配置選項位於“general”段, 也有一些屬於特定的連結類型（connection type）</p>
+<div class="section" id="general-defaults">
+<span id="id4"></span><h3><a class="toc-backref" href="#id60">通用預設段</a><a class="headerlink" href="#general-defaults" title="Permalink to this headline">¶</a></h3>
+<p>在 [defaults] 段中,一下選項是可以調節的:</p>
+<div class="section" id="action-plugins">
+<span id="id5"></span><h4><a class="toc-backref" href="#id61">action_plugins</a><a class="headerlink" href="#action-plugins" title="Permalink to this headline">¶</a></h4>
+<p>“行為”是 ansible中的一段程式碼,用來啟用一些事件,例如執行一個模組,一個模版,等等</p>
+<p>這是一個以開發者為中心的特性,使得一些底層模組可以從外部不同地方載入:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">action_plugins</span> <span class="o">=</span> ~/.ansible/plugins/action_plugins/:/usr/share/ansible_plugins/action_plugins
+</pre></div>
+</div>
+<p>大多數使用者都會使用這一特性,詳情請見 <a class="reference internal" href="developing_plugins.html"><em>Developing Plugins</em></a> .</p>
+</div>
+<div class="section" id="ansible-managed">
+<span id="id6"></span><h4><a class="toc-backref" href="#id62">ansible_managed</a><a class="headerlink" href="#ansible-managed" title="Permalink to this headline">¶</a></h4>
+<p>Ansible-managed 是一個字元串.可以插入到Ansible配置模版系統生成的檔案中.如果你使用以下的自字元:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">{{</span> ansible_managed <span class="o">}}</span>
+</pre></div>
+</div>
+<p>預設設定可以哪個使用者修改和修改時間:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">ansible_managed</span> <span class="o">=</span> Ansible managed: <span class="o">{</span>file<span class="o">}</span> modified on %Y-%m-%d %H:%M:%S by <span class="o">{</span>uid<span class="o">}</span> on <span class="o">{</span>host<span class="o">}</span>
+</pre></div>
+</div>
+<p>這個設定可以告知使用者,Ansible修改了一個檔案,並且手動寫入的內容可能已經被覆蓋.</p>
+<p>需要注意的是,如果使用這一特性,這個字元串中將包含一個日期註釋,如果日期更新,模版系統將會在每一次報告檔案修改.</p>
+</div>
+<div class="section" id="ask-pass">
+<span id="id7"></span><h4><a class="toc-backref" href="#id63">ask_pass</a><a class="headerlink" href="#ask-pass" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>這個可以控制,Ansible 劇本playbook 是否會自動預設彈出彈出密碼.預設為no::</dt>
+<dd>ask_pass=True</dd>
+</dl>
+<p>如果使用SSH 金鑰匙做身份認證.可能需要修改這一參數</p>
+</div>
+<div class="section" id="ask-sudo-pass">
+<span id="id8"></span><h4><a class="toc-backref" href="#id64">ask_sudo_pass</a><a class="headerlink" href="#ask-sudo-pass" title="Permalink to this headline">¶</a></h4>
+<p>類似 ask_pass,用來控制Ansible playbook 在執行sudo之前是否詢問sudo密碼.預設為no:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">ask_sudo_pass</span><span class="o">=</span>True
+</pre></div>
+</div>
+<p>如果使用者使用的系統平臺開啟了sudo 密碼的話,應該開綠這一參數</p>
+</div>
+<div class="section" id="bin-ansible-callbacks">
+<span id="id9"></span><h4><a class="toc-backref" href="#id65">bin_ansible_callbacks</a><a class="headerlink" href="#bin-ansible-callbacks" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
+<p>用來控制callback外掛是否在執行 /usr/bin/ansible 的時候被載入. 這個模組將用於命令列的日誌系統,發出通知等特性.
+Callback外掛如果存在將會永久性的被 /usr/bin/ansible-playbook 載入,不能被禁用:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">bin_ansible_callbacks</span><span class="o">=</span>False
+</pre></div>
+</div>
+<p>1.8 版本之前,callbacks 外掛不可以被 /usr/bin/ansible載入.
+.. _callback_plugins:</p>
+</div>
+<div class="section" id="callback-plugins">
+<h4><a class="toc-backref" href="#id66">callback_plugins</a><a class="headerlink" href="#callback-plugins" title="Permalink to this headline">¶</a></h4>
+<p>Callbacks 在ansible中是一段程式碼,在特殊事件時將被呼叫.並且允許出發通知.
+這是一個以開發者為中心的特性,可以實現對Ansible的底層拓展,並且拓展模組可以位於任何位置:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">callback_plugins</span> <span class="o">=</span> ~/.ansible/plugins/callback_plugins/:/usr/share/ansible_plugins/callback_plugins
+</pre></div>
+</div>
+<p>大多數的使用者將會用到這一特性,詳見 <a class="reference internal" href="developing_plugins.html"><em>Developing Plugins</em></a>.</p>
+</div>
+<div class="section" id="command-warnings">
+<span id="id10"></span><h4><a class="toc-backref" href="#id67">command_warnings</a><a class="headerlink" href="#command-warnings" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
+<p>從Ansible 1.8 開始,當shell和命令列模組被預設模組簡化的時,Ansible 將預設發出警告.
+這個包含提醒使用&#8217;git&#8217;但不是通過命令列執行.使用模組呼叫比冒然使用命令列呼叫可以使playbook工作更具有一致性也更加可靠同時也更加便於維護:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">command_warnings</span> <span class="o">=</span> False
+</pre></div>
+</div>
+<p>我們可以通過在命令列末尾新增 warn=yes 或者 warn=no選項來控制是否開啟警告提示:</p>
+<div class="highlight-bash"><div class="highlight"><pre>- name: usage of git that could be replaced with the git module
+  shell: git update foo <span class="nv">warn</span><span class="o">=</span>yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="connection-plugins">
+<span id="id11"></span><h4><a class="toc-backref" href="#id68">connection_plugins</a><a class="headerlink" href="#connection-plugins" title="Permalink to this headline">¶</a></h4>
+<p>連線外掛允許拓展ansible拓展通訊通道,用來傳輸命令或者檔案.
+這是一個開發者中心特性,拓展外掛可以從任何不同地方載入:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">connection_plugins</span> <span class="o">=</span> ~/.ansible/plugins/connection_plugins/:/usr/share/ansible_plugins/connection_plugins
+</pre></div>
+</div>
+<p>大多數使用者會用到這一特性, 詳見:<a class="reference internal" href="developing_plugins.html"><em>Developing Plugins</em></a>
+.. _deprecation_warnings:</p>
+</div>
+<div class="section" id="deprecation-warnings">
+<h4><a class="toc-backref" href="#id69">deprecation_warnings</a><a class="headerlink" href="#deprecation-warnings" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>允許在ansible-playbook輸出結果中禁用“不建議使用”警告:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">deprecation_warnings</span> <span class="o">=</span> True
+</pre></div>
+</div>
+<p>“不建議警告”指的是使用一些在新版本中可能會被淘汰的遺留特性.</p>
+</div>
+<div class="section" id="display-skipped-hosts">
+<span id="id12"></span><h4><a class="toc-backref" href="#id70">display_skipped_hosts</a><a class="headerlink" href="#display-skipped-hosts" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>如果設定為`False`,ansible 將不會顯示任何跳過任務的狀態.預設選項是現實跳過任務的狀態::</dt>
+<dd>display_skipped_hosts=True</dd>
+</dl>
+<p>注意Ansible 總是會顯示任何任務的標頭檔案, 不管這個任務被跳過與否.</p>
+</div>
+<div class="section" id="error-on-undefined-vars">
+<span id="id13"></span><h4><a class="toc-backref" href="#id71">error_on_undefined_vars</a><a class="headerlink" href="#error-on-undefined-vars" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>從Ansible 1.3開始,這個選項將為預設,如果所引用的變數名稱錯誤的話, 將會導致ansible在執行步驟上失敗::</dt>
+<dd>error_on_undefined_vars=True</dd>
+</dl>
+<p>If set to False, any &#8216;{{ template_expression }}&#8217; that contains undefined variables will be rendered in a template
+or ansible action line exactly as written.</p>
+</div>
+<div class="section" id="executable">
+<span id="id14"></span><h4><a class="toc-backref" href="#id72">executable</a><a class="headerlink" href="#executable" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>這個選項可以在sudo環境下產生一個shell互動介面. 使用者只在/bin/bash的或者sudo限制的一些場景中需要修改.大部分情況下不需要修改::</dt>
+<dd>executable = /bin/bash</dd>
+</dl>
+</div>
+<div class="section" id="filter-plugins">
+<span id="id15"></span><h4><a class="toc-backref" href="#id73">filter_plugins</a><a class="headerlink" href="#filter-plugins" title="Permalink to this headline">¶</a></h4>
+<p>過濾器是一種特殊的函數,用來拓展模版系統 .</p>
+<p>這是一個開發者核心的特性,允許Ansible從任何地方載入底層拓展模組:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">filter_plugins</span> <span class="o">=</span> ~/.ansible/plugins/filter_plugins/:/usr/share/ansible_plugins/filter_plugins
+</pre></div>
+</div>
+<p>Most users will not need to use this feature.  See <a class="reference internal" href="developing_plugins.html"><em>Developing Plugins</em></a> for more details
+大部分使用者不會用到這個特性,詳見:doc:<cite>developing_plugins</cite>.</p>
+</div>
+<div class="section" id="force-color">
+<span id="id16"></span><h4><a class="toc-backref" href="#id74">force_color</a><a class="headerlink" href="#force-color" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>到沒有使用TTY終端的時候,這個選項當用來強制顏色模式::</dt>
+<dd>force_color = 1</dd>
+</dl>
+</div>
+<div class="section" id="force-handlers">
+<span id="id17"></span><h4><a class="toc-backref" href="#id75">force_handlers</a><a class="headerlink" href="#force-handlers" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.9.1.</span></p>
+</div>
+<p>即便這個使用者崩潰,這個選項仍可以繼續執行這個使用者:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">force_handlers</span> <span class="o">=</span> True
+</pre></div>
+</div>
+<p>The default is False, meaning that handlers will not run if a failure has occurred on a host.
+This can also be set per play or on the command line. See <code class="xref doc docutils literal"><span class="pre">_handlers_and_failure</span></code> for more details.
+如果這個選項是False. 如果一個主機崩潰了,handlers將不會再執行這個主機.這個選項也可以通過命令列臨時使用.詳見:doc:<cite>_handlers_and_failure</cite>.</p>
+</div>
+<div class="section" id="forks">
+<span id="id18"></span><h4><a class="toc-backref" href="#id76">forks</a><a class="headerlink" href="#forks" title="Permalink to this headline">¶</a></h4>
+<p>這個選項設定在與主機通訊時的預設並行程序數.從Ansible 1.3開始,fork數量預設自動設定為主機數量或者潛在的主機數量,
+這將直接控制有多少網路資源活著cpu可以被使用.很多使用者把這個設定為50,有些設定為500或者更多.如果你有很多的主機,
+高數值將會使得跨主機行為變快.預設值比較保守:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">_forks</span><span class="o">=</span>5
+</pre></div>
+</div>
+</div>
+<div class="section" id="gathering">
+<span id="id19"></span><h4><a class="toc-backref" href="#id77">gathering</a><a class="headerlink" href="#gathering" title="Permalink to this headline">¶</a></h4>
+<p>1.6版本中的新特性,這個設定控制預設facts收集（遠端系統變數）.
+預設值為&#8217;implicit&#8217;, 每一次play,facts都會被手機,除非設定&#8217;gather_facts: False&#8217;. 選項‘explicit’正好相反,facts不會被收集,直到play中需要.
+‘smart’選項意思是,沒有facts的新hosts將不會被掃描, 但是如果同樣一個主機,在不同的plays裡面被記錄地址,在playbook執行中將不會通訊.這個選項當有需求節省fact收集時比較有用.</p>
+</div>
+<div class="section" id="hash-behaviour">
+<h4><a class="toc-backref" href="#id78">hash_behaviour</a><a class="headerlink" href="#hash-behaviour" title="Permalink to this headline">¶</a></h4>
+<p>Ansible 預設將會以一種特定的優先順序覆蓋變數,詳見:doc:<cite>playbooks_variables</cite>.擁有更高優先順序的參數將會覆蓋掉其他參數</p>
+<p>有些使用者希望被hashed的參數（python 中的資料結構&#8217;dictionaries&#8217;）被合併. 這個設定叫做‘merge’.這不是一個預設設定,而且不影響陣列類型的陣列.我不建議使用這個設定除非你覺得一定需要這個設定.官方例項中不使用這個選項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">hash_behaviour</span><span class="o">=</span>replace
+</pre></div>
+</div>
+<p>合法的值為&#8217;replace&#8217;(預設值)或者‘merge’.</p>
+</div>
+<div class="section" id="hostfile">
+<span id="id20"></span><h4><a class="toc-backref" href="#id79">hostfile</a><a class="headerlink" href="#hostfile" title="Permalink to this headline">¶</a></h4>
+<p>在1.9版本中,這不是一個合法設定.詳見:ref:<cite>inventory</cite>.</p>
+</div>
+<div class="section" id="host-key-checking">
+<span id="id21"></span><h4><a class="toc-backref" href="#id80">host_key_checking</a><a class="headerlink" href="#host-key-checking" title="Permalink to this headline">¶</a></h4>
+<p>這個特性詳見:doc:<cite>intro_getting_started</cite>,在Ansible 1.3或更新版本中將會檢測主機金鑰. 如果你瞭解怎麼使用並且希望禁用這個功能,你可以將這個值設定為False:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">host_key_checking</span><span class="o">=</span>True
+</pre></div>
+</div>
+</div>
+<div class="section" id="inventory">
+<span id="id22"></span><h4><a class="toc-backref" href="#id81">inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h4>
+<p>這個事預設庫檔案位置,指令碼,或者存放可通訊主機的目錄:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">inventory</span> <span class="o">=</span> /etc/ansible/hosts
+</pre></div>
+</div>
+<p>在1.9版本中被叫做hostfile.</p>
+</div>
+<div class="section" id="jinja2-extensions">
+<span id="id23"></span><h4><a class="toc-backref" href="#id82">jinja2_extensions</a><a class="headerlink" href="#jinja2-extensions" title="Permalink to this headline">¶</a></h4>
+<p>這是一個開發者中心特性,允許開啟Jinja2拓展模組:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">jinja2_extensions</span> <span class="o">=</span> jinja2.ext.do,jinja2.ext.i18n
+</pre></div>
+</div>
+<p>如果你不太清楚這些都是啥,還是不要改的好:)</p>
+</div>
+<div class="section" id="library">
+<span id="id24"></span><h4><a class="toc-backref" href="#id83">library</a><a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h4>
+<p>這個事Ansible預設搜尋模組的位置:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">library</span> <span class="o">=</span> /usr/share/ansible
+</pre></div>
+</div>
+<p>Ansible知道如何搜尋多個用冒號隔開的路徑,同時也會搜尋在playbook中的“./library”.</p>
+</div>
+<div class="section" id="log-path">
+<span id="id25"></span><h4><a class="toc-backref" href="#id84">log_path</a><a class="headerlink" href="#log-path" title="Permalink to this headline">¶</a></h4>
+<p>如果出現在ansible.cfg檔案中.Ansible 將會在選定的位置登陸執行資訊.請留意使用者執行的Ansible對於logfile有許可權:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">log_path</span><span class="o">=</span>/var/log/ansible.log
+</pre></div>
+</div>
+<p>這個特性不是預設開啟的.如果不設定,ansible將會吧模組載入紀錄在系統日誌系統中.不包含用密碼.</p>
+<p>對於需要了解更多日誌系統的企業及使用者,你也許對:doc:<cite>tower</cite> 感興趣.</p>
+</div>
+<div class="section" id="lookup-plugins">
+<span id="id26"></span><h4><a class="toc-backref" href="#id85">lookup_plugins</a><a class="headerlink" href="#lookup-plugins" title="Permalink to this headline">¶</a></h4>
+<p>這是一個開發者中心選項,允許模組外掛在不同區域被載入:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">lookup_plugins</span> <span class="o">=</span> ~/.ansible/plugins/lookup_plugins/:/usr/share/ansible_plugins/lookup_plugins
+</pre></div>
+</div>
+<p>絕大部分使用者將不會使用這個特性,詳見:doc:<cite>developing_plugins</cite></p>
+</div>
+<div class="section" id="module-lang">
+<span id="id27"></span><h4><a class="toc-backref" href="#id86">module_lang</a><a class="headerlink" href="#module-lang" title="Permalink to this headline">¶</a></h4>
+<p>這是預設模組和系統之間通訊的計算機語言,預設為&#8217;C&#8217;語言.</p>
+</div>
+<div class="section" id="module-name">
+<span id="id28"></span><h4><a class="toc-backref" href="#id87">module_name</a><a class="headerlink" href="#module-name" title="Permalink to this headline">¶</a></h4>
+<p>這個是/usr/bin/ansible的預設模組名（-m）. 預設是&#8217;command&#8217;模組. 之前提到過,command模組不支援shell變數,管道,配額.
+所以也許你希望把這個參數改為&#8217;shell&#8217;:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">module_name</span> <span class="o">=</span> <span class="nb">command</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nocolor">
+<span id="id29"></span><h4><a class="toc-backref" href="#id88">nocolor</a><a class="headerlink" href="#nocolor" title="Permalink to this headline">¶</a></h4>
+<p>預設ansible會為輸出結果加上顏色,用來更好的區分狀態資訊和失敗資訊.如果你想關閉這一功能,可以把&#8217;nocolor&#8217;設定為‘1’:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">nocolor</span><span class="o">=</span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="nocows">
+<span id="id30"></span><h4><a class="toc-backref" href="#id89">nocows</a><a class="headerlink" href="#nocows" title="Permalink to this headline">¶</a></h4>
+<p>預設ansible可以呼叫一些cowsay的特性,使得/usr/bin/ansible-playbook執行起來更加愉快.為啥呢,因為我們相信系統應該是一
+比較愉快的經歷.如果你不喜歡cows,你可以通通過將&#8217;nocows&#8217;設定為‘1’來禁用這一選項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">nocows</span><span class="o">=</span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="pattern">
+<span id="id31"></span><h4><a class="toc-backref" href="#id90">pattern</a><a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h4>
+<p>如果沒有提供“hosts”節點,這是playbook要通訊的預設主機組.預設值是對所有主機通訊,如果不想被驚嚇到,最好還是設定個個選項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">hosts</span><span class="o">=</span>*
+</pre></div>
+</div>
+<p>注意 /usr/bin/ansible 一直需要一個host pattern,並且不使用這個選項.這個選項只作用於/usr/bin/ansible-playbook.</p>
+</div>
+<div class="section" id="poll-interval">
+<span id="id32"></span><h4><a class="toc-backref" href="#id91">poll_interval</a><a class="headerlink" href="#poll-interval" title="Permalink to this headline">¶</a></h4>
+<p>對於Ansible中的非同步任務(詳見 <a class="reference internal" href="playbooks_async.html"><em>非同步操作和輪詢</em></a>）, 這個是設定定義,當具體的poll interval 沒有定義時,多少時間回查一下這些任務的狀態,
+預設值是一個折中選擇15秒鐘.這個時間是個回查頻率和任務完成叫回頻率和當任務完成時的迴轉頻率的這種:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">poll_interval</span><span class="o">=</span>15
+</pre></div>
+</div>
+</div>
+<div class="section" id="private-key-file">
+<span id="id33"></span><h4><a class="toc-backref" href="#id92">private_key_file</a><a class="headerlink" href="#private-key-file" title="Permalink to this headline">¶</a></h4>
+<p>如果你是用pem金鑰檔案而不是SSH 客戶端或祕密啊認證的話,你可以設定這裡的預設值,來避免每一次提醒設定金鑰檔案位置``&#8211;ansible-private-keyfile``:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">private_key_file</span><span class="o">=</span>/path/to/file.pem
+</pre></div>
+</div>
+</div>
+<div class="section" id="remote-port">
+<span id="id34"></span><h4><a class="toc-backref" href="#id93">remote_port</a><a class="headerlink" href="#remote-port" title="Permalink to this headline">¶</a></h4>
+<p>這個設定是你係統預設的遠端SSH埠,如果不指定,預設為22號埠:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">remote_port</span> <span class="o">=</span> 22
+</pre></div>
+</div>
+</div>
+<div class="section" id="remote-tmp">
+<span id="id35"></span><h4><a class="toc-backref" href="#id94">remote_tmp</a><a class="headerlink" href="#remote-tmp" title="Permalink to this headline">¶</a></h4>
+<p>Ansible 通過遠端傳輸模組到遠端主機,然後遠端執行,執行後在清理現場.在有些場景下,你也許想使用預設路徑希望像更換補丁一樣使用,
+這時候你可以使用這個選項.:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">remote_tmp</span> <span class="o">=</span> <span class="nv">$HOME</span>/.ansible/tmp
+</pre></div>
+</div>
+<p>預設路徑是在使用者家目錄下屬的目錄.Ansible 會在這個目錄中使用一個隨機的資料夾名稱.</p>
+</div>
+<div class="section" id="remote-user">
+<span id="id36"></span><h4><a class="toc-backref" href="#id95">remote_user</a><a class="headerlink" href="#remote-user" title="Permalink to this headline">¶</a></h4>
+<p>這是個ansible使用/usr/bin/ansible-playbook連結的預設使用者名稱. 注意如果不指定,/usr/bin/ansible預設使用當前使用者名稱稱:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">remote_user</span> <span class="o">=</span> root
+</pre></div>
+</div>
+</div>
+<div class="section" id="roles-path">
+<span id="id37"></span><h4><a class="toc-backref" href="#id96">roles_path</a><a class="headerlink" href="#roles-path" title="Permalink to this headline">¶</a></h4>
+<p>roles 路徑指的是&#8217;roles/&#8217;下的額外目錄,用於playbook搜尋Ansible roles.比如, 如果我們有個用於common roles原始碼控制倉庫和一個不同的
+playbooks倉庫,你也許會建立一個慣例去在 /opt/mysite/roles 裡面查詢roles.:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">roles_path</span> <span class="o">=</span> /opt/mysite/roles
+</pre></div>
+</div>
+<p>多餘的路徑可以用冒號分隔,類似於其他path字元串:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">roles_path</span> <span class="o">=</span> /opt/mysite/roles:/opt/othersite/roles
+</pre></div>
+</div>
+<p>Roles將會在playbook目錄中開始搜尋.如果role沒有找到,這個參數指定了其它可能的搜尋路徑.</p>
+</div>
+<div class="section" id="sudo-exe">
+<span id="id38"></span><h4><a class="toc-backref" href="#id97">sudo_exe</a><a class="headerlink" href="#sudo-exe" title="Permalink to this headline">¶</a></h4>
+<p>如果在其他遠端主機上使用另一種方式執行sudo草做, sudo程式的路徑可以用這個參數更換,使用命令列標籤來擬合標準sudo:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">sudo_exe</span><span class="o">=</span>sudo
+</pre></div>
+</div>
+</div>
+<div class="section" id="sudo-flags">
+<span id="id39"></span><h4><a class="toc-backref" href="#id98">sudo_flags</a><a class="headerlink" href="#sudo-flags" title="Permalink to this headline">¶</a></h4>
+<p>當使用sudo支援的時候,傳遞給sudo而外的標籤. 預設值為&#8221;-H&#8221;, 意思是保留原使用者的環境.在有些場景下也許需要新增或者刪除
+標籤,大多數使用者不需要修改這個選項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">sudo_flags</span><span class="o">=</span>-H
+</pre></div>
+</div>
+</div>
+<div class="section" id="sudo-user">
+<span id="id40"></span><h4><a class="toc-backref" href="#id99">sudo_user</a><a class="headerlink" href="#sudo-user" title="Permalink to this headline">¶</a></h4>
+<p>這個是sudo使用的預設使用者,如果``&#8211;sudo-user`` 沒有特指或者&#8217;sudo_user&#8217; 在Ansible playbooks中沒有特指,在大多數的邏輯中
+預設為: &#8216;root&#8217;</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">sudo_user</span><span class="o">=</span>root
+</pre></div>
+</div>
+</div>
+<div class="section" id="system-warnings">
+<span id="id41"></span><h4><a class="toc-backref" href="#id100">system_warnings</a><a class="headerlink" href="#system-warnings" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.6.</span></p>
+</div>
+<p>允許禁用系統執行ansible相關的潛在問題警告（不包括操作主機）:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">system_warnings</span> <span class="o">=</span> True
+</pre></div>
+</div>
+<p>這個包括第三方庫或者一些需要解決問題的警告.</p>
+</div>
+<div class="section" id="timeout">
+<span id="id42"></span><h4><a class="toc-backref" href="#id101">timeout</a><a class="headerlink" href="#timeout" title="Permalink to this headline">¶</a></h4>
+<p>這個事預設SSH連結嘗試超市時間:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">timeout</span> <span class="o">=</span> 10
+</pre></div>
+</div>
+</div>
+<div class="section" id="transport">
+<span id="id43"></span><h4><a class="toc-backref" href="#id102">transport</a><a class="headerlink" href="#transport" title="Permalink to this headline">¶</a></h4>
+<p>如果&#8221;-c  &lt;transport_name&gt;&#8221; 選項沒有在使用/usr/bin/ansible 或者 /usr/bin/ansible-playbook 特指的話,這個參數提供了預設通訊機制.預設
+值為&#8217;smart&#8217;, 如果本地系統支援 ControlPersist技術的話,將會使用(基於OpenSSH)‘ssh’,如果不支援講使用‘paramiko’.其他傳輸選項包括‘local’,
+&#8216;chroot&#8217;,&#8217;jail&#8217;等等.</p>
+<p>使用者通常可以這個設定為‘smart’,讓playbook在需要的條件自己選擇‘connectin:’參數.</p>
+</div>
+<div class="section" id="vars-plugins">
+<span id="id44"></span><h4><a class="toc-backref" href="#id103">vars_plugins</a><a class="headerlink" href="#vars-plugins" title="Permalink to this headline">¶</a></h4>
+<p>這是一個開發者中心選項,允許底層拓展模組從任何地方載入:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">vars_plugins</span> <span class="o">=</span> ~/.ansible/plugins/vars_plugins/:/usr/share/ansible_plugins/vars_plugins
+</pre></div>
+</div>
+<p>大部分的使用者不會用到這個特性,詳見:doc:<cite>developing_plugins</cite></p>
+</div>
+<div class="section" id="vault-password-file">
+<span id="id45"></span><h4><a class="toc-backref" href="#id104">vault_password_file</a><a class="headerlink" href="#vault-password-file" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.7.</span></p>
+</div>
+<p>這個用來設定密碼檔案,也可以通過命令列指定``&#8211;vault-password-file``:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">vault_password_file</span> <span class="o">=</span> /path/to/vault_password_file
+</pre></div>
+</div>
+<p>在1.7版本中,這個檔案也可以稱為一個指令碼的形式.如果你使用指令碼而不是單純檔案的話,請確保它可以執行並且密碼可以在標準輸出上打印出來.如果你的指令碼需要提示請求資料,請求將會發到標準錯誤輸出中.</p>
+</div>
+</div>
+<div class="section" id="paramiko-specific-settings">
+<span id="paramiko-settings"></span><h3><a class="toc-backref" href="#id105">Paramiko Specific Settings</a><a class="headerlink" href="#paramiko-specific-settings" title="Permalink to this headline">¶</a></h3>
+<p>Paramiko 是商業版linux 6 的預設SSH連結.但在其他平臺上不是預設使用的.請在[paramiko]標頭檔案下啟用它.</p>
+<div class="section" id="record-host-keys">
+<span id="id46"></span><h4><a class="toc-backref" href="#id106">record_host_keys</a><a class="headerlink" href="#record-host-keys" title="Permalink to this headline">¶</a></h4>
+<p>預設設定會記錄並驗證通過在使用者hostfile中新發現的的主機（如果host key checking 被啟用的話）. 這個選項在有很多主機的時候將會效能很差.在
+這種情況下,建議使用SSH傳輸代替. 當設定為False時, 效能將會提升,在hostkey checking 被禁用時候,建議使用.:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">record_host_keys</span><span class="o">=</span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="openssh-specific-settings">
+<span id="openssh-settings"></span><h3><a class="toc-backref" href="#id107">OpenSSH Specific Settings</a><a class="headerlink" href="#openssh-specific-settings" title="Permalink to this headline">¶</a></h3>
+<p>在[ssh_connection]標頭檔案之下,用來調整SSH的通訊連線.OpenSSH是Ansible在作業系統上預設的通訊連線,對於支援ControlPersist足夠新了.（意思除了Enterprise linux 6版以及更早的系統外的所有的作業系統).</p>
+<div class="section" id="ssh-args">
+<span id="id47"></span><h4><a class="toc-backref" href="#id108">ssh_args</a><a class="headerlink" href="#ssh-args" title="Permalink to this headline">¶</a></h4>
+<p>如果設定了的話,這個選項將會傳遞一組選項給Ansible 然不是使用以前的預設值:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">ssh_args</span> <span class="o">=</span> -o <span class="nv">ControlMaster</span><span class="o">=</span>auto -o <span class="nv">ControlPersist</span><span class="o">=</span>60s
+</pre></div>
+</div>
+<p>使用者可以提高ControlPersist值來提高效能.30 分鐘通常比較合適.</p>
+</div>
+<div class="section" id="control-path">
+<span id="id48"></span><h4><a class="toc-backref" href="#id109">control_path</a><a class="headerlink" href="#control-path" title="Permalink to this headline">¶</a></h4>
+<p>這個是儲存ControlPath套接字的位置. 預設值是:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">control_path</span><span class="o">=</span>%<span class="o">(</span>directory<span class="o">)</span>s/ansible-ssh-%%h-%%p-%%r
+</pre></div>
+</div>
+<p>在有些系統上面,會遇到很長的主機名或者很長的路徑名稱（也許因為很長的使用者名稱,或者比較深的家目錄）,這些都會
+超出套接字檔名字元上限（對於大多數平臺上限為108個字元）.在這種情況下,你也許希望按照以下方式縮短字元串:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">control_path</span> <span class="o">=</span> %<span class="o">(</span>directory<span class="o">)</span>s/%%h-%%r
+</pre></div>
+</div>
+<p>Ansible 1.4 以後的版本會引導使用者在這種情況下使用&#8221;-vvvv&#8221;參數,這樣很容易分辨 Control Path 檔名是否過長.這個
+問題在EC2上會頻繁的遇到.</p>
+</div>
+<div class="section" id="scp-if-ssh">
+<span id="id49"></span><h4><a class="toc-backref" href="#id110">scp_if_ssh</a><a class="headerlink" href="#scp-if-ssh" title="Permalink to this headline">¶</a></h4>
+<p>又是使用者操控一個一個沒有開啟SFTP協議的遠端系統.如果這個設定為True,scp將代替用來為遠端主機傳輸檔案:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">scp_if_ssh</span><span class="o">=</span>False
+</pre></div>
+</div>
+<p>如果沒有遇到這樣的問題沒有必要來修改這個設定.當然修改這個設定也沒有什麼明顯的弊端.大部分的系統環境都預設支援SFTP,
+通常情況下不需要修改.</p>
+</div>
+<div class="section" id="pipelining">
+<span id="id50"></span><h4><a class="toc-backref" href="#id111">pipelining</a><a class="headerlink" href="#pipelining" title="Permalink to this headline">¶</a></h4>
+<p>在不通過實際檔案傳輸的情況下執行ansible模組來使用管道特性,從而減少執行遠端模組SSH操作次數.如果開啟這個設定,將顯著提高效能.
+然而當使用&#8221;sudo:&#8221;操作的時候, 你必須在所有管理的主機的/etc/sudoers中禁用&#8217;requiretty&#8217;.</p>
+<p>預設這個選項為了保證與sudoers requiretty的設定（在很多發行版中時預設的設定）的相容性是禁用的.
+但是為了提高效能強烈建議開啟這個設定.詳見:doc:<cite>playbooks_acceleration</cite>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">pipelining</span><span class="o">=</span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="accelerated-mode-settings">
+<span id="accelerate-settings"></span><h3><a class="toc-backref" href="#id112">Accelerated Mode Settings</a><a class="headerlink" href="#accelerated-mode-settings" title="Permalink to this headline">¶</a></h3>
+<p>在[accelerate]首部下, 以下設定可以調整,詳見:doc:<cite>playbooks_acceleration</cite>.如果你不能在你的環境中開啟:ref:<cite>pipelining</cite> ,
+Accelertation 是一個很有用的效能特性. 但是如果你可以開啟管道,這個選項也許對你無用.</p>
+<div class="section" id="accelerate-port">
+<span id="id51"></span><h4><a class="toc-backref" href="#id113">accelerate_port</a><a class="headerlink" href="#accelerate-port" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.3.</span></p>
+</div>
+<p>在急速模式下使用的埠:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">accelerate_port</span> <span class="o">=</span> 5099
+</pre></div>
+</div>
+</div>
+<div class="section" id="accelerate-timeout">
+<span id="id52"></span><h4><a class="toc-backref" href="#id114">accelerate_timeout</a><a class="headerlink" href="#accelerate-timeout" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.4.</span></p>
+</div>
+<p>這個設定時用來控制從客戶機獲取資料的超時時間.如果在這段時間內沒有資料傳輸,套接字連線會被關閉. 一個保持連線（keepalive）資料包通常每15秒回發回給控制檯,所以這個超時時間不應該低於15秒（預設值為30秒）:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">accelerate_timeout</span> <span class="o">=</span> 30
+</pre></div>
+</div>
+</div>
+<div class="section" id="accelerate-connect-timeout">
+<span id="id53"></span><h4><a class="toc-backref" href="#id115">accelerate_connect_timeout</a><a class="headerlink" href="#accelerate-connect-timeout" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.4.</span></p>
+</div>
+<p>這個設定空著套接字呼叫的超時時間.這個應該設定相對比較短.這個和`accelerate_port`連線在回滾到ssh或者paramiko（受限於你預設的連線設定）連線方式之前會嘗試三次開始遠端加速daemon守護程序.預設設定為1.0秒:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">accelerate_connect_timeout</span> <span class="o">=</span> 1.0
+</pre></div>
+</div>
+<p>注意,這個選項值可以設定為小於1秒鐘,但是除非你擁有一個速度很快而且很可靠的網路,否則也許這樣並不是一個很好的選擇.如果你使用英特網訪問你的系統,最好提高這個值.</p>
+</div>
+<div class="section" id="accelerate-daemon-timeout">
+<span id="id54"></span><h4><a class="toc-backref" href="#id116">accelerate_daemon_timeout</a><a class="headerlink" href="#accelerate-daemon-timeout" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.6.</span></p>
+</div>
+<p>This setting controls the timeout for the accelerated daemon, as measured in minutes. The default daemon timeout is 30 minutes::
+這個控制加速daemon守護程序的超時時間,用分鐘來衡量.預設為30分鐘:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">accelerate_daemon_timeout</span> <span class="o">=</span> 30
+</pre></div>
+</div>
+<p>注意, 在1.6版本之前,daemon發起的超時時間是硬編碼的.對於1.6以後的版本,超時時間是根據daemon上一次活動資訊和這個可設定的選項.</p>
+</div>
+<div class="section" id="accelerate-multi-key">
+<span id="id55"></span><h4><a class="toc-backref" href="#id117">accelerate_multi_key</a><a class="headerlink" href="#accelerate-multi-key" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.6.</span></p>
+</div>
+<p>If enabled, this setting allows multiple private keys to be uploaded to the daemon. Any clients connecting to the daemon must also enable this option::
+如果這個選項開啟,這個設定將允許多個私鑰被載入到daemon. 任何客戶端要想連線daemon都需要開啟這個選項:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">accelerate_multi_key</span> <span class="o">=</span> yes
+</pre></div>
+</div>
+<p>通過本地套接字檔案連線的通過SSH上傳金鑰檔案到目標節點的新客戶端,必須在登陸daemon時使用原始的登陸金鑰登陸.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro_windows.html" class="btn btn-neutral float-right" title="Windows Support" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro_adhoc.html" class="btn btn-neutral" title="Introduction To Ad-Hoc Commands" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, www.magedu.com, AUTHORS: 薛定諤的章魚 &amp; guli &amp; 以馬內利 &amp; 黃博文 &amp; coocla &amp; 雲中鶴 &amp; stanley.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
